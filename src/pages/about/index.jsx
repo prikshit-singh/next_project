@@ -1,5 +1,5 @@
-
-function About(props) {
+import Layout from '@/layouts/mainLayout'
+export default function About(props) {
     return (
         <div>
            hello about 
@@ -7,4 +7,4 @@ function About(props) {
     );
 }
 
-export default About;
+About.Layout=Layout;

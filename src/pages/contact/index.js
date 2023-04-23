@@ -1,6 +1,6 @@
 import  Head  from 'next/head';
-
-export default function index() {
+import Layout from '@/layouts/mainLayout'
+export default  function Contact() {
     return (
 
         <div>
@@ -12,5 +12,7 @@ export default function index() {
 
     );
 }
+
+Contact.Layout=Layout
 
 //  index;
