@@ -1,0 +1,28 @@
+.navBarMainDiv{
+    padding-top: 10px;
+    padding-bottom: 10px;
+   width: 100%;
+   background-color: #fff;
+  
+   /* border: 1px solid black; */
+   
+}
+.navBarSeconderyDiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+}
+
+.logoDiv{
+    padding-left: 15px;
+
+}
+
+.navigationDiv{
+    padding-right: 15px;
+}
+
+.navBarMainDiv a{
+    padding-right: 20px;
+}

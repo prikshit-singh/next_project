@@ -1,8 +1,50 @@
 /* @import '~bulma/bulma'; */
-
-.loginDIv{
-    margin-top: 200px;
+*{
+    margin: 0px;
+    padding: 0px;
 }
-.inputDiv{
-    margin-top: 20px;
+span{
+    color: gray;
+    line-height: 1.5;
+    font-family: system-ui;
+}
+p{
+    color: gray;
+    line-height: 1.5;
+    font-family: system-ui;
+}
+
+h3{
+    /* padding-top: 10px; */
+    font-size: 1.75rem;
+    line-height: 1.7;
+    font-family: "Gill Sans", sans-serif;
+}
+
+h1{
+    /* padding-top: 10px; */
+    font-size: 1.75rem;
+    line-height: 1.7;
+    font-family: "Gill Sans", sans-serif;
+}
+.sun-editor {
+    border: none !important;
+    border-radius: 4px;
+    overflow: hidden;
+    min-height: 500px;
+    border-bottom: none !important;
+  }
+  
+  /* Optional: Target the content area of SunEditor */
+  .sun-editor .sun-editor-editable {
+    padding: 20px;
+    min-height: 800px;
+
+    border: none !important;
+    border-bottom: none !important;
+    overflow: hidden;
+    /* border-radius: 4px; */
+  }
+  .sun-editor .se-resizing-bar {
+    display: none !important;
 }
