@@ -8,16 +8,16 @@ import styles from '../../styles/Write.module.css'
 import 'suneditor/dist/css/suneditor.min.css';
 
 export default function Write() {
-    
+
 
     return (
         <>
-            <div className={styles.editorScreen}>
+            {/* <div className={styles.editorScreen}> */}
 
-            <div className={styles.EditorMainDiv}>
-                <CustomEditor />
-                </div>
-            </div>
+                {/* <div className={styles.EditorMainDiv}> */}
+                    <CustomEditor />
+                {/* </div> */}
+            {/* </div> */}
         </>
     );
 }
