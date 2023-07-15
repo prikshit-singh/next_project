@@ -4,5 +4,12 @@
     justify-content: center;
    
 }
+.EditorMainDiv{
+    width:80%;
+    margin-left: 20%;
+}
+.logoDiv{
+  display: flex;
+}
 
 
