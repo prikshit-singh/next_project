@@ -3,6 +3,86 @@
     justify-content: center;
 }
 .EditorMainDiv{
-    /* width: 80%; */
+    width: 80%;
+}
+.crossBtn{
+    display: flex;
+    justify-content: end;
+    padding-right: 8%;
 }
 
+.modelDiv{
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.publishMainDiv {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 40% 40%;
+    grid-gap: 55px;
+    padding-top: 50px;
+  }
+  
+  .imageBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 75%; */
+    height: 200px;
+    padding-top: 30px;
+  }
+  .imageContent{
+      max-height: 200px;
+  }
+  .title {
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid black;
+    width: 80%;
+    margin-top: 50px;
+    outline: none;
+    
+    
+    
+  }
+  .subtitle {
+      height: 30px;
+      border: none;
+      border-bottom: 1px solid black;
+      width: 80%;
+      margin-top: 50px;
+      
+  }
+  .note1 {
+    padding-top: 10px;
+  }
+  .note {
+    font-weight: 700;
+    color: rgb(118, 116, 116);
+  }
+  
+  .link{
+    margin-bottom: 40px;
+    margin-top: 30px;
+    color: rgb(51, 43, 43);
+  }
+  .textarea{
+    margin-top: 30px;
+    width: 100%;
+    height: auto;
+    font-size: 18px; 
+    line-height: 1.6;
+    outline: none;
+    resize: none;
+  }
+  .button{
+     background-color: green;
+     color: rgb(254, 252, 252);
+     font-size: 16px;
+     padding: 10px;
+     cursor: pointer;
+     width: 120px;
+     border-radius: 1em;
+     border: none;
+  }
