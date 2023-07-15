@@ -94,7 +94,6 @@ const dispatch = useDispatch()
                 }}
               />
               <p className={styles.note1}>
-                {" "}
                 <span className={styles.note}> Note : </span> changes here will
                 affect how your story appears in public places
               </p>
@@ -105,7 +104,6 @@ const dispatch = useDispatch()
             <h1> Publishing to : </h1>
             <p>
               <span>
-                {" "}
                 Add or change topics (upto to 5) so readers know what is your
                 story about
               </span>
@@ -128,7 +126,7 @@ const dispatch = useDispatch()
                 console.log(title, subTitle, keywordText);
               }}
             >
-              {" "}
+              
               Publish
             </button>
           </div>
