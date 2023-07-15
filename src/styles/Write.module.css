@@ -4,6 +4,13 @@
     justify-content: center;
     width: 80%;
 }
+.EditorMainDiv{
+    width:80%;
+    margin-left: 20%;
+}
+.logoDiv{
+  display: flex;
+}
 
 .crossBtn{
     display: flex;
