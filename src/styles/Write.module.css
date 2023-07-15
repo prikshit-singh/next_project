@@ -1,10 +1,10 @@
 .editorScreen{
-    display: flex;
+   
+   display: flex;
     justify-content: center;
-}
-.EditorMainDiv{
     width: 80%;
 }
+
 .crossBtn{
     display: flex;
     justify-content: end;
@@ -17,6 +17,7 @@
     padding-bottom: 50px;
 }
 .publishMainDiv {
+     width:80%;
     display: grid;
     justify-content: center;
     grid-template-columns: 40% 40%;
