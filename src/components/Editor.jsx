@@ -1,11 +1,7 @@
 import React, { useRef, useState ,useEffect} from "react";
 import dynamic from "next/dynamic";
-import axios from "axios";
-import Modal from "react-modal";
-import Image from "next/image";
-import Link from "next/link";
-import myImg from "../utils/img.png";
-import CloseIcon from '@mui/icons-material/Close';
+import { toggolDialogue } from "../../slices/piblisherDialogueSlice";
+
 import { useDispatch,useSelector } from "react-redux";
 import { updateEditorContent } from "../../slices/editorSlice";
 const SunEditor = dynamic(() => import("suneditor-react").then((a) => a), {
@@ -31,9 +27,7 @@ import styles from "../styles/Write.module.css";
 
 const CustomEditor = () => {
   const [openDialogue, setOpenDialogue] = useState(false);
-  const [title, setTitle] = useState("");
-  const [subTitle, setSubTitle] = useState("");
-  const [keywordText, setKeywordText] = useState("");
+ 
   const editor = useRef();
 
   const state = useSelector((state)=>  state)
@@ -47,6 +41,7 @@ const dispatch = useDispatch()
   };
   const handleRequest = () => {
     dispatch(updateEditorContent(editor.current.getContents()))
+    dispatch(toggolDialogue(false))
     setOpenDialogue(true);
     // console.log(editor.current.getContents())
     // axios.post("http://localhost:3000/api/app", {
@@ -59,82 +54,6 @@ const dispatch = useDispatch()
 
   return (
     <>
-      {openDialogue ? 
-      <div className={styles.modelDiv}>
-      <div className={styles.crossBtn}><CloseIcon onClick={closeModal}/></div>
-      <div className={styles.publishMainDiv}>
-      
-          <div>
-            <h1>story preview</h1>
-
-            <div className={styles.imageBox}>
-              <Image
-                className={styles.imageContent}
-                src={myImg}
-                alt="this is image"
-              />
-            </div>
-            <div>
-              <input
-                className={styles.title}
-                type="text"
-                value={title}
-                placeholder="Write A Title"
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                }}
-              />
-              <input
-                className={styles.title}
-                type="text"
-                value={subTitle}
-                placeholder="Write A Title"
-                onChange={(e) => {
-                  setSubTitle(e.target.value);
-                }}
-              />
-              <p className={styles.note1}>
-                <span className={styles.note}> Note : </span> changes here will
-                affect how your story appears in public places
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <h1> Publishing to : </h1>
-            <p>
-              <span>
-                Add or change topics (upto to 5) so readers know what is your
-                story about
-              </span>
-            </p>
-            <textarea
-              className={styles.textarea}
-              placeholder=" Add a topic ..."
-              value={keywordText}
-              onChange={(event) => {
-                setKeywordText(event.target.value);
-              }}
-            />
-            <div className={styles.link}>
-              <Link href="/learn">learn more</Link>
-              <span> about what happens to your post when you publish </span>
-            </div>
-            <button
-              className={styles.button}
-              onClick={() => {
-                console.log(title, subTitle, keywordText);
-              }}
-            >
-              
-              Publish
-            </button>
-          </div>
-        </div>
-      </div>
-       
-       : 
-        <>
           <button
             onClick={() => {
               handleRequest();
@@ -267,8 +186,7 @@ const dispatch = useDispatch()
             }}
           />
         </>
-      }
-    </>
+     
   );
 };
 
