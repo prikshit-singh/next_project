@@ -28,21 +28,26 @@
 }
 .containerColumn{
     display: grid;
-    grid-template-columns: repeat(3,auto);
     grid-gap: 30px;
     border-bottom: .5px solid rgba(128, 128, 128, 0.347);
     /* border-radius: 1%; */
     padding-bottom: 40px;
+    width: 70%;
 }
 .imageStyle{
     width: 100% !important;
 }
+.cardMainDiv{
+    display: flex;
+    /* border: 1px solid black; */
+    background-color: rgba(244, 240, 240, 0.545);
+}
 .cardMainDiv span{
     display: inline-block;
-    padding: 0 5px;
-    color: #fff;
-    background-color: green;
-    box-shadow: 10px 10px 1px white;
+    /* padding: 0 5px; */
+    /* color: #fff; */
+    /* background-color: green; */
+    /* box-shadow: 10px 10px 1px rgba(48, 4, 4, 0.199); */
 }
 .cardMainDiv h3{
     font-size: 1.5rem;

@@ -51,9 +51,6 @@ export default function Home() {
       <div className={styles.homeContentDiv}>
         <div className={styles.containerColumn}>
           {blogs.map((data, index) => {
-            const blob = new Blob([data.image], { type: 'image/jpeg' });
-            const imageUrl = URL.createObjectURL(blob);
-            console.log(131313, imageUrl)
             const base64String = Buffer.from(data.image).toString('base64');
             const imageSrc = `data:image/jpeg;base64,${base64String}`;
             return (
@@ -76,7 +73,7 @@ export default function Home() {
                     <Image
                       className={styles.imageStyleWriter}
                       // src={`https://images.unsplash.com/photo-1684007897270-c7f12ff4e01c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80`}
-                      src=''
+                      src={imageSrc}
                       width={30}
                       alt='image'
                       priority={true}
