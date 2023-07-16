@@ -1,22 +1,72 @@
 import React, { useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggolDialogue } from '../../slices/piblisherDialogueSlice';
+import Files from 'react-files'
 import myImg from "../utils/img.png";
 import { AccessAlarm, ThreeDRotation, Close } from '@mui/icons-material';
 import styles from "../styles/Publish.module.css";
-
+import axios from 'axios';
+import dynamic from "next/dynamic";
+// const Files = dynamic(() => import("react-files").then((a) => a), {
+//     ssr: false,
+//   });
+console.log('Files', Files)
 
 function Publish(props) {
     const [title, setTitle] = useState("");
     const [subTitle, setSubTitle] = useState("");
     const [keywordText, setKeywordText] = useState("");
+    const [imageSrc, setImageSrc] = useState('')
+    const [fileSrc, setFileSrc] = useState('')
+    const editorContent = useSelector((state) => state.editorSlice.content)
+    console.log('content', editorContent)
     const dispatch = useDispatch()
+
+    const handleChange = (e) => {
+        setImageSrc(URL.createObjectURL(e.target.files[0]))
+        setFileSrc(e.target.files[0])
+    }
+ 
+    const handlePublish = async () => {
+        const formData = new FormData();
+        formData.append('image', fileSrc);
+        formData.append('title', title);
+        formData.append('slug', title);
+        formData.append('subtitle', subTitle);
+        formData.append('keywords', keywordText);
+        formData.append('content', editorContent);
+        formData.append('date', Date.now());
+
+        // const res = await axios.post('http://localhost:3000/api/blogs',
+        //     {
+        //         data: {
+        //             title: title,
+        //             subtitle: subTitle,
+        //             slug: title,
+        //             keywords: keywordText,
+        //             content: editorContent,
+        //             date: '15/7/2023',
+        //         }
+        //     })
+
+            const res = await axios.post('/api/blogimage',formData , {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                },
+              })
+
+        console.log(res)
+    }
+
+
+
+
     return (
         <>
             <div className={styles.crossBtn}>
-                <Close onClick={()=>{dispatch(toggolDialogue(true))}} />
+                <Close onClick={() => { dispatch(toggolDialogue(true)) }} />
 
             </div>
             <div className={styles.modelDiv}>
@@ -25,9 +75,13 @@ function Publish(props) {
                     <div>
                         <h1>story preview</h1>
                         <div className={styles.imageBox}>
+                            <input accept="image/*" type="file" id="files" onChange={handleChange} />
+                            {/* <img id="image" src={imageSrc} /> */}
                             <Image
                                 className={styles.imageContent}
-                                src={myImg}
+                                width={200}
+                                height={200}
+                                src={imageSrc}
                                 alt="this is image"
                             />
                         </div>
@@ -79,9 +133,7 @@ function Publish(props) {
                         </div>
                         <button
                             className={styles.button}
-                            onClick={() => {
-                                console.log(title, subTitle, keywordText);
-                            }}
+                            onClick={handlePublish}
                         >
 
                             Publish
