@@ -1,29 +1,26 @@
 import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 // Define the signup schema
-const blogSchema = new Schema({
-  title: {
+const signupSchema = new Schema({
+  name: {
     type: String,
     required: true,
   },
-  subtitle:{
+  lastname:{
     type: String,
     required: true,
   },
-  slug: {
+  phone: {
+    type: String,
+    required: true,
+    // unique: true,
+  },
+  email:{
     type: String,
     required: true,
   },
-  keywords:{
+  password:{
     type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  image:{
-    type:Buffer,
     required: true,
   },
   date:{
@@ -33,6 +30,6 @@ const blogSchema = new Schema({
 });
 
 // Create the signup model
-const Blog =mongoose.models['Blogschema2'] || mongoose.model('Blogschema2', blogSchema);
+const Signup =mongoose.models.Signup || mongoose.model('Signup', signupSchema);
 
- export default Blog;
+ export default Signup;

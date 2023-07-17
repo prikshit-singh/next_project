@@ -26,30 +26,19 @@ const {
 import styles from "../styles/Write.module.css";
 
 const CustomEditor = () => {
-  const [openDialogue, setOpenDialogue] = useState(false);
- 
   const editor = useRef();
-
-  const state = useSelector((state)=>  state)
+  const state = useSelector((state)=>  state.editorSlice.content)
   console.log(state)
 const dispatch = useDispatch()
-  function closeModal() {
-    setOpenDialogue(false);
-  }
   const getSunEditorInstance = (sunEditor) => {
     editor.current = sunEditor;
   };
   const handleRequest = () => {
     dispatch(updateEditorContent(editor.current.getContents()))
+    console.log(editor.current.getContents())
     dispatch(toggolDialogue(false))
-    setOpenDialogue(true);
     // console.log(editor.current.getContents())
-    // axios.post("http://localhost:3000/api/app", {
-    //   data: editor.current.getContents()
-    // })
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
+   
   };
 
   return (

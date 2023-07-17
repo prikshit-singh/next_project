@@ -1,15 +1,30 @@
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Layout from '@/layouts/mainLayout'
 import styles from '@/styles/Home.module.css'
 import Image from 'next/image';
-
+import axios from 'axios'
+import { useRouter } from 'next/router'
 const inter = Inter({ subsets: ['latin'] })
 
 
 export default function Home() {
+  const [blogs, setBlogs] = useState([])
+  const router = useRouter()
+  useEffect(() => {
+    getBlogs()
+  }, [])
+  const getBlogs = async () => {
+    let blogs = await axios.get('http://localhost:3000/api/getblogs')
+    if (blogs.status === 200) {
+      setBlogs(blogs.data.blog)
+    }
+  }
 
-  const imgArr = [1, 2, 3, 4, 5, 6]
+  const readBlog = (data) => {
+    router.push(`/blog/${data.title.split(' ').join('-')}-${data._id}`)
+  }
   return (
     <>
 
@@ -35,39 +50,43 @@ export default function Home() {
 
       <div className={styles.homeContentDiv}>
         <div className={styles.containerColumn}>
-          {imgArr.map((data) => {
+          {blogs.map((data, index) => {
+            const base64String = Buffer.from(data.image).toString('base64');
+            const imageSrc = `data:image/jpeg;base64,${base64String}`;
             return (
 
-              <div key={data} className={styles.cardMainDiv}>
+              <div key={index} className={styles.cardMainDiv} onClick={() => {
+                readBlog(data)
+              }}>
                 <Image
-                  className={styles.imageStyle}
-                  // src={`https://images.unsplash.com/photo-1684007897270-c7f12ff4e01c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80`}
-                  src=''
-                  width={300}
+                  // className={styles.imageStyle}
+                  src={imageSrc}
+                  width={200}
                   alt='image'
                   priority={true}
-                  height={200}></Image>
+                  height={200}
+                ></Image>
                 <div className={styles.cardContent}>
                   <span>CATAGORY</span>
-                  <h3>Blog Heading</h3>
+                  <h3>{data.title}</h3>
                   <div className={styles.writerInfo}>
-                  <Image
-                  className={styles.imageStyleWriter}
-                  // src={`https://images.unsplash.com/photo-1684007897270-c7f12ff4e01c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80`}
-                  src=''
-                  width={30}
-                  alt='image'
-                  priority={true}
-                  height={30}></Image>
-                  <span>By</span>
-                  <p>Anju Malik</p>
-                  <span>23-5-2023</span>
+                    <Image
+                      className={styles.imageStyleWriter}
+                      // src={`https://images.unsplash.com/photo-1684007897270-c7f12ff4e01c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80`}
+                      src={imageSrc}
+                      width={30}
+                      alt='image'
+                      priority={true}
+                      height={30}></Image>
+                    <span>By</span>
+                    <p>Anju Malik</p>
+                    <span>{data.date}</span>
                   </div>
-                  <p className={styles.cardContentPara}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo sunt tempora dolor laudantium sed optio, explicabo ad deleniti impedit facilis fugit recusandae! Illo, aliquid, dicta beatae quia porro id est.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo sunt tempora dolor laudantium sed optio, explicabo ad deleniti impedit facilis fugit recusandae! Illo, aliquid, dicta beatae quia porro id est.</p>
+                  <p className={styles.cardContentPara}>{data.subtitle}</p>
 
                 </div>
-                 
-                
+
+
 
               </div>
 
