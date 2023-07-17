@@ -10,14 +10,25 @@ const signupSchema = new Schema({
     type: String,
     required: true,
   },
-  phone: {
+  userName:{
     type: String,
+    unique: true,
+  },
+  userImage:{
+    type: Buffer||String,
+  },
+  profession:{
+    type: String,
+  },
+  phone: {
+    type: Number,
     required: true,
-    // unique: true,
+    unique: true,
   },
   email:{
     type: String,
     required: true,
+    unique: true,
   },
   password:{
     type: String,
@@ -30,6 +41,6 @@ const signupSchema = new Schema({
 });
 
 // Create the signup model
-const Signup =mongoose.models.Signup || mongoose.model('Signup', signupSchema);
+const Signup =mongoose.models.Userschema || mongoose.model('Userschema', signupSchema);
 
  export default Signup;

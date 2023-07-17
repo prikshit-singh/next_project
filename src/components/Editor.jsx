@@ -28,14 +28,12 @@ import styles from "../styles/Write.module.css";
 const CustomEditor = () => {
   const editor = useRef();
   const state = useSelector((state)=>  state.editorSlice.content)
-  console.log(state)
 const dispatch = useDispatch()
   const getSunEditorInstance = (sunEditor) => {
     editor.current = sunEditor;
   };
   const handleRequest = () => {
     dispatch(updateEditorContent(editor.current.getContents()))
-    console.log(editor.current.getContents())
     dispatch(toggolDialogue(false))
     // console.log(editor.current.getContents())
    
