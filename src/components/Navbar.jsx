@@ -11,6 +11,7 @@ function Navbar(props) {
             <h1>LOGO</h1>
             <input
               className={styles.Search}
+               style={{width:"80%"}}
               type="search"
               placeholder="search"
             />
