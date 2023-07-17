@@ -38,26 +38,12 @@ function Publish(props) {
         formData.append('keywords', keywordText);
         formData.append('content', editorContent);
         formData.append('date', Date.now());
-
-        // const res = await axios.post('http://localhost:3000/api/blogs',
-        //     {
-        //         data: {
-        //             title: title,
-        //             subtitle: subTitle,
-        //             slug: title,
-        //             keywords: keywordText,
-        //             content: editorContent,
-        //             date: '15/7/2023',
-        //         }
-        //     })
-
             const res = await axios.post('/api/blogimage',formData , {
                 headers: {
                   'Content-Type': 'multipart/form-data',
                 },
               })
 
-        console.log(res)
     }
 
 
