@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "../../styles/signup.module.css";
+import {  Visibility,VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 const Signup = () => {
-  const [firstName, setFirstName] = useState(" ");
-  const [lastName, setLastName] = useState(" ");
-  const [email, setEmail] = useState(" ");
-  const [pswrd, setPswrd] = useState(" ");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [pswrd, setPswrd] = useState("");
+  const [showPassword,setShowPassword] = useState(false)
   return (
     <>
       <div className={styles.body}>
@@ -20,7 +22,7 @@ const Signup = () => {
               placeholder=" "
               onChange={(e) => {
                 setFirstName(e.target.value);
-                console.log( e.target.value);
+                console.log(e.target.value);
               }}
             />
             <label>Last Name</label>
@@ -41,21 +43,41 @@ const Signup = () => {
                 setEmail(e.target.value);
               }}
             />
-            <label>Password</label>
+            <label>phone number</label>
             <input
-              type="password"
-              value={pswrd}
-              placeholder=" "
-              onChange={(e) => {
-                setPswrd(e.target.value);
-              }}
+              id="telNo"
+              name="telNo"
+              type="tel"
+              size="20"
+              minlength="9"
+              maxlength="10"
             />
+            
+              <label>Password</label>
+              <div >
+              <input
+                type={showPassword?'text':"password"}
+                value={pswrd}
+                placeholder=" "
+                onChange={(e) => {
+                  setPswrd(e.target.value);
+                }}
+              />
+              {showPassword?<Visibility onClick={()=>{setShowPassword(!showPassword)}} className={styles.password}/> :<VisibilityOff onClick={()=>{setShowPassword(!showPassword)}} className={styles.password}/>}
+              
+            </div>
+
             <label>Confirm Password</label>
             <input type="password" placeholder="" required />
-            <input className={styles.button}  type="button" value="Submit"
-            onClick={() => {
-                                console.log( firstName, lastName, email, pswrd);
-                            }} />
+
+            <input
+              className={styles.button}
+              type="button"
+              value="Submit"
+              onClick={() => {
+                console.log(firstName, lastName, email, pswrd);
+              }}
+            />
           </form>
         </div>
       </div>
