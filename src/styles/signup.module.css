@@ -1,25 +1,13 @@
-.signUpMainDiv {
-  display: flex;
-  position: absolute;
-  justify-content: center;
-align-items: center;
-  width: 100%;
-  top: 0;
-  bottom: 0%;
-  background-color: #c6cdda;
-}
-
 .signupbox {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  /* border: 1px solid black; */
-  padding-top: 40px;
-  padding-bottom: 50px;
-  width: 40%;
-  background-color: rgb(255, 255, 255);
+  padding-top: 30px;
+  width: 560px;
+  height: 620px;
+  margin: auto;
+  background-color: white;
+  border-radius: 3px;
 }
-
 .signupbox h1 {
   text-align: center;
   padding-top: 15px;
@@ -28,40 +16,30 @@ align-items: center;
 .signupbox h4 {
   text-align: center;
 }
-
 .form {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  /* border: 1px solid red; */
-  width: 100%;
-  background-color: rgb(255, 255, 255);
-  /* margin-left: 50px; */
+  width: 300px;
+  margin-left: 50px;
 }
-
 .form label {
-  /* display: flex; */
-  margin-left: 20%;
-  align-self: flex-start;
+  display: flex;
   margin-top: 30px;
   font-size: 18px;
 }
-
-
-
+.body {
+  margin-top: 40px;
+  background-color: #c6cdda;
+}
 .form input {
-  width: 60%;
+  width: 100%;
   padding: 7px;
   border: none;
   border: 1px solid gray;
   border-radius: 6px;
   outline: none;
 }
-
 .button {
-  /* width: 320px; */
-  /* height: 35px; */
+  width: 320px;
+  height: 35px;
   margin-top: 20px;
   border: none;
   background-color: #49c1a2;
@@ -70,7 +48,6 @@ align-items: center;
   cursor: pointer;
 }
 
-
 .para {
   margin-left: 20px;
   text-align: center;
@@ -78,19 +55,17 @@ align-items: center;
   font-size: 15px;
   margin-top: 20px;
 }
-
 .para a {
   color: #49c1a2;
 }
 
 .loginbox {
   width: 460px;
-  /* height: 380px; */
-  /* margin: auto; */
+  height: 380px;
+  margin: auto;
   border-radius: 3px;
   background-color: white;
 }
-
 .loginbox h1 {
   text-align: center;
   padding-top: 15px;
@@ -98,4 +73,11 @@ align-items: center;
 
 .loginbox h4 {
   text-align: center;
+}
+.password{
+    position: absolute;
+    transform: translateY(-113%);
+    cursor: pointer;
+    /* left: 0%; */
+    right: 45%;
 }
