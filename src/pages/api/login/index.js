@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     console.log(result.email)
     // var token = jwt.sign({ email: result.email,password:result.password }, 'this key is private', { algorithm: 'RS256' });
     // console.log(token)
-    Jwt.sign({ email: result.email,password:result.password }, 'this key is private',  function(err, token) {
+    Jwt.sign({ email: result.email,password:result.password }, 'this key is private', { expiresIn: '10s' }, function(err, token) {
       if(err){
         return res.status(200).json({CODE:400, message:'invalid credientials' })
       }else{
