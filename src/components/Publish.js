@@ -30,6 +30,10 @@ function Publish(props) {
     }
  
     const handlePublish = async () => {
+        const cookieValue =await document.cookie
+        .split('; ')
+        .find(row => row.startsWith('token'))
+        .split('=')[1];
         const formData = new FormData();
         formData.append('image', fileSrc);
         formData.append('title', title);
@@ -38,6 +42,7 @@ function Publish(props) {
         formData.append('keywords', keywordText);
         formData.append('content', editorContent);
         formData.append('date', Date.now());
+        formData.append('token', cookieValue);
             const res = await axios.post('/api/blogimage',formData , {
                 headers: {
                   'Content-Type': 'multipart/form-data',

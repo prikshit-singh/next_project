@@ -7,53 +7,13 @@ import fs from 'fs'
 import { IncomingForm } from 'formidable';
 import { join } from 'path';
 import { readFile } from 'fs/promises';
+import varifyuser from '@/components/backendmodules/varifyuser'
+import Signup from '../models/signup';
 export const config = {
   api: {
     bodyParser: false,
   }
 }
-
-// const readFile = async (req, saveLocally) => {
-//   console.log(4)
-//   // const options = formidable.Options
-//   if (saveLocally) {
-//     const form = new IncomingForm();
-
-//     // Set the upload directory
-//     form.uploadDir = path.join(process.cwd(), 'public/images');
-
-//     // Parse the incoming form data
-//     form.on('fileBegin', function (name, file) {
-//       // Modify the filename as per your requirements
-
-//       const fileName = file.originalFilename + path.extname('.jpg');
-//       file.path = path.join(form.uploadDir, fileName);
-//     });
-
-
-//     form.parse(req, async (err, fields, files) => {
-//       if (err) {
-//         console.error(err);
-//         return false;
-//       }
-
-//       // Move the uploaded file to the desired location
-//       const oldPath = files.image[0].filepath;
-//       const newPath = files.image[0].path
-//       fs.renameSync(oldPath, newPath);
-//       return true;
-//     });
-//   }
-
-//   // const form = formidable(options)
-//   // return new Promise((resolve, reject) => {
-//   //   form.parse(req, (err, fields, files) => {
-//   //     if (err) reject(err)
-//   //     console.log(7)
-//   //     resolve({ fields, files })
-//   //   })
-//   // })
-// }
 
 export default async function handler(req, res) {
 
@@ -103,15 +63,13 @@ export default async function handler(req, res) {
       } else {
         console.log("Given Directory already exists !!");
         const form = new IncomingForm();
-
         // Set the upload directory
         form.uploadDir = path.join(process.cwd(), 'public/images');
-
         // Parse the incoming form data
         form.on('fileBegin', function (name, file) {
           // Modify the filename as per your requirements
-
           const fileName = Date.now() + '_' + file.originalFilename + path.extname('.jpg');
+          file.originalFilename=fileName
           file.path = path.join(form.uploadDir, fileName);
         });
 
@@ -121,28 +79,38 @@ export default async function handler(req, res) {
             console.error(err);
 
           }
-          console.log(fields)
+          // console.log(fields)
           // Move the uploaded file to the desired location
+
+         
           const oldPath = files.image[0].filepath;
+          // console.log(1,files.image[0].path.split('/')[0].split('//'))
           const newPath = files.image[0].path
           fs.renameSync(oldPath, newPath);
-          const baseUrl = 'http://localhost:3000/public/images/'
-          const imagePath = join(process.cwd(), 'public/images', path.basename(newPath));
-          const imageContent = await readFile(imagePath);
-          console.log(imagePath)
+          const baseUrl = 'http://localhost:3000/images/'
+          const imagePath = await files.image[0].originalFilename
+          const imageContent = baseUrl+imagePath
+          let fileNameTime = Date.now()
+         const fileRes =await fs.writeFileSync(`public/files/${fileNameTime}.txt`, fields.content[0]);
+         console.log(fields.token[0])
+         const user =await varifyuser(fields.token[0])
+         if(user){
+         var userData =await Signup.find({email:user.email})
+         }
+         console.log(userData[0]._id)
          
             const blog = await new Blog({
               title: fields.title[0],
               subtitle: fields.subtitle[0],
               slug: fields.slug[0],
               keywords: fields.keywords[0],
-              content: fields.content[0],
+              content: `http://localhost:3000/files/${fileNameTime}.txt`,
               image: imageContent,
               date: fields.date[0],
-              content2: fields.content[0],
+              writtenby: userData[0]._id,
             });
             const result = await blog.save()
-            console.log(result)
+            // console.log(result)
             return res.status(200).json({ result })
           
 

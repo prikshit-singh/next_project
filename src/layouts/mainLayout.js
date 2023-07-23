@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 export default function Layout({ children }) {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
      <main className={styles.mainLayout}>{children}</main>
      {/* <Footer /> */}
      </>

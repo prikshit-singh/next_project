@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       date:req.body.data.date,
     });
     const result = await blog.save()
-    console.log(result)
+    // console.log(result)
     return res.status(200).json({ name: result })
   } catch (error) {
     console.log(error)

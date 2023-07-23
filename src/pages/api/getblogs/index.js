@@ -4,7 +4,7 @@ import  {connectDB}  from '@/pages/api/users/dbconfig/dbconfig.js'
 import Blog from '../models/blog';
 export const config = {
   api: {
-    responseLimit: false,
+    responseLimit: '50mb',
   },
 }
 // const router = express.Router();
@@ -16,12 +16,15 @@ export default async function handler(req, res) {
       return
     }
     await connectDB()
-    const blog =await Blog.find({})
-    return res.status(200).json({ blog: blog })
+    const blog = await Blog.find({}).populate('writtenby')
+      console.log(11111,blog)
+      if(blog){
+        return res.status(200).json({ blog: blog })
+
+      }
   } catch (error) {
     console.log(error)
   }
 
 }
 
-// export default router;

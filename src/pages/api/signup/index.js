@@ -31,6 +31,7 @@ export default async function handler(req, res) {
       const result = await signup.save()
       return res.status(200).json({CODE:200, result:req.body })
   } catch (error) {
+    console.log(error)
     return res.status(400).json({CODE:400,message:error })
 
   }

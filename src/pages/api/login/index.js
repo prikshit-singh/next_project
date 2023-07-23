@@ -8,19 +8,19 @@ import fs from 'fs'
 import { IncomingForm } from 'formidable';
 import { join } from 'path';
 import { readFile } from 'fs/promises';
-import { varifytoken } from './varyfytoken';
+import { json } from 'body-parser';
+// import { varifytoken } from '../varifytoken';
 
-console.log(varifytoken())
+// console.log(varifytoken())
 export default async function handler(req, res) {
-
+console.log(req.body.email)
+const {email,password}= req.body
+console.log(email,password)
   try {
     await connectDB()
   const result =  await Signup.findOne({'email': req.body.email,'password':req.body.password})
   if(result){
-    console.log(result.email)
-    // var token = jwt.sign({ email: result.email,password:result.password }, 'this key is private', { algorithm: 'RS256' });
-    // console.log(token)
-    Jwt.sign({ email: result.email,password:result.password }, 'this key is private', { expiresIn: '10s' }, function(err, token) {
+    Jwt.sign({ email: result.email,password:result.password }, 'this key is private', { expiresIn: '1d' }, function(err, token) {
       if(err){
         return res.status(200).json({CODE:400, message:'invalid credientials' })
       }else{

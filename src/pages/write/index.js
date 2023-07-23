@@ -10,20 +10,25 @@ import withAuth from '@/components/Auth';
 import Layout from '@/layouts/mainLayout'
 import styles from '../../styles/Write.module.css'
 import 'suneditor/dist/css/suneditor.min.css';
+import Navbar from '@/components/Navbar';
 
- function Write() {
+function Write() {
     const openDialogue = useSelector(state => state.publisherDialogueSlice.state)
     return (
         <>
+            <Navbar />
             {openDialogue ?
                 <div className={styles.editorScreen}>
-
+               
+                  
                     <div className={styles.EditorMainDiv}>
                         <CustomEditor />
                     </div>
                 </div>
                 :
                 <>
+                    {/* <Navbar /> */}
+
                     <Publish />
 
                 </>
@@ -34,4 +39,4 @@ import 'suneditor/dist/css/suneditor.min.css';
 
 export default withAuth(Write)
 //  index;
-Write.Layout = Layout
+// Write.Layout = Layout

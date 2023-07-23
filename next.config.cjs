@@ -2,12 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
         {
             protocol: 'https',
             hostname: '**',
             port: '',
             pathname: '**',
+        },
+        {
+          protocol: 'http',
+          hostname: 'localhost:3000',
+          port: '3000',
+          pathname: '**',
         },
     ],
 },
@@ -32,6 +39,6 @@ webpack: (config) => {
   },
   
 }
-
+export const statucResourcesUrl = 'http://localhost:3000/uploads/'
 
 module.exports = nextConfig

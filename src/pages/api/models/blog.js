@@ -23,16 +23,16 @@ const blogSchema = new Schema({
     required: true,
   },
   image:{
-    type:Buffer,
-    required: true,
+    type:String,
   },
   date:{
     type: String,
     required: true,
   },
+  writtenby: { type: Schema.Types.ObjectId, ref: 'userschema1' },
 });
 
 // Create the signup model
-const Blog =mongoose.models['Blogschema2'] || mongoose.model('Blogschema2', blogSchema);
+const Blog =mongoose.models['Blogschema4'] || mongoose.model('Blogschema4', blogSchema);
 
  export default Blog;

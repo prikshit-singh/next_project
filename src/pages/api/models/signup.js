@@ -12,10 +12,10 @@ const signupSchema = new Schema({
   },
   userName:{
     type: String,
-    unique: true,
+    // unique: true,
   },
   userImage:{
-    type: Buffer||String,
+    type: String,
   },
   profession:{
     type: String,
@@ -41,6 +41,6 @@ const signupSchema = new Schema({
 });
 
 // Create the signup model
-const Signup =mongoose.models.Userschema || mongoose.model('Userschema', signupSchema);
+const Signup =mongoose.models.Userschema1 || mongoose.model('Userschema1', signupSchema);
 
  export default Signup;

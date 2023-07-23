@@ -1,37 +1,63 @@
-.navBarMainDiv{
+.navBarMainDiv {
+    position: fixed;
     padding-top: 10px;
     padding-bottom: 10px;
-   width: 100%;
-   background-color: #fff;
-  
-   /* border: 1px solid black; */
-   
-}
-.navBarSeconderyDiv{
-    display: flex;
-   align-items: center;
-  justify-content: space-between;
-   
+    width: 100%;
+    top: 0;
+    background-color: #fff;
+    z-index: 999;
+    /* border: 1px solid black; */
+
 }
 
-.logoDiv{
+.navBarSeconderyDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.dialogueBox {
+    position: absolute;
+    top: 70px;
+    flex-direction: column;
+    padding: 11px;
+    width: 10%;
+    height: fit-content;
+    background-color: rgba(244, 240, 240, 0.37);
+    right: 10px;
+    border: 1px solid rgb(230, 228, 228);
+    border-radius: 10px;
+}
+
+.navLinks {
+    padding: 10px;
+}
+
+.navLinks:hover {
+    background-color: #e4ebee !important;
+}
+
+.logoDiv {
     display: flex;
     /* border: 1px solid black; */
     width: 50%;
     padding-left: 15px;
-  justify-content: space-between;
+    justify-content: space-between;
 
 
 }
 
-.navigationDiv{
+.navigationDiv {
     align-items: right;
-    
+    padding-right: 20px;
+
 }
 
-.navBarMainDiv a{
+.navBarMainDiv a {
     padding-right: 20px;
 }
-.search{
-    width: 60%;  
+
+.search {
+    width: 60%;
 }

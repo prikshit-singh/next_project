@@ -3,10 +3,12 @@
    display: flex;
     justify-content: center;
    
+   
 }
 .EditorMainDiv{
-    width:80%;
-    margin-left: 20%;
+   margin-top: 100px;
+    /* width:80%; */
+    /* margin-left: 20%; */
 }
 .logoDiv{
   display: flex;

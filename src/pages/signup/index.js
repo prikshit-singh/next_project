@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../../styles/signup.module.css";
 import { useState } from "react";
 import { useRouter } from 'next/router'
+import Navbar from "@/components/Navbar";
 import axios from "axios";
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -21,6 +22,7 @@ const Signup = () => {
   }
   return (
     <>
+    <Navbar/>
       <div className={styles.signUpMainDiv}>
         <div className={styles.signupbox}>
           <h1>Sign Up</h1>

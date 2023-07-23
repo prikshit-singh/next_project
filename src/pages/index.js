@@ -4,8 +4,10 @@ import { Inter } from 'next/font/google'
 import Layout from '@/layouts/mainLayout'
 import styles from '@/styles/Home.module.css'
 import Image from 'next/image';
+import images from '../../public/react.jpg'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import Navbar from '@/components/Navbar'
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -16,6 +18,7 @@ export default function Home() {
     getBlogs()
   }, [])
   const getBlogs = async () => {
+   
     let blogs = await axios.get('http://localhost:3000/api/getblogs')
     if (blogs.status === 200) {
       setBlogs(blogs.data.blog)
@@ -28,9 +31,11 @@ export default function Home() {
   return (
     <>
 
+
       <Head>
         <title>The Code Crafters</title>
       </Head>
+    <Navbar/>
 
       {/* #f8f9fa!important */}
       <div className={styles.headerBanner}>
@@ -51,35 +56,33 @@ export default function Home() {
       <div className={styles.homeContentDiv}>
         <div className={styles.containerColumn}>
           {blogs.map((data, index) => {
-            const base64String = Buffer.from(data.image).toString('base64');
-            const imageSrc = `data:image/jpeg;base64,${base64String}`;
             return (
 
               <div key={index} className={styles.cardMainDiv} onClick={() => {
                 readBlog(data)
               }}>
-                <Image
+                <img
                   // className={styles.imageStyle}
-                  src={imageSrc}
+                  src={data.image}
                   width={200}
                   alt='image'
                   priority={true}
                   height={200}
-                ></Image>
+                ></img>
                 <div className={styles.cardContent}>
                   <span>CATAGORY</span>
                   <h3>{data.title}</h3>
                   <div className={styles.writerInfo}>
-                    <Image
+                    <img
                       className={styles.imageStyleWriter}
                       // src={`https://images.unsplash.com/photo-1684007897270-c7f12ff4e01c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80`}
-                      src={imageSrc}
+                      src={data.image}
                       width={30}
                       alt='image'
                       priority={true}
-                      height={30}></Image>
+                      height={30}></img>
                     <span>By</span>
-                    <p>Anju Malik</p>
+                    <p>{data.writtenby.name} {data.writtenby.lastname}</p>
                     <span>{data.date}</span>
                   </div>
                   <p className={styles.cardContentPara}>{data.subtitle}</p>
@@ -104,4 +107,4 @@ export default function Home() {
   )
 }
 
-Home.Layout = Layout
+// Home.Layout = Layout
