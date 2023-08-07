@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": ".env.production && next build",
+    "export":"next build && next export",
     "start": "next start",
     "lint": "next lint"
   },

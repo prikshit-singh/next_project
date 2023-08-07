@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Html, Body, Main, NextScript } from 'next/document';
 import Head from 'next/head'
 import dynamic from "next/dynamic";
 import { useSelector } from 'react-redux';

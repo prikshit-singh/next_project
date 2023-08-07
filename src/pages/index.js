@@ -19,7 +19,7 @@ export default function Home() {
   }, [])
   const getBlogs = async () => {
    
-    let blogs = await axios.get('http://localhost:3000/api/getblogs')
+    let blogs = await axios.get('/api/getblogs')
     if (blogs.status === 200) {
       setBlogs(blogs.data.blog)
     }

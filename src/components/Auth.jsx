@@ -20,7 +20,7 @@ export default function withAuth(WrappedComponent) {
                 .split('; ')
                 .find(row => row.startsWith('token'))
                 .split('=')[1];
-                 const res = await axios.post('http://localhost:3000/api/varifytoken', {token:cookieValue})
+                 const res = await axios.post('/api/varifytoken', {token:cookieValue})
                   console.log(111,cookieValue,res)
 
             if (res.status === 200) {

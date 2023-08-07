@@ -12,11 +12,11 @@ export default async function handler(req, res) {
   try {
     // const connection = await connect()
     if (req.method !== 'GET') {
-      res.status(405).send({ message: 'Only POST requests allowed' })
+      res.status(405).send({ message: 'Only GET requests allowed' })
       return
     }
     await connectDB()
-    const blog = await Blog.find({}).populate('writtenby')
+    const blog = await Blog.find({})
       console.log(11111,blog)
       if(blog){
         return res.status(200).json({ blog: blog })

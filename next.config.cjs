@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    appDir: false,
+  },
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -39,6 +42,6 @@ webpack: (config) => {
   },
   
 }
-export const statucResourcesUrl = 'http://localhost:3000/uploads/'
+// export const staticResourcesUrl = 'http://localhost:3000/uploads/'
 
 module.exports = nextConfig

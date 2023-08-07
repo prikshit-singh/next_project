@@ -26,7 +26,7 @@ const Signup = () => {
       <div className={styles.signUpMainDiv}>
         <div className={styles.signupbox}>
           <h1>Sign Up</h1>
-          <h4>It's free and only takes a minute</h4>
+          <h4>Its free and only takes a minute</h4>
           <div className={styles.form}>
             <label>First Name</label>
             <input

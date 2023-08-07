@@ -87,7 +87,7 @@ export default async function handler(req, res) {
           // console.log(1,files.image[0].path.split('/')[0].split('//'))
           const newPath = files.image[0].path
           fs.renameSync(oldPath, newPath);
-          const baseUrl = 'http://localhost:3000/images/'
+          const baseUrl = `${process.env.DOMAIN_NAME}/images/`
           const imagePath = await files.image[0].originalFilename
           const imageContent = baseUrl+imagePath
           let fileNameTime = Date.now()
@@ -104,7 +104,7 @@ export default async function handler(req, res) {
               subtitle: fields.subtitle[0],
               slug: fields.slug[0],
               keywords: fields.keywords[0],
-              content: `http://localhost:3000/files/${fileNameTime}.txt`,
+              content: `${process.env.DOMAIN_NAME}/files/${fileNameTime}.txt`,
               image: imageContent,
               date: fields.date[0],
               writtenby: userData[0]._id,
