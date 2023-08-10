@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from 'next/router'
 import Navbar from "@/components/Navbar";
 import axios from "axios";
+import {  toast } from 'react-toastify';
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -11,18 +12,21 @@ const Signup = () => {
   const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState("");
   const router = useRouter()
-  const handleSignup = async() =>{
+  const handleSignup = async () => {
 
-    let data = {firstName,lastName,email,phone,password}
-    const res = await axios.post('/api/signup',data)
-    if(res.data.CODE === 200){
+    let data = { firstName, lastName, email, phone, password }
+    const res = await axios.post('/api/signup', data)
+    if (res.data.CODE === 200) {
+      toast('User Created Successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
       router.push('/login')
+    } else {
+      toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+
     }
-    console.log(res)
   }
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className={styles.signUpMainDiv}>
         <div className={styles.signupbox}>
           <h1>Sign Up</h1>
@@ -56,7 +60,7 @@ const Signup = () => {
                 setEmail(e.target.value);
               }}
             />
-             <label>Phome</label>
+            <label>Phome</label>
             <input
               type="number"
               value={phone}

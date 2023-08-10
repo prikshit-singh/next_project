@@ -29,7 +29,6 @@ const CustomEditor = () => {
   const editor = useRef(null);
   const state = useSelector((state) => state.editorSlice.content);
 
-  console.log(state);
   const dispatch = useDispatch();
 
   const getSunEditorInstance = (sunEditor) => {
@@ -46,20 +45,24 @@ const CustomEditor = () => {
 
   return (
     <>
-      <button
+    <div className={styles.publishButton}>
+    <button
+      // className={styles.publishButton}
         onClick={() => {
           handleRequest();
         }}
       >
         Publish
       </button>
+    </div>
+     
       <SunEditor
         className={styles["custom-suneditor"]}
         getSunEditorInstance={(sunEditor) => getSunEditorInstance(sunEditor)}
         defaultValue="<h1 style=`text-align: center` >WRITE YOUR TITLE HERE....</h1>"
         // placeholder="<h1 style=`text-align: center` >WRITE YOUR TITLE HERE....</h1>"
         width="740px"
-        height="auto"
+        height="600px"
         style={{ border: "2px solid green",fontColor:'black',color:'black' }}
         autoFocus={true}
         // setAllPlugins={false}
@@ -70,7 +73,7 @@ const CustomEditor = () => {
             all: "style",
             input: "checked",
           },
-          minHeight: "700px",
+          // minHeight: "700px",
           buttonList: [
             // Default
             ["undo", "redo"],

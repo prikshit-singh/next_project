@@ -13,9 +13,9 @@ export default async function handler (req, res){
         console.log(decoded)
         const result = await Signup.findOne({ 'email': decoded.email, 'password': decoded.password })
         if (result) {
-           return  res.status(200).send('success')
+           return  res.status(200).send({CODE:200,message:'success'})
         }else{
-            return  res.status(400).send('failed')
+            return  res.status(200).send({CODE:400,message:'failed'})
         }
     });
     return veify

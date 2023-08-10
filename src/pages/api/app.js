@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   try {
     // const connection = await connect()
     if (req.method !== 'POST') {
-      res.status(405).send({ message: 'Only POST requests allowed' })
+      res.status(200).send({CODE:405, message: 'Only POST requests allowed' })
       return
     }
 
@@ -21,9 +21,10 @@ export default async function handler(req, res) {
     });
     const result = await blog.save()
     console.log(result)
-    return res.status(200).json({ name: req.body.data })
+    return res.status(200).json({CODE:200, name: req.body.data })
   } catch (error) {
-    console.log(error)
+    return res.status(200).json({CODE:400, error: error })
+
   }
 
 }
