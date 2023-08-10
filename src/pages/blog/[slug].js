@@ -4,15 +4,7 @@ import Head from 'next/head'
 import Layout from "@/layouts/mainLayout";
 import Navbar from "@/components/Navbar";
 import dynamic from 'next/dynamic'
-const SyntaxHighlighter = dynamic(async () => await import("react-syntax-highlighter").then((a) => a), {
-  ssr: false,
-});
-const { dark } = dynamic(async () => await import('react-syntax-highlighter/dist/esm/styles/prism').then((a) => a), {
-  ssr: false,
-});
-const { vs } = dynamic(async () => await import('react-syntax-highlighter/dist/esm/styles/prism').then((a) => a), {
-  ssr: false,
-});
+
 
 import axios from "axios";
 
@@ -24,25 +16,9 @@ export default function Page() {
   useEffect(() => {
     console.log('useEffect')
     getBlogById();
-    addLineNumbersToPres()
 
   }, [router.pathname]);
-  function addLineNumbersToPres() {
-    const pres = document.querySelectorAll('pre')
-    pres.forEach((pre) => {
-      const lineNumberWrapper = document.createElement('span')
-      lineNumberWrapper.classList.add('pre-line-numbers')
   
-      const preLines = pre.textContent.split('\\n').length
-      for (let i = 0; i < preLines - 1; i++) {
-        const span = document.createElement('span')
-        span.appendChild(document.createTextNode(i))
-        lineNumberWrapper.appendChild(span)
-      }
-  
-      pre.insertBefore(lineNumberWrapper, pre.firstChild)
-    })
-  }
   
   const getBlogById = async () => {
     console.log('id');
@@ -56,7 +32,7 @@ export default function Page() {
       // console.log('id',id);
       const res = await axios.post(`/api/getblogs/getblogbyid`, { id: ID });
       console.log(1)
-      if (res.status === 200) {
+      if (res.data.CODE === 200) {
         const htmlFile = await axios.get(res.data.blog.content)
         setTitle(res.data.blog.title)
         setContent(htmlFile.data);

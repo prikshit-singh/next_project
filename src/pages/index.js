@@ -7,6 +7,8 @@ import Image from 'next/image';
 import images from '../../public/react.jpg'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux';
+import { toggolDialogue } from '../../slices/piblisherDialogueSlice'
 import Navbar from '@/components/Navbar'
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,13 +16,15 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   const [blogs, setBlogs] = useState([])
   const router = useRouter()
+  const dispatch = useDispatch()
   useEffect(() => {
     getBlogs()
+    dispatch(toggolDialogue(true))
   }, [])
   const getBlogs = async () => {
    
     let blogs = await axios.get('/api/getblogs')
-    if (blogs.status === 200) {
+    if (blogs.data.CODE === 200) {
       setBlogs(blogs.data.blog)
     }
   }

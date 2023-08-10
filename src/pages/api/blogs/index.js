@@ -21,9 +21,9 @@ export default async function handler(req, res) {
     });
     const result = await blog.save()
     // console.log(result)
-    return res.status(200).json({ name: result })
+    return res.status(200).json({CODE:200, name: result })
   } catch (error) {
-    console.log(error)
+    return res.status(200).json({CODE:400, error: error })
   }
 
 }

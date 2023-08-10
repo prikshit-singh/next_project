@@ -8,11 +8,12 @@ import myImg from "../utils/img.png";
 import { AccessAlarm, ThreeDRotation, Close } from '@mui/icons-material';
 import styles from "../styles/Publish.module.css";
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import {  toast } from 'react-toastify';
 import dynamic from "next/dynamic";
 // const Files = dynamic(() => import("react-files").then((a) => a), {
 //     ssr: false,
 //   });
-console.log('Files', Files)
 
 function Publish(props) {
     const [title, setTitle] = useState("");
@@ -21,19 +22,18 @@ function Publish(props) {
     const [imageSrc, setImageSrc] = useState('')
     const [fileSrc, setFileSrc] = useState('')
     const editorContent = useSelector((state) => state.editorSlice.content)
-    console.log('content', editorContent)
     const dispatch = useDispatch()
-
+    const router = useRouter();
     const handleChange = (e) => {
         setImageSrc(URL.createObjectURL(e.target.files[0]))
         setFileSrc(e.target.files[0])
     }
- 
+
     const handlePublish = async () => {
-        const cookieValue =await document.cookie
-        .split('; ')
-        .find(row => row.startsWith('token'))
-        .split('=')[1];
+        const cookieValue = await document.cookie
+            .split('; ')
+            .find(row => row.startsWith('token'))
+            .split('=')[1];
         const formData = new FormData();
         formData.append('image', fileSrc);
         formData.append('title', title);
@@ -43,11 +43,25 @@ function Publish(props) {
         formData.append('content', editorContent);
         formData.append('date', Date.now());
         formData.append('token', cookieValue);
-            const res = await axios.post('/api/blogimage',formData , {
-                headers: {
-                  'Content-Type': 'multipart/form-data',
-                },
-              })
+        const res = await axios.post('/api/blogimage', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+    console.log('content', res)
+
+        if (res.data.CODE === 200) {
+            toast('Uploaded successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
+           
+            setTimeout(function () {
+                router.push('/')
+            }, 1000);
+            
+           
+        }else{
+            toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+
+        }
 
     }
 
@@ -60,6 +74,7 @@ function Publish(props) {
                 <Close onClick={() => { dispatch(toggolDialogue(true)) }} />
 
             </div>
+           
             <div className={styles.modelDiv}>
                 <div className={styles.publishMainDiv}>
 
@@ -132,6 +147,8 @@ function Publish(props) {
                     </div>
                 </div>
             </div>
+
+
         </>
     );
 }

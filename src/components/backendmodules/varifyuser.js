@@ -13,9 +13,9 @@ export default async function handler (token){
         console.log(decoded)
         const result = await Signup.findOne({ 'email': decoded.email, 'password': decoded.password })
         if (result) {
-           return  {email:decoded.email,password:decoded.password}
+           return  {CODE:200,email:decoded.email,password:decoded.password}
         }else{
-            return  false
+            return  {CODE:401,email:decoded.email,password:decoded.password}
         }
     });
     return veify

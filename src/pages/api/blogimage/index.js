@@ -112,7 +112,7 @@ export default async function handler(req, res) {
             });
             const result = await blog.save()
             // console.log(result)
-            return res.status(200).json({ result })
+            return res.status(200).json({CODE:200, result })
           
 
           // res.status(200).send({ msg: 'file stored successfully' })
@@ -122,6 +122,7 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.log(2)
+    return res.status(200).json({CODE:400, error })
 
   }
 

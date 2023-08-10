@@ -1,24 +1,32 @@
 import React,{useState} from "react";
 import axios from "axios";
 import Navbar from "@/components/Navbar";
+import { useRouter } from 'next/router'
+ import Cookies from "js-cookie";
+ import {  toast } from 'react-toastify';
 import styles from "../../styles/signup.module.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter()
   const handleLogin = async() =>{
 
     let data = {email,password}
     const res = await axios.post('/api/login',data)
     if(res.data.CODE === 200){
-      console.log(res.data.token)
-      document.cookie = "token=" + res.data.token;
-      // router.push('/login')
+      Cookies.set('token',res.data.token)
+      toast('Login Successful', { hideProgressBar: false, autoClose: 2000, type: 'success' })
+      router.push('/write')
+    }else{
+      
+      toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+
     }
-    console.log(res)
   }
   return (
     <>
       <Navbar/>
+     
       <div className={styles.signUpMainDiv}>
         <div className={styles.signupbox}>
           <h1>Login</h1>
