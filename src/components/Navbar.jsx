@@ -1,7 +1,9 @@
 import React,{useState} from "react";
 import Link from "next/link";
+import SearchIcon from '@mui/icons-material/Search';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import Search from '@mui/icons-material/Search';
 import styles from "../styles/Navbar.module.css";
 import { Search } from "@mui/icons-material";
 function Navbar(props) {
