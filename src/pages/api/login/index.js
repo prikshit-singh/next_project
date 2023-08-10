@@ -20,7 +20,7 @@ console.log(email,password)
     await connectDB()
   const result =  await Signup.findOne({'email': req.body.email,'password':req.body.password})
   if(result){
-    Jwt.sign({ email: result.email,password:result.password }, 'this key is private', { expiresIn: '1d' }, function(err, token) {
+    Jwt.sign({ email: result.email,password:result.password }, 'this key is private', { expiresIn: '10d' }, function(err, token) {
       if(err){
         return res.status(200).json({CODE:400, message:'invalid credientials' })
       }else{

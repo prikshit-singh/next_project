@@ -39,7 +39,7 @@ export default async function handler(req, res) {
             form.on('fileBegin', function (name, file) {
               // Modify the filename as per your requirements
               console.log(1)
-              const fileName = Date.now() + '_' + file.originalFilename + path.extname('.jpg');
+              const fileName = Date.now() + '_' + file.newFilename + path.extname('.jpg');
               file.path = path.join(form.uploadDir, fileName);
             });
 
@@ -68,7 +68,7 @@ export default async function handler(req, res) {
         // Parse the incoming form data
         form.on('fileBegin', function (name, file) {
           // Modify the filename as per your requirements
-          const fileName = Date.now() + '_' + file.originalFilename + path.extname('.jpg');
+          const fileName = Date.now() + '_' + file.newFilename + '.jpg'
           file.originalFilename=fileName
           file.path = path.join(form.uploadDir, fileName);
         });
@@ -87,12 +87,13 @@ export default async function handler(req, res) {
           // console.log(1,files.image[0].path.split('/')[0].split('//'))
           const newPath = files.image[0].path
           fs.renameSync(oldPath, newPath);
-          const baseUrl = `${process.env.DOMAIN_NAME}/images/`
+          const baseUrl = `${process.env.IMAGE_DOMANE}/images/`
           const imagePath = await files.image[0].originalFilename
+          console.log('imagepath',files.image[0])
+
           const imageContent = baseUrl+imagePath
           let fileNameTime = Date.now()
-         const fileRes =await fs.writeFileSync(`public/files/${fileNameTime}.txt`, fields.content[0]);
-         console.log(fields.token[0])
+          fs.writeFileSync(`public/files/${fileNameTime}.txt`, fields.content[0]);
          const user =await varifyuser(fields.token[0])
          if(user){
          var userData =await Signup.find({email:user.email})
@@ -104,7 +105,7 @@ export default async function handler(req, res) {
               subtitle: fields.subtitle[0],
               slug: fields.slug[0],
               keywords: fields.keywords[0],
-              content: `${process.env.DOMAIN_NAME}/files/${fileNameTime}.txt`,
+              content: `${process.env.IMAGE_DOMANE}/files/${fileNameTime}.txt`,
               image: imageContent,
               date: fields.date[0],
               writtenby: userData[0]._id,
