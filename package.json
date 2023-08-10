@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": ".env.production && next build",
-    "export":"next build && next export",
+    "export": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -28,11 +28,13 @@
     "multer": "^1.4.5-lts.1",
     "next": "13.3.0",
     "nodemailer": "^6.9.4",
+    "prism-react-renderer": "^2.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-files": "^3.0.0",
     "react-modal": "^3.16.1",
     "react-redux": "^8.1.1",
+    "react-syntax-highlighter": "^15.5.0",
     "suneditor": "^2.45.1",
     "suneditor-react": "^3.6.1"
   }

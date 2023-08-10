@@ -1,1 +1,0 @@
-http://localhost:3000/images/1690115610061_item2.png
