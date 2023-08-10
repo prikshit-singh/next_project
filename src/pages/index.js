@@ -8,11 +8,14 @@ import images from '../../public/react.jpg'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/Navbar'
+import Loader from '@/components/Loader'
+import CategoryNav from '@/components/CategoryNav'
 const inter = Inter({ subsets: ['latin'] })
 
 
 export default function Home() {
   const [blogs, setBlogs] = useState([])
+  const[loader,setLoader]=useState(true)
   const router = useRouter()
   useEffect(() => {
     getBlogs()
@@ -22,6 +25,7 @@ export default function Home() {
     let blogs = await axios.get('/api/getblogs')
     if (blogs.status === 200) {
       setBlogs(blogs.data.blog)
+      setLoader(false)
     }
   }
 
@@ -30,15 +34,16 @@ export default function Home() {
   }
   return (
     <>
-
+{loader ?<Loader/> :null}
 
       <Head>
         <title>The Code Crafters</title>
       </Head>
     <Navbar/>
+    <CategoryNav/>
 
       {/* #f8f9fa!important */}
-      <div className={styles.headerBanner}>
+       <div className={styles.headerBanner}>
         <div className={styles.container}>
           <div className={styles.containerRow}>
             <span>Category</span>
@@ -101,7 +106,7 @@ export default function Home() {
 
 
         </div>
-      </div>
+      </div> 
 
     </>
   )

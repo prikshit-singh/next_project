@@ -20,7 +20,7 @@ const Login = () => {
     <>
       <Navbar/>
       <div className={styles.signUpMainDiv}>
-        <div className={styles.signupbox}>
+        <div className={styles.loginbox}>
           <h1>Login</h1>
           <form className={styles.form}>
             <label>Email</label>
