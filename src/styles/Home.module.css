@@ -1,10 +1,11 @@
+
 .headerBanner{
     display: flex;
     justify-content: center;
     width: 100%;
     background-color: #e2e2e2;
     padding-bottom: 3rem;
-     margin-top: 8rem;
+     margin-top: .3rem;
     padding-top: 3rem;
 
 }

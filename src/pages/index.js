@@ -41,11 +41,11 @@ export default function Home() {
 {loader ?<Loader/> :null}
 
       <Head>
-        <title>The Code Crafters</title>
+        <title>GitGurus</title>
       </Head>
     <Navbar/>
 
-      <CategoryNav/> 
+      <CategoryNav fill="green" style={{background:'rgb(233, 231, 231)'}}/> 
 
       {/* #f8f9fa!important */}
        <div className={styles.headerBanner}>

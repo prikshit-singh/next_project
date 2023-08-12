@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import Cookies from 'js-cookie';
+import Loader from './Loader';
 
 export default function withAuth(WrappedComponent) {
     return function WithAuth(props) {
@@ -51,7 +52,8 @@ export default function withAuth(WrappedComponent) {
             return <WrappedComponent {...props} />;
         }
         else {
-            return <div>Loading...</div>; // You can replace this with a spinner component
+            return  <Loader /> 
+            // You can replace this with a spinner component
 
         }
 

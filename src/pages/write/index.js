@@ -10,16 +10,16 @@ import Layout from '@/layouts/mainLayout'
 import styles from '../../styles/Write.module.css'
 import 'suneditor/dist/css/suneditor.min.css';
 import Navbar from '@/components/Navbar';
+import Loader from '@/components/Loader'
 
 function Write() {
+    const [loader, setLoader] = useState(true)
     const openDialogue = useSelector(state => state.publisherDialogueSlice.state)
     return (
         <>
             <Navbar />
             {openDialogue ?
                 <div className={styles.editorScreen}>
-               
-                  
                     <div className={styles.EditorMainDiv}>
                         <CustomEditor />
                     </div>

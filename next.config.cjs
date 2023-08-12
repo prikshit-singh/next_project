@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+import Loader from '@/components/Loader';
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
@@ -27,7 +28,7 @@ webpack: (config) => {
       use: [
         'style-loader',
         {
-          loader: 'css-loader',
+          loader: ['style-loader', 'css-loader'],
           options: {
             modules: true,
           },

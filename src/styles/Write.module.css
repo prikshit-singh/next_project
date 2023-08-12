@@ -16,7 +16,7 @@
 
 .publishButton{
   position: fixed;
-  z-index: 999;
+  /* z-index: 999; */
   top: 15px;
   right: 108px
 }

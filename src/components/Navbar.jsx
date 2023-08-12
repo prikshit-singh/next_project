@@ -30,13 +30,17 @@ function Navbar(props) {
           <div className={styles.navigationDiv}>
             <Stack direction="row" spacing={2}>
               <Avatar onClick={() => {
-                setDialogue(!dialogue)
+                setDialogue(true)
+                // document.getElementById("mySidenav").style.width = "250px";
               }} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
             </Stack>
 
           </div>
 
-          <div style={dialogue ? { display: 'flex' } : { display: 'none' }} className={styles.dialogueBox}>
+          <div id="mySidenav" style={dialogue ? { display: 'flex', width: '250px' } : { display: 'flex', width: '0px' }} className={styles.dialogueBox}>
+            <a href="javascript:void(0)" class={styles.closebtn} onClick={() => {
+              setDialogue(false)
+            }}>&times;</a>
             <Link className={styles.navLinks} href="/">Home</Link>
             <Link className={styles.navLinks} href="/about">About</Link>
             <Link className={styles.navLinks} href="/write">Write</Link>
