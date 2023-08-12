@@ -7,11 +7,14 @@ import dynamic from 'next/dynamic'
 
 
 import axios from "axios";
+import Loader from '@/components/Loader'
 
 import style from "../../styles/Blog.module.css";
 export default function Page() {
   const router = useRouter();
   const [content, setContent] = useState(null)
+const[loader,setLoader]=useState(true)
+
   const [title, setTitle] = useState(null)
   useEffect(() => {
     console.log('useEffect')
@@ -36,6 +39,7 @@ export default function Page() {
         const htmlFile = await axios.get(res.data.blog.content)
         setTitle(res.data.blog.title)
         setContent(htmlFile.data);
+        setLoader(false)
       }
     }
 
@@ -43,6 +47,7 @@ export default function Page() {
  
   return (
     <>
+    {loader ?<Loader/> :null}
       <Head>
         <title>{title}</title>
         <meta
