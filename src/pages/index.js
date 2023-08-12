@@ -44,7 +44,8 @@ export default function Home() {
         <title>The Code Crafters</title>
       </Head>
     <Navbar/>
-    {/* <CategoryNav/> */}
+
+      <CategoryNav/> 
 
       {/* #f8f9fa!important */}
        <div className={styles.headerBanner}>

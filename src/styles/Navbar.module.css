@@ -1,10 +1,10 @@
 .navBarMainDiv {
     
-    position: fixed;
+    /* position: fixed; */
     padding-top: 10px;
     padding-bottom: 10px;
     width: 100%;
-    top: 0;
+    /* top: 0; */
     background-color: rgb(233, 231, 231);
     z-index: 999;
     

@@ -1,7 +1,32 @@
+.categoryOuterMainDiv{
+    display: flex;
+    border-top: 2px solid rgb(203, 202, 202) ;
+
+}
 .categoryMainDiv{
-    position: fixed;
-    border: 2px solid black;
-    padding: 1em;
-    margin-top: -29px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
     width: 100%;
+    padding: 10px 1em 10px 4px;
+    font-size: large;
+    font-weight: 500;
+    background-color: rgb(233, 231, 231);
+
+}
+.categoryMainDiv::-webkit-scrollbar {
+    display: none;
+  }
+
+  .categoryMainDiv a {
+    margin: 0px 13px 0px 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.categoryMinDiv{
+  
 }
