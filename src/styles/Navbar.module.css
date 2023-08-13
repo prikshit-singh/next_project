@@ -23,29 +23,49 @@
 }
 
 .dialogueBox {
-    position: fixed;
-    top: 70px;
     flex-direction: column;
-    padding: 11px;
-    width: 10%;
-    height: fit-content;
-    background-color: rgba(244, 240, 240, 0.37);
-    right: 10px;
-    border: 1px solid rgb(230, 228, 228);
-    border-radius: 10px;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 999;
+    /* top: 60px; */
+    right: 0;
+    background-color: #a8a8a8;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
 }
 
 .navLinks {
-    display: flex;
+    /* display: flex;
     padding: 10px;
-    text-decoration: none;
+    text-decoration: none; */
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #180101;
+  display: block;
+  transition: 0.3s;
     
 }
  
 
 .navLinks:hover {
-    background-color: #e4ebee !important;
+    background-color: rgb(233, 231, 231);
 }
+
+ .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
 
 .logoDiv {
    

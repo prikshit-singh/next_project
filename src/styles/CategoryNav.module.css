@@ -1,6 +1,9 @@
 .categoryOuterMainDiv{
     display: flex;
     border-top: 2px solid rgb(203, 202, 202) ;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(233, 231, 231);
 
 }
 .categoryMainDiv{
@@ -10,11 +13,13 @@
     overflow: auto;
     scroll-behavior: smooth;
     white-space: nowrap;
-    width: 100%;
-    padding: 10px 1em 10px 4px;
+    /* width: 100%; */
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px 0px 10px 0px;
     font-size: large;
     font-weight: 500;
-    background-color: rgb(233, 231, 231);
+    /* background-color: rgb(233, 231, 231); */
 
 }
 .categoryMainDiv::-webkit-scrollbar {

@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 
 import styles from "../styles/Navbar.module.css";
-import { Search } from "@mui/icons-material";
+import { Search,Close } from "@mui/icons-material";
 function Navbar(props) {
   const [dialogue, setDialogue] = useState(false)
   return (
@@ -30,13 +30,18 @@ function Navbar(props) {
           <div className={styles.navigationDiv}>
             <Stack direction="row" spacing={2}>
               <Avatar onClick={() => {
-                setDialogue(!dialogue)
+                setDialogue(true)
+                // document.getElementById("mySidenav").style.width = "250px";
               }} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
             </Stack>
 
           </div>
 
-          <div style={dialogue ? { display: 'flex' } : { display: 'none' }} className={styles.dialogueBox}>
+          <div id="mySidenav" style={dialogue ? { display: 'flex', width: '250px' } : { display: 'flex', width: '0px' }} className={styles.dialogueBox}>
+            <Close className={styles.closebtn} onClick={() => {
+              setDialogue(false)
+            }}/>
+         
             <Link className={styles.navLinks} href="/">Home</Link>
             <Link className={styles.navLinks} href="/about">About</Link>
             <Link className={styles.navLinks} href="/write">Write</Link>

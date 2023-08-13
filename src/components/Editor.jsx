@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { toggolDialogue } from "../../slices/piblisherDialogueSlice";
-import Loader from '@/components/Loader'
-
+import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { updateEditorContent } from "../../slices/editorSlice";
 const SunEditor = dynamic(async() => await import("suneditor-react").then((a) => a), {
@@ -27,7 +26,7 @@ const {
 import styles from "../styles/Write.module.css";
 
 const CustomEditor = () => {
-  const[loader,setLoader]=useState(true)
+  
   const editor = useRef(null);
   const state = useSelector((state) => state.editorSlice.content);
 
@@ -43,12 +42,10 @@ const CustomEditor = () => {
     dispatch(updateEditorContent(editor.current.getContents()));
     dispatch(toggolDialogue(false));
     console.log(editor)
-    setLoader(false)
   };
 
   return (
     <>
-    {loader ?<Loader/> :null}
     <div className={styles.publishButton}>
     <button
       // className={styles.publishButton}
@@ -64,12 +61,10 @@ const CustomEditor = () => {
         className={styles["custom-suneditor"]}
         getSunEditorInstance={(sunEditor) => getSunEditorInstance(sunEditor)}
         defaultValue="<h1 style=`text-align: center` >WRITE YOUR TITLE HERE....</h1>"
-        // placeholder="<h1 style=`text-align: center` >WRITE YOUR TITLE HERE....</h1>"
         width="740px"
         height="600px"
         style={{ border: "2px solid green",fontColor:'black',color:'black' }}
         autoFocus={true}
-        // setAllPlugins={false}
         setOptions={{
           showPathLabel: false,
           allowedTags: "style",
@@ -77,7 +72,6 @@ const CustomEditor = () => {
             all: "style",
             input: "checked",
           },
-          // minHeight: "700px",
           buttonList: [
             // Default
             ["undo", "redo"],
@@ -96,12 +90,8 @@ const CustomEditor = () => {
             ["outdent", "indent"],
             ["align", "horizontalRule", "list", "lineHeight"],
             ["table", "link", "image", "video"],
-            // ['imageGallery'],
             ['fullScreen', 'showBlocks', 'codeView'],
-            // ['preview', 'print'],
-            // ['save', 'template'],
-            // ['-left', '#fix', 'dir_ltr', 'dir_rtl'],
-            // (min-width:992px)
+           
            
           ],
           

@@ -13,6 +13,7 @@ import Navbar from '@/components/Navbar'
 import Loader from '@/components/Loader'
 import CategoryNav from '@/components/CategoryNav'
 const inter = Inter({ subsets: ['latin'] })
+import Cookies from 'js-cookie';
 
 
 export default function Home() {
@@ -36,16 +37,28 @@ export default function Home() {
   const readBlog = (data) => {
     router.push(`/blog/${data.title.split(' ').join('-')}-${data._id}`)
   }
+
+  const likeBlog = async (data)=>{
+    let token = Cookies.get('token')
+    
+    let blogs = await axios.post('/api/blogimage/updatelikedby',{},{
+      headers: {
+          blogId:data._id
+      }
+  })
+    console.log(blogs)
+    
+  }
   return (
     <>
-{loader ?<Loader/> :null}
+{loader ? <Loader/> :null}
 
       <Head>
-        <title>The Code Crafters</title>
+        <title>GitGurus</title>
       </Head>
     <Navbar/>
 
-      <CategoryNav/> 
+      <CategoryNav fill="green" style={{background:'rgb(233, 231, 231)'}}/> 
 
       {/* #f8f9fa!important */}
        <div className={styles.headerBanner}>
@@ -66,11 +79,11 @@ export default function Home() {
       <div className={styles.homeContentDiv}>
         <div className={styles.containerColumn}>
           {blogs.map((data, index) => {
+            let time = new Date(parseInt(data.date));
+            let newTimeString = time.toLocaleTimeString()+' '+time.toLocaleDateString()
             return (
 
-              <div key={index} className={styles.cardMainDiv} onClick={() => {
-                readBlog(data)
-              }}>
+              <div key={index} className={styles.cardMainDiv} >
                 <img
                   // className={styles.imageStyle}
                   src={data.image}
@@ -81,7 +94,9 @@ export default function Home() {
                 ></img>
                 <div className={styles.cardContent}>
                   <span>CATAGORY</span>
-                  <h3>{data.title}</h3>
+                  <h3 onClick={() => {
+                readBlog(data)
+              }}>{data.title}</h3>
                   <div className={styles.writerInfo}>
                     <img
                       className={styles.imageStyleWriter}
@@ -93,14 +108,14 @@ export default function Home() {
                       height={30}></img>
                     <span>By</span>
                     <p>{data.writtenby.name} {data.writtenby.lastname}</p>
-                    <span>{data.date}</span>
+                    <span>{newTimeString}</span>
                   </div>
                   <p className={styles.cardContentPara}>{data.subtitle}</p>
 
                 </div>
 
 
-
+                <p onClick={()=>likeBlog(data)}>Like</p>
               </div>
 
             )

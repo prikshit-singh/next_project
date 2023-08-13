@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import {  toast } from 'react-toastify';
 import dynamic from "next/dynamic";
+import Cookies from 'js-cookie';
 // const Files = dynamic(() => import("react-files").then((a) => a), {
 //     ssr: false,
 //   });
@@ -30,10 +31,7 @@ function Publish(props) {
     }
 
     const handlePublish = async () => {
-        const cookieValue = await document.cookie
-            .split('; ')
-            .find(row => row.startsWith('token'))
-            .split('=')[1];
+        const cookieValue = await Cookies.get('token');
         const formData = new FormData();
         formData.append('image', fileSrc);
         formData.append('title', title);
