@@ -18,7 +18,7 @@ import Cookies from 'js-cookie';
 
 export default function Home() {
   const [blogs, setBlogs] = useState([])
-  const[loader,setLoader]=useState(true)
+  const [loader, setLoader] = useState(true)
   const router = useRouter()
   const dispatch = useDispatch()
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function Home() {
     dispatch(toggolDialogue(true))
   }, [])
   const getBlogs = async () => {
-   
+
     let blogs = await axios.get('/api/getblogs')
     if (blogs.data.CODE === 200) {
       setBlogs(blogs.data.blog)
@@ -38,30 +38,22 @@ export default function Home() {
     router.push(`/blog/${data.title.split(' ').join('-')}-${data._id}`)
   }
 
-  const likeBlog = async (data)=>{
-    let token = Cookies.get('token')
-    
-    let blogs = await axios.post('/api/blogimage/updatelikedby',{},{
-      headers: {
-          blogId:data._id
-      }
-  })
-    console.log(blogs)
-    
-  }
+  
+
+
   return (
     <>
-{loader ? <Loader/> :null}
+      {loader ? <Loader /> : null}
 
       <Head>
         <title>GitGurus</title>
       </Head>
-    <Navbar/>
+      <Navbar />
 
-      <CategoryNav fill="green" style={{background:'rgb(233, 231, 231)'}}/> 
+      <CategoryNav fill="green" style={{ background: 'rgb(233, 231, 231)' }} />
 
       {/* #f8f9fa!important */}
-       <div className={styles.headerBanner}>
+      <div className={styles.headerBanner}>
         <div className={styles.container}>
           <div className={styles.containerRow}>
             <span>Category</span>
@@ -80,7 +72,7 @@ export default function Home() {
         <div className={styles.containerColumn}>
           {blogs.map((data, index) => {
             let time = new Date(parseInt(data.date));
-            let newTimeString = time.toLocaleTimeString()+' '+time.toLocaleDateString()
+            let newTimeString = time.toLocaleTimeString() + ' ' + time.toLocaleDateString()
             return (
 
               <div key={index} className={styles.cardMainDiv} >
@@ -95,8 +87,8 @@ export default function Home() {
                 <div className={styles.cardContent}>
                   <span>CATAGORY</span>
                   <h3 onClick={() => {
-                readBlog(data)
-              }}>{data.title}</h3>
+                    readBlog(data)
+                  }}>{data.title}</h3>
                   <div className={styles.writerInfo}>
                     <img
                       className={styles.imageStyleWriter}
@@ -115,7 +107,6 @@ export default function Home() {
                 </div>
 
 
-                <p onClick={()=>likeBlog(data)}>Like</p>
               </div>
 
             )
@@ -126,7 +117,7 @@ export default function Home() {
 
 
         </div>
-      </div> 
+      </div>
 
     </>
   )

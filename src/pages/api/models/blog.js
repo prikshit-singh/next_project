@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Userschema1 from './signup'
 var Schema = mongoose.Schema;
 // Define the signup schema
 const blogSchema = new Schema({
@@ -29,26 +30,26 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
-  writtenby: { type: Schema.Types.ObjectId, ref: 'userschema1' },
+  writtenby: { type: mongoose.Schema.Types.ObjectId, ref: 'Signup' },
   LikedBy: [
-    { 
-      type: Schema.Types.ObjectId, ref: 'userschema1' 
+    {
+      type: Schema.Types.ObjectId, ref: 'Signup'
     }
   ],
-  // Comments: [
-  //   {
-  //   commentText:{type: String},
-  //   commentedBy:{type: Schema.Types.ObjectId, ref: 'userschema1'},
-  //   commentDate: {
-  //     type: String,
-  //     required: true,
-  //   },
-  // }
-// ]
+  Comments: [
+    {
+      commentText: { type: String, required: true, },
+      commentedBy: { type: Schema.Types.ObjectId, ref: 'Signup' },
+      commentDate: {
+        type: String,
+        required: true,
+      },
+    }
+  ]
 
 });
 
 // Create the signup model
-const Blog = mongoose.models['Blogschema5'] || mongoose.model('Blogschema5', blogSchema);
+const Blog = mongoose.models['Blog'] || mongoose.model('Blog', blogSchema);
 
 export default Blog;

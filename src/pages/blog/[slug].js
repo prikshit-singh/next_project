@@ -13,6 +13,7 @@ import style from "../../styles/Blog.module.css";
 export default function Page() {
   const router = useRouter();
   const [content, setContent] = useState(null)
+  const[comment,setComment]=useState('')
 const[loader,setLoader]=useState(true)
 
   const [title, setTitle] = useState(null)
@@ -44,6 +45,43 @@ const[loader,setLoader]=useState(true)
     }
 
   };
+  const likeBlog = async (data) => {
+    let slug1 = window.location.pathname.split('/').reverse()[0]
+    let ID = slug1.split('-').reverse()[0]
+    let blogs = await axios.post('/api/blogimage/updatelikedby', {}, {
+      headers: {
+        blogId: ID
+      }
+    })
+  }
+
+  const getComments = async (data) => {
+    let slug1 = window.location.pathname.split('/').reverse()[0]
+    let ID = slug1.split('-').reverse()[0]
+    let comments = await axios.post('/api/blogimage/getcomments', {}, {
+      headers: {
+        blogId: ID
+      }
+    })
+    console.log(comments)
+  }
+  
+  const postComment = async () => {
+    let slug1 = window.location.pathname.split('/').reverse()[0]
+    let ID = slug1.split('-').reverse()[0]
+    const data ={ 
+      commentText: comment,
+      commentedBy: '',
+      commentDate: new Date(),
+  }
+    let blogs = await axios.post('/api/blogimage/postcomment', data, {
+      headers: {
+        blogId: ID
+      }
+    })
+
+    console.log(blogs)
+  }
  
   return (
     <>
@@ -60,6 +98,13 @@ const[loader,setLoader]=useState(true)
           <meta data-rh="true" property="og:description" content={title}></meta>
       </Head>
       <Navbar />
+
+      <p onClick={() => likeBlog()}>Like</p>
+
+      <input type="text" value={comment} onChange={(e)=>{setComment(e.target.value)}} width={200} />
+      <p onClick={() => postComment()}>Comment</p>
+      <p onClick={() => getComments()}>getComment</p>
+
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '100px' }}>
         {/* <SyntaxHighlighter language="jsx" style={vs}>
