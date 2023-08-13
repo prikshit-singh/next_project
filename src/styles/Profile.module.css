@@ -1,0 +1,37 @@
+
+.profileMainDiv{
+    position: fixed;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    
+    padding-bottom: 50px;
+    height: 100vh;
+    
+}
+.profileMinDiv {
+     width:90%;
+     height: 80vh;
+    display: grid;
+    justify-content: center;
+    grid-template-columns:60% 30%;
+    grid-gap:50px;
+     padding-top: 70px;
+  }
+  .divOne{
+    border-right: 1px solid rgb(215, 213, 213);
+    padding-left: 80px;
+  }
+  .linkBox{
+    
+    display: flex;
+
+    padding-top: 50px ;
+  }
+  .profileLinks{
+    margin-right: 50px;
+    text-decoration: none;
+    color: rgb(122, 114, 114);
+    font-size: large;
+    cursor:pointer;
+  }
