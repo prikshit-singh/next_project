@@ -58,11 +58,11 @@ const CategoryNav = () => {
           {secNavItems.map((data,index) => {
             if(startIndex <= index ){
                 return (
-              <>
-                <Link className={styles.navLinks} href="/">
+              
+                <Link key={index} className={styles.navLinks} href="/">
                   Trending Now
                 </Link>
-              </>
+              
             );
             }
             

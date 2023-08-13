@@ -6,7 +6,7 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
-  subtitle:{
+  subtitle: {
     type: String,
     required: true,
   },
@@ -14,7 +14,7 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
-  keywords:{
+  keywords: {
     type: String,
     required: true,
   },
@@ -22,17 +22,33 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
-  image:{
-    type:String,
+  image: {
+    type: String,
   },
-  date:{
+  date: {
     type: String,
     required: true,
   },
   writtenby: { type: Schema.Types.ObjectId, ref: 'userschema1' },
+  LikedBy: [
+    { 
+      type: Schema.Types.ObjectId, ref: 'userschema1' 
+    }
+  ],
+  // Comments: [
+  //   {
+  //   commentText:{type: String},
+  //   commentedBy:{type: Schema.Types.ObjectId, ref: 'userschema1'},
+  //   commentDate: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // }
+// ]
+
 });
 
 // Create the signup model
-const Blog =mongoose.models['Blogschema4'] || mongoose.model('Blogschema4', blogSchema);
+const Blog = mongoose.models['Blogschema5'] || mongoose.model('Blogschema5', blogSchema);
 
- export default Blog;
+export default Blog;
