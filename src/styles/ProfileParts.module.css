@@ -1,0 +1,50 @@
+.ProfileAboutDiv{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 120px;
+    margin-left: 120pxpx;
+    margin-right: 120px;
+}
+.note{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.note h3{
+    padding-bottom: 20px;
+}
+.note button {
+    
+        border: none;
+        color:   rgb(122, 114, 114);
+        font-weight: 600;
+    
+        padding: 10px 1px 10px 1px;
+        text-align: center;
+        width: 30%;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 50px;
+        margin-left: 40%;
+        cursor: pointer;
+        border-radius: 25%;
+
+}
+.ProfileListsDiv{
+    display: inline-block;
+    margin-top: 60px;
+    background-color:  #e2e2e2;;
+    
+}
+.ProfileHomeDiv{
+    display: inline-block;
+    margin-top: 50px;
+    background-color:  #e2e2e2;;
+    
+
+}
+
+  
