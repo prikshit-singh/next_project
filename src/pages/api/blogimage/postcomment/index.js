@@ -18,19 +18,22 @@ export default async function handler(req, res) {
                         Comments: {
                             commentText: req.body.commentText,
                             commentedBy: userData._id,
-                            commentDate: req.body.commentDate
+                            commentDate: req.body.commentDate,
+                            commentreplies:[]
                         }
                     }
-                }, { new: true })
+                }, { new: true }).populate('Comments.commentedBy')
                 if (blog) {
                     res.status(200).send({ CODE: 200, blog });
                 } else {
-                    res.status(200).send({ CODE: 405, blog });
+                    res.status(200).send({ CODE: 301, msg: 'please login first' })
                 }
 
             } else {
-                res.status(301).send({ CODE: 301, msg: 'please login first' })
+                res.status(200).send({ CODE: 301, msg: 'please login first' })
             }
+        }else{
+            res.status(200).send({ CODE: 301, msg: 'please login first' })
         }
     } catch (error) {
         return res.status(200).json({ CODE: 401, message: error })

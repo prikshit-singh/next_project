@@ -60,7 +60,7 @@ const Signup = () => {
                 setEmail(e.target.value);
               }}
             />
-            <label>Phome</label>
+            <label>Phone</label>
             <input
               type="number"
               value={phone}

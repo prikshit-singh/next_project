@@ -19,6 +19,7 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
+  
   content: {
     type: String,
     required: true,
@@ -36,6 +37,12 @@ const blogSchema = new Schema({
       type: Schema.Types.ObjectId, ref: 'Signup'
     }
   ],
+  isvarified:{
+    type:String,
+  },
+  description:{
+    type: String,
+  },
   Comments: [
     {
       commentText: { type: String, required: true, },
@@ -44,6 +51,13 @@ const blogSchema = new Schema({
         type: String,
         required: true,
       },
+      commentreplies: [{
+        commentText: { type: String},
+        commentedBy: { type: Schema.Types.ObjectId, ref: 'Signup' },
+        commentDate: {
+          type: String,
+        },
+      }]
     }
   ]
 

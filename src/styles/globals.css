@@ -4,45 +4,4 @@
     padding: 0px;
 }
 
-.sun-editor {
-    border: none !important;
-    border-radius: 4px;
-    overflow: hidden;
-    scrollbar-width: thin; /* For Firefox */
-    scrollbar-color: #111010 #0b0b0b; /* For Firefox */
-  
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-  
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: #f0f0f000; /* Change to your desired color */
-    }
-  
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: #a0a0a063;
-      border-radius: 10px;
-      /* Change to your desired color */
-    }
-  
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: #888; /* Change to your desired color */
-    }
-  }
-  
-  /* Optional: Target the content area of SunEditor */
-  .sun-editor .sun-editor-editable {
-    padding: 20px;
-    /* min-height: 800px; */
 
-    border: none !important;
-    border-bottom: none !important;
-    overflow: hidden;
-    /* border-radius: 4px; */
-  }
-  .sun-editor .se-resizing-bar {
-    display: none !important;
-}

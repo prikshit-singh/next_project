@@ -1,47 +1,166 @@
-.blogDiv{
+
+
+.likeCommentMainDiv{
     display: flex;
-    flex-direction: column;
-    padding-top: 20px;
-    /* word-wrap: wrap; */
-    /* white-space: pre-wrap; */
-    /* word-wrap: break-word; */
-    /* word-break: break-all; */
-}
-.blogDiv h1{
-    align-self: center;
-    /* padding-top: 20px; */
-    /* padding-bottom: 20px; */
+    justify-content: center;
 }
 
-.blogDiv h1 span{
+.likeComment {
+    display: flex;
+    position: absolute;
+    justify-content: space-around;
+    width: 50%;
+    border-bottom: 1px solid rgba(133, 130, 130, 0.195);
+    margin: 0px 0px 0px 0px;
+    align-self: flex-start;
+    justify-self: center;
+}
+
+.likeCommentSubDiv {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 40%;
+    align-items: center;
+}
+
+.uderMetaData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.uderMetaDataItems {
+    padding: 10px 0px 10px 100px;
+    width: 50%;
+    border-bottom: 1px solid rgba(133, 130, 130, 0.195);
+
+}
+
+.uderMetaDataItemDescription {
+    padding-right: 20px;
     align-self: center;
-    /* padding-top: 20px;
-    padding-bottom: 20px; */
+
+
+}
+
+
+
+
+.blogDiv {
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+}
+
+
+.blogDiv h1 span {
+
     font-size: 30px !important;
 }
-.blogDiv p{
-    align-self: center;
-    /* padding-top: 20px;
-    padding-bottom: 20px; */
+
+.blogDiv p {
+
     font-size: 20px;
     line-height: 32px;
 }
-.blogDiv span{
-    align-self: center;
-    /* padding-top: 20px;
-    padding-bottom: 20px; */
+
+.blogDiv span {
+
     font-size: 20px !important;
     line-height: 32px;
 }
 
-.blogDiv pre{
+.blogDiv img {
+    margin: auto !important;
+    padding: 0px;
+    width: 80% !important;
+}
+
+.blogDiv pre {
     border: 1px solid black;
     padding: 30px;
     font-size: 20px;
-    background-color: rgba(220, 217, 217, 0.327);
+    background-color: rgba(124, 121, 121, 0.378);
     border-radius: 20px;
     overflow: auto;
-    /* white-space: pre-wrap;
-    word-wrap: break-word;
-    word-break: break-all; */
+
 }
+
+
+
+.blogContainerMainDiv {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+
+
+
+.likeCommentSubDivIcons {
+    cursor: pointer;
+}
+
+.uderMetaDataItems img {
+    height: 50px;
+}
+
+.blogContainerContentDiv{
+    width: 50%;
+}
+.toggolDialogueMainContainer{
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% ,-50%);
+    background-color: white;
+    box-shadow: 24;
+    padding: 40px;
+    width: 50%;
+}
+@media (min-width: 320px) and (max-width: 680px) {
+    .uderMetaDataItems {
+        padding: 10px 0px 10px 0px;
+        width: 100%;
+        /* border-bottom: 1px solid rgba(133, 130, 130, 0.195); */
+
+    }
+
+    .uderMetaDataItemDescription {
+        padding-right: 0px;
+    }
+
+    .uderMetaDataName {
+        align-self: center;
+    }
+
+    .likeComment {
+        display: flex;
+        position: relative;
+        justify-content: space-around;
+        width: 100%;
+        
+    }
+    .blogContainerContentDiv{
+        padding: 10px;
+        width: 100%;
+    }
+    .blogContainerContentDiv img{
+        width: 100% !important;
+    }
+    .blogContainerContentDiv figure{
+        width: 80% !important;
+
+    }
+    .toggolDialogueMainContainer{
+        /* margin-bottom: 60px; */
+        width: 100%;
+    }
+
+}
+

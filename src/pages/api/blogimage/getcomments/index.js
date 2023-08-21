@@ -8,7 +8,7 @@ import { connectDB } from '@/pages/api/users/dbconfig/dbconfig.js'
 export default async function handler(req, res) {
     try {
         await connectDB()
-            const blog = await Blog.findById({ _id: req.headers.blogid }).populate('Comments.commentedBy')
+            const blog = await Blog.findById({ _id: req.headers.blogid }).populate('writtenby').populate('Comments.commentedBy').populate('Comments.commentreplies.commentedBy')
             console.log(blog)
             if (blog) {
                 res.status(200).send({ CODE: 200, blog });

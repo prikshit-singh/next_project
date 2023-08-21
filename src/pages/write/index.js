@@ -18,20 +18,13 @@ function Write() {
     return (
         <>
             <Navbar />
-            {openDialogue ?
+           
                 <div className={styles.editorScreen}>
                     <div className={styles.EditorMainDiv}>
                         <CustomEditor />
                     </div>
                 </div>
-                :
-                <>
-                    {/* <Navbar /> */}
-
-                    <Publish />
-
-                </>
-            }
+                
         </>
     );
 }

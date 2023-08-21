@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import Cookies from 'js-cookie';
 import Loader from './Loader';
+import {  toast } from 'react-toastify';
 
 export default function withAuth(WrappedComponent) {
     return function WithAuth(props) {
@@ -19,27 +20,29 @@ export default function withAuth(WrappedComponent) {
             const cookieValue = await Cookies.get('token')
             if(cookieValue){
                 const res = await axios.post('/api/varifytoken', { token: cookieValue })
-                console.log(111, cookieValue, res)
-    
                 if (res.data.CODE === 200) {
                     console.log(res)
                     // document.cookie = "token=" + res.data.token;
                     setIsAuthenticated(true)
-    
                     // router.push('/write')
                     return true
                 } else if (res.data.CODE === 401) {
                     console.log(res)
                     // document.cookie = "token=" + res.data.token;
+                    toast('Please Login First', { hideProgressBar: false, autoClose: 2000, type: 'warning' })
                     router.push('/login')
                     setIsAuthenticated(false)
                     return false
                 } else {
+                    toast('Please Login First', { hideProgressBar: false, autoClose: 2000, type: 'warning' })
+
                     router.push('/login')
                     setIsAuthenticated(false)
                     return false
                 }
             }else{
+                toast('Please Login First', { hideProgressBar: false, autoClose: 2000, type: 'warning' })
+
                 router.push('/login')
                 return false
             }
@@ -47,7 +50,6 @@ export default function withAuth(WrappedComponent) {
 
         }
         // Render the component if authenticated, or loading/spinner otherwise
-        console.log(isAuthenticated)
         if (isAuthenticated) {
             return <WrappedComponent {...props} />;
         }

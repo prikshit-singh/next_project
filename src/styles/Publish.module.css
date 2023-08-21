@@ -1,9 +1,11 @@
 .crossBtn{
     display: flex;
     justify-content: end;
-    width: 80%;
-    margin-top: 131px;
-    padding-right: 8%;
+    cursor: pointer;
+    
+    /* width: 80%; */
+    /* margin-top: 131px; */
+    /* padding-right: 8%; */
 }
 
 .modelDiv{
@@ -15,15 +17,15 @@
     padding-bottom: 50px;
 }
 .publishMainDiv {
-     width:80%;
+     /* width:80%; */
     display: grid;
     /* border: 1px solid red; */
 
     /* position: absolute; */
     justify-content: center;
     grid-template-columns: 40% 40%;
-    grid-gap: 55px;
-    padding-top: 50px;
+    grid-gap: 50px;
+    padding-top: 20px;
   }
   
   .imageBox {
@@ -41,7 +43,7 @@
     height: 30px;
     border: none;
     border-bottom: 1px solid black;
-    width: 80%;
+    width: 100%;
     margin-top: 50px;
     outline: none;
     
@@ -87,4 +89,15 @@
      width: 120px;
      border-radius: 1em;
      border: none;
+  }
+  @media (min-width: 320px) and (max-width: 680px) {
+    .publishMainDiv {
+      display: block;
+   
+   }
+   .imageBox {
+    display: block;
+   
+  }
+  
   }

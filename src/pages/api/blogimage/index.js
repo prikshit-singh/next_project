@@ -107,7 +107,10 @@ export default async function handler(req, res) {
               image: imageContent,
               date: fields.date[0],
               writtenby: userData[0]._id,
-              LikedBy:[]
+              LikedBy:[],
+              isvarified:'false',
+              description:'',
+              Comments:[],
             });
             const result = await blog.save()
             // console.log(result)

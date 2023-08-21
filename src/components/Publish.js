@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import {  toast } from 'react-toastify';
 import dynamic from "next/dynamic";
 import Cookies from 'js-cookie';
+import {Icon} from 'semantic-ui-react'
 // const Files = dynamic(() => import("react-files").then((a) => a), {
 //     ssr: false,
 //   });
@@ -46,16 +47,12 @@ function Publish(props) {
                 'Content-Type': 'multipart/form-data',
             },
         })
-    console.log('content', res)
 
         if (res.data.CODE === 200) {
-            toast('Uploaded successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
-           
-            setTimeout(function () {
-                router.push('/')
-            }, 1000);
-            
-           
+            toast('Uploaded successfully', { hideProgressBar: false,autoClose: 2000,  type: 'success' })
+            // dispatch(toggolDialogue(false))
+            // router.push('/')
+    
         }else{
             toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
 
@@ -69,7 +66,12 @@ function Publish(props) {
     return (
         <>
             <div className={styles.crossBtn}>
-                <Close onClick={() => { dispatch(toggolDialogue(true)) }} />
+                {/* <Close  /> */}
+                <Icon  
+                size='big' 
+                name='close' 
+                color='grey' 
+                onClick={() => { dispatch(toggolDialogue(false)) }} />
 
             </div>
            

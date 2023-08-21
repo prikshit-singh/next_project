@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ['latin'] })
 import Cookies from 'js-cookie';
 
 
-export default function Home() {
+ function Home(props) {
   const [blogs, setBlogs] = useState([])
   const [loader, setLoader] = useState(true)
   const router = useRouter()
@@ -26,10 +26,9 @@ export default function Home() {
     dispatch(toggolDialogue(true))
   }, [])
   const getBlogs = async () => {
-
-    let blogs = await axios.get('/api/getblogs')
-    if (blogs.data.CODE === 200) {
-      setBlogs(blogs.data.blog)
+    // let blogs = await axios.get('/api/getblogs')
+    if (props.res.CODE === 200) {
+      setBlogs(props.res.blog)
       setLoader(false)
     }
   }
@@ -60,9 +59,7 @@ export default function Home() {
             <h3>Coading</h3>
             <p>Category description here.. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam error eius quo, officiis non maxime quos reiciendis perferendis doloremque maiores!</p>
           </div>
-          <div className={styles.containerRow}>
-
-          </div>
+         
 
         </div>
 
@@ -77,12 +74,10 @@ export default function Home() {
 
               <div key={index} className={styles.cardMainDiv} >
                 <img
-                  // className={styles.imageStyle}
+                  className={styles.cardMainDivImageStyle}
                   src={data.image}
-                  width={200}
                   alt='image'
                   priority={true}
-                  height={200}
                 ></img>
                 <div className={styles.cardContent}>
                   <span>CATAGORY</span>
@@ -94,10 +89,10 @@ export default function Home() {
                       className={styles.imageStyleWriter}
                       // src={`https://images.unsplash.com/photo-1684007897270-c7f12ff4e01c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80`}
                       src={data.image}
-                      width={30}
+                      
                       alt='image'
                       priority={true}
-                      height={30}></img>
+                      ></img>
                     <span>By</span>
                     <p>{data.writtenby.name} {data.writtenby.lastname}</p>
                     <span>{newTimeString}</span>
@@ -123,4 +118,22 @@ export default function Home() {
   )
 }
 
+
+export const getServerSideProps = async (context) => {
+  try {
+    const res = await axios.get(`${process.env.DOMAIN_NAME}/api/getblogs`)
+    return {
+      props: {
+        res:res.data
+      }
+    };
+  } catch (error) {
+    console.log(error)
+    return {
+      props: {}
+    };
+  }
+ 
+}
 // Home.Layout = Layout
+export default Home;
