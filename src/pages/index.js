@@ -122,6 +122,7 @@ import Cookies from 'js-cookie';
 export const getServerSideProps = async (context) => {
   try {
     const res = await axios.get(`${process.env.DOMAIN_NAME}/api/getblogs`)
+    console.log(res.data.CODE,res.data.blog)
     return {
       props: {
         res:res.data

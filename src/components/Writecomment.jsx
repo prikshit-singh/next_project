@@ -25,7 +25,7 @@ const {
 import { Button, Comment, Form, Header,Icon } from 'semantic-ui-react'
 
 import 'suneditor/dist/css/suneditor.min.css';
-
+import Cookies from "js-cookie";
 import styles from "../styles/Writecomment.module.css";
 import { Search, Close } from "@mui/icons-material";
 
@@ -57,7 +57,8 @@ const Writecomment = (props) => {
         let ID = slug1.split('-').reverse()[0]
         let comments = await axios.post('/api/blogimage/getcomments', {}, {
             headers: {
-                blogId: ID
+                blogId: ID,
+                token:await Cookies.get('token')
             }
         })
         if (comments.data.CODE === 200) {
@@ -77,7 +78,8 @@ const Writecomment = (props) => {
         }
         let COMMENTS = await axios.post('/api/blogimage/postcomment', data, {
             headers: {
-                blogId: ID
+                blogId: ID,
+                token:await Cookies.get('token')
             }
         })
         if(COMMENTS.data.CODE ===200){
@@ -103,6 +105,7 @@ const Writecomment = (props) => {
         let comment = await axios.post('/api/blogimage/replycomment', data, {
             headers: {
                 blogId: ID,
+                token:await Cookies.get('token'),
                 commentId: selectedComment._id
             }
         })
