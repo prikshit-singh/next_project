@@ -19,13 +19,17 @@ export default async function handler(req, res) {
     const signup = await new Signup({
       name: req.body.firstName,
       lastname: req.body.lastName,
-      userName:'',
+      userName:`${Date.now()}`,
       userImage:'',
       profession:'',
       phone: parseInt(req.body.phone),
       email: req.body.email,
       password: req.body.password,
-
+      roles:[],
+      isvarify:'false',
+      isvarifiedWriter:'',
+      bio:'',
+      usermeta:[],
       date: Date.now(),
       });
       const result = await signup.save()

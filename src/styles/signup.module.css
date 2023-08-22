@@ -103,3 +103,14 @@
   /* left: 0%; */
   right: 45%;
 }
+
+@media (min-width: 320px) and (max-width: 680px) {
+  .signupbox {
+    width: 90%;
+  }
+  .loginbox {
+    width: 90%;
+   
+  }
+
+}

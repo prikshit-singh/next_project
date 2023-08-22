@@ -20,28 +20,27 @@ const CategoryNav = () => {
   const stickeyStyle = {
     position: "fixed",
     top: 0,
+    zIndex:1
     // marginTop: '-50px'
   };
   const secNavItems = [
-    "trendingNow0",
-    "trendingNow1",
-    "trendingNow2",
-    "trendingNow3",
-    "trendingNow4",
-    "trendingNow5",
-    "trendingNow6",
-    "trendingNow7",
-    "trendingNow8",
-    "trendingNow9",
-    "trendingNow10",
-    "trendingNow11",
-    "trendingNow12",
-    "trendingNow13",
-    "trendingNow14",
-    "trendingNow15",
-    "trendingNow16",
-  ];
-
+    { type : 1 , name : " Data Structures", subcategory: "" },
+    { type :2 , name : " Algorithms " , subcategory : "" },
+    {  type :3, name : " JavaScript " , subcategory : "" },
+    { type :4, name : " Technology" , subcategory : "" },
+    { type :5, name : "Design" , subcategory : "" },
+    { type :7, name : "Web Development",subcategory : "" },
+    { type :8, name : "ReactJs" , subcategory : "" },
+    { type :9, name : " Programming" , subcategory : "" },
+    { type :10, name : "Data Science" , subcategory : "" },
+    { type : 11, name : "Python " , subcategory : "" },
+    { type : 12, name : "C++" , subcategory : "" },
+    { type :13 , name : "C" , subcategory : "" },
+    { type : 14, name : "NodeJs " , subcategory : "" },
+    { type :15 , name : "Interview Preparation " , subcategory : "" },
+    { type :16 , name : "Machine Learning" , subcategory : "" },
+    { type : 17, name : "Java" , subcategory : "" },
+]
   return (
     <>
       <div
@@ -60,7 +59,7 @@ const CategoryNav = () => {
                 return (
               
                 <Link key={index} className={styles.navLinks} href="/">
-                  Trending Now
+                  {data.name}
                 </Link>
               
             );

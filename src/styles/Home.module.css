@@ -2,7 +2,7 @@
 .headerBanner{
     display: flex;
     justify-content: center;
-    width: 100%;
+    /* width: 100%; */
     background-color: #e2e2e2;
     padding-bottom: 3rem;
      margin-top: .3rem;
@@ -10,9 +10,9 @@
 
 }
 
-.container,.containerColumn{
+/* .container,.containerColumn{
     width: 1200px;
-}
+} */
 
 
 .container p{
@@ -36,17 +36,20 @@
     padding-bottom: 40px;
     width: 70%;
 }
-.imageStyle{
+/* .imageStyle{
     width: 100% !important;
-}
+} */
 .cardMainDiv{
     display: flex;
     /* border: 1px solid black; */
     /* background-color: rgba(244, 240, 240, 0.545); */
-    display: flex;
     background-color: hsla(0,15%,95%,.545);
     box-shadow: 0px 0px 10px 0px rgba(170, 170, 171, 11.2);
     border-radius: 20px;
+}
+.cardMainDivImageStyle{
+   height: 200px;
+   width: 200px;
 }
 
 .cardMainDiv span{
@@ -64,9 +67,15 @@
     margin: 10px;
 }
 
+
+
 .writerInfo{
     display: flex;
     align-items: center;
+}
+.writerInfo img{
+    height: 30px;
+    width: 30px;
 }
 .writerInfo span{
  color :gray;
@@ -90,3 +99,27 @@
    -webkit-line-clamp: 5;
    white-space: pre-wrap;
 }
+
+
+@media (min-width: 320px) and (max-width: 680px) {
+    .Search {
+      display: none;
+    }
+    .containerRow{
+        width: 100%;
+        padding-right: 20px;
+        padding-left: 30px;
+    }
+
+    .homeContentDiv{
+       width: 90%;
+    }
+    .cardMainDiv{
+       flex-direction: column;
+    }
+    .cardMainDivImageStyle{
+        height: 200px;
+        width: 100%;
+     }
+  
+  }

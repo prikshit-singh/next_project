@@ -1,12 +1,38 @@
-import { configureStore } from "@reduxjs/toolkit";
-import editorSlice  from "../slices/editorSlice";
-import  publisherDialogueSlice  from "../slices/piblisherDialogueSlice";
+"use client"
+
+import { configureStore,combineReducers} from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import editorSlice from "../slices/editorSlice";
+import publisherDialogueSlice from "../slices/piblisherDialogueSlice";
+import userData from "../slices/user/user";
+import blogData from "../slices/blog/blog";
+const middleware = (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+        serializableCheck:false
+    });
+
+    const persistConfig = {
+        key: 'root', // Key for local storage
+        storage,
+      };
+           
+
+const reducers = {
+    editorSlice,
+    publisherDialogueSlice,
+    userData,
+    blogData,
+}
+
+// const persistedReducer = persistReducer(persistConfig, combineReducers(reducers)); 
 
 
-//Global store
-export const store = configureStore({
-    reducer: {
-        editorSlice: editorSlice,
-        publisherDialogueSlice:publisherDialogueSlice,
-    },
-  })
+let store = configureStore({
+    reducer: reducers,
+    // middleware,
+});
+
+// export const persistor = persistStore(store);
+
+export default store 

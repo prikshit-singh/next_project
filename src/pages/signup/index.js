@@ -9,7 +9,7 @@ const Signup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState(null);
+  const [phone, setPhone] = useState();
   const [password, setPassword] = useState("");
   const router = useRouter()
   const handleSignup = async () => {
@@ -60,7 +60,7 @@ const Signup = () => {
                 setEmail(e.target.value);
               }}
             />
-            <label>Phome</label>
+            <label>Phone</label>
             <input
               type="number"
               value={phone}

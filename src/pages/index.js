@@ -16,9 +16,9 @@ const inter = Inter({ subsets: ['latin'] })
 import Cookies from 'js-cookie';
 
 
-export default function Home() {
+ function Home(props) {
   const [blogs, setBlogs] = useState([])
-  const[loader,setLoader]=useState(true)
+  const [loader, setLoader] = useState(true)
   const router = useRouter()
   const dispatch = useDispatch()
   useEffect(() => {
@@ -26,10 +26,9 @@ export default function Home() {
     dispatch(toggolDialogue(true))
   }, [])
   const getBlogs = async () => {
-   
-    let blogs = await axios.get('/api/getblogs')
-    if (blogs.data.CODE === 200) {
-      setBlogs(blogs.data.blog)
+    // let blogs = await axios.get('/api/getblogs')
+    if (props.res.CODE === 200) {
+      setBlogs(props.res.blog)
       setLoader(false)
     }
   }
@@ -38,39 +37,29 @@ export default function Home() {
     router.push(`/blog/${data.title.split(' ').join('-')}-${data._id}`)
   }
 
-  const likeBlog = async (data)=>{
-    let token = Cookies.get('token')
-    
-    let blogs = await axios.post('/api/blogimage/updatelikedby',{},{
-      headers: {
-          blogId:data._id
-      }
-  })
-    console.log(blogs)
-    
-  }
+  
+
+
   return (
     <>
-{loader ? <Loader/> :null}
+      {loader ? <Loader /> : null}
 
       <Head>
         <title>GitGurus</title>
       </Head>
-    <Navbar/>
+      <Navbar />
 
-      <CategoryNav fill="green" style={{background:'rgb(233, 231, 231)'}}/> 
+      <CategoryNav fill="green" style={{ background: 'rgb(233, 231, 231)' }} />
 
       {/* #f8f9fa!important */}
-       <div className={styles.headerBanner}>
+      <div className={styles.headerBanner}>
         <div className={styles.container}>
           <div className={styles.containerRow}>
             <span>Category</span>
             <h3>Coading</h3>
             <p>Category description here.. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam error eius quo, officiis non maxime quos reiciendis perferendis doloremque maiores!</p>
           </div>
-          <div className={styles.containerRow}>
-
-          </div>
+         
 
         </div>
 
@@ -80,32 +69,30 @@ export default function Home() {
         <div className={styles.containerColumn}>
           {blogs.map((data, index) => {
             let time = new Date(parseInt(data.date));
-            let newTimeString = time.toLocaleTimeString()+' '+time.toLocaleDateString()
+            let newTimeString = time.toLocaleTimeString() + ' ' + time.toLocaleDateString()
             return (
 
               <div key={index} className={styles.cardMainDiv} >
                 <img
-                  // className={styles.imageStyle}
+                  className={styles.cardMainDivImageStyle}
                   src={data.image}
-                  width={200}
                   alt='image'
                   priority={true}
-                  height={200}
                 ></img>
                 <div className={styles.cardContent}>
                   <span>CATAGORY</span>
                   <h3 onClick={() => {
-                readBlog(data)
-              }}>{data.title}</h3>
+                    readBlog(data)
+                  }}>{data.title}</h3>
                   <div className={styles.writerInfo}>
                     <img
                       className={styles.imageStyleWriter}
                       // src={`https://images.unsplash.com/photo-1684007897270-c7f12ff4e01c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80`}
                       src={data.image}
-                      width={30}
+                      
                       alt='image'
                       priority={true}
-                      height={30}></img>
+                      ></img>
                     <span>By</span>
                     <p>{data.writtenby.name} {data.writtenby.lastname}</p>
                     <span>{newTimeString}</span>
@@ -115,7 +102,6 @@ export default function Home() {
                 </div>
 
 
-                <p onClick={()=>likeBlog(data)}>Like</p>
               </div>
 
             )
@@ -126,10 +112,28 @@ export default function Home() {
 
 
         </div>
-      </div> 
+      </div>
 
     </>
   )
 }
 
+
+export const getServerSideProps = async (context) => {
+  try {
+    const res = await axios.get(`${process.env.DOMAIN_NAME}/api/getblogs`)
+    return {
+      props: {
+        res:res.data
+      }
+    };
+  } catch (error) {
+    console.log(error)
+    return {
+      props: {}
+    };
+  }
+ 
+}
 // Home.Layout = Layout
+export default Home;

@@ -17,6 +17,6 @@ export const editorSlice = createSlice({
 })
 
 export const { updateEditorContent } = editorSlice.actions;
-export const editorContent = (state) => state.content;
+// export const editorContent = (state) => state.content;
 
 export default editorSlice.reducer;

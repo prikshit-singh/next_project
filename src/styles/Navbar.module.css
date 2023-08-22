@@ -1,43 +1,39 @@
 .navBarMainDiv {
-    
-    /* position: fixed; */
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 100%;
 
-    top: 0;
-    background-color: #a8a8a8;
+  /* position: fixed; */
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
 
-    z-index: 999;
-    
-    /* border: 1px solid black; */
+  top: 0;
+  background-color: #a8a8a8;
 
 }
 
 .navBarSeconderyDiv {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
 
 }
 
 .dialogueBox {
-    flex-direction: column;
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 999;
-    /* top: 60px; */
-    right: 0;
-    background-color: #a8a8a8;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
+  flex-direction: column;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 999;
+  top: 00px;
+  right: 0;
+  background-color: #a8a8a8;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
 }
 
 .navLinks {
-    /* display: flex;
+  /* display: flex;
     padding: 10px;
     text-decoration: none; */
   padding: 8px 8px 8px 32px;
@@ -46,59 +42,88 @@
   color: #180101;
   display: block;
   transition: 0.3s;
-    
+
 }
- 
+
 
 .navLinks:hover {
-    background-color: rgb(233, 231, 231);
+  background-color: rgb(233, 231, 231);
 }
 
- .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
-  
-  @media screen and (max-height: 450px) {
+.closebtn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  -webkit-text-fill-color: gray;
+  font-size: 36px;
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  -webkit-text-fill-color: black;
+
+}
+
+/* @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
-  }
+  } */
 
 .logoDiv {
-   
-    padding-left: 15px;
-    
+
+  padding-left: 15px;
+
 
 
 }
 
 .navigationDiv {
-    align-items: right;
-    padding-right: 20px;
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
 
 
 }
 
 .navBarMainDiv a {
-    padding-right: 20px;
+  padding-right: 20px;
 }
 
 .Search {
-    
-    display: flex;
-   width: 30%;
-   border: none;
-    
+
+  display: flex;
+  width: 30%;
+  border: none;
+
 }
-.Search input{
-    padding: 3px;
-    padding-left: 17px;
-    border-radius: 25px;
-    font-size: 1.3rem;
-    border: 2px solid #f4f6f7;
-    outline: none;
+
+.Search input {
+  padding: 3px;
+  padding-left: 17px;
+  border-radius: 25px;
+  font-size: 1.3rem;
+  border: 2px solid #f4f6f7;
+  outline: none;
 }
-    
+
+.publishButton {
+  margin-right: 30px
+}
+
+.publishButton button {
+  border: none;
+  background-color: #1a8917;
+  padding: 8px;
+  color: white;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+@media (min-width: 320px) and (max-width: 680px) {
+  .Search {
+    display: none;
+  }
+
+}

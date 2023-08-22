@@ -4,15 +4,13 @@ var Schema = mongoose.Schema;
 const signupSchema = new Schema({
   name: {
     type: String,
-    required: true,
   },
   lastname:{
     type: String,
-    required: true,
   },
   userName:{
     type: String,
-    // unique: true,
+    unique: true,
   },
   userImage:{
     type: String,
@@ -22,25 +20,32 @@ const signupSchema = new Schema({
   },
   phone: {
     type: Number,
-    required: true,
     unique: true,
   },
   email:{
     type: String,
     required: true,
-    unique: true,
   },
   password:{
     type: String,
-    required: true,
   },
+  roles:[],
+  isvarify:{
+    type:'String'
+  },
+  isvarifiedWriter:{
+    type:'String'
+  },
+  bio:{
+    type:'String'
+  },
+  usermeta:[],
   date:{
     type: String,
-    required: true,
   },
 });
 
 // Create the signup model
-const Signup =mongoose.models.Userschema1 || mongoose.model('Userschema1', signupSchema);
+const Signup =mongoose.models.Signup || mongoose.model('Signup', signupSchema);
 
  export default Signup;

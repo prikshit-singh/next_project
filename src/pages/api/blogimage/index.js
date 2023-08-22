@@ -98,8 +98,6 @@ export default async function handler(req, res) {
          if(user){
          var userData =await Signup.find({email:user.email})
          }
-         console.log(userData[0]._id)
-         
             const blog = await new Blog({
               title: fields.title[0],
               subtitle: fields.subtitle[0],
@@ -109,15 +107,15 @@ export default async function handler(req, res) {
               image: imageContent,
               date: fields.date[0],
               writtenby: userData[0]._id,
-              LikedBy:[]
+              LikedBy:[],
+              isvarified:'false',
+              description:'',
+              Comments:[],
             });
             const result = await blog.save()
             // console.log(result)
             return res.status(200).json({CODE:200, result })
-          
-
           // res.status(200).send({ msg: 'file stored successfully' })
-
         });
       }
     });
