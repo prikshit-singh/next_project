@@ -7,7 +7,7 @@ import Blog from '../../models/blog';
 export default async function handler(req, res) {
     try {
         await connectDB()
-        let cookies = req.headers.cookie
+        let cookies =  req.headers.token
         let token = ''
         const newCommentReply = {
             commentText: 'New reply text',
@@ -15,8 +15,7 @@ export default async function handler(req, res) {
             commentDate: '2023-08-19', // The date of the reply
         };
         if (cookies) {
-            token = cookies.split('token=')[1]
-            let userData = await varifyuser(token)
+            let userData = await varifyuser(cookies)
             if (userData) {
                 const blog = await Blog.findOneAndUpdate({ _id: req.headers.blogid, 'Comments._id': req.headers.commentid }, {
                     $push: {

@@ -7,11 +7,9 @@ import Blog from '../../models/blog';
 export default async function handler(req, res) {
     try {
         await connectDB()
-        let cookies = req.headers.cookie
-        let token = ''
+        let cookies =  req.headers.token
         if (cookies) {
-            token = cookies.split('token=')[1]
-            let userData = await varifyuser(token)
+            let userData = await varifyuser(cookies)
             if (userData) {
                 const blog = await Blog.findOneAndUpdate({ _id: req.headers.blogid }, {
                     $push: {

@@ -7,15 +7,12 @@ import Blog from '../../models/blog';
 export default async function handler(req, res) {
   try {
     await connectDB()
-    let cookies =await req.headers.cookie
+    console.log('request',req.headers.token)
+    let cookies = req.headers.token
     let token=''
     if(cookies){
-        token= cookies.split('token=')[1]
-
-        let userData = await varifyuser(token)
-    console.log('cookies',token)
-
-        console.log('userData',userData)
+        // token= cookies.split('token=')[1]
+        let userData = await varifyuser(cookies)
         if(userData){
             let findBlog =await Blog.findById({_id:req.headers.blogid})
             let userExist = await findBlog.LikedBy.filter((data)=> data.toString()===userData._id)
@@ -37,6 +34,8 @@ export default async function handler(req, res) {
         }else{
             res.status(200).send({CODE:301,msg:'please login first'})
         }
+    }else{
+      res.status(200).send({CODE:301,msg:'please login first'})
     }
   } catch (error) {
     return res.status(200).json({CODE:401,message:error })

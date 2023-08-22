@@ -85,7 +85,8 @@ function Page(props) {
     let ID = slug1.split('-').reverse()[0]
     let blogs = await axios.post('/api/blogimage/updatelikedby', {}, {
       headers: {
-        blogId: ID
+        blogId: ID,
+        token: await Cookies.get('token')
       }
     })
 
@@ -116,6 +117,15 @@ function Page(props) {
 
         <meta data-rh="true" name="description" content={title}></meta>
         <meta data-rh="true" property="og:description" content={title}></meta>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta property="title" content={title}/>
+        <meta name="keywords" content={title} />
+        <meta property="og:title" content={title} />
+        <meta property="og:images" content="https://gitgurus.com/nLogo.png" />
+        <meta property="og:url" content="https://gitgurus.com/" />
+        <meta property="og:site_name" content="gitgurus" />
+        <meta property="og:type" content="Website" />
       </Head>
 
       <Navbar />
@@ -182,8 +192,8 @@ function Page(props) {
           </div>
         </div>
       </div>
-     
-     
+
+
       <div className={style.blogContainerMainDiv}  >
         <div className={style.blogContainerContentDiv} dangerouslySetInnerHTML={{ __html: content }} />
       </div >
