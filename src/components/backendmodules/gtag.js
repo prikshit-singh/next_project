@@ -1,7 +1,7 @@
-export const GA_MEASUREMENT_ID = process.env.GA_MEASUREMENT_ID;
+export const GA_MEASUREMENT_ID = 'G-RBQ5TWCSZ7';
 export const pageview = () => {
-  window.gtag("config", GA_MEASUREMENT_ID, {
-    page_path: url,
+  window.gtag("config", 'G-RBQ5TWCSZ7', {
+    page_path: 'www.gitgurus.com',
   });
 };
  

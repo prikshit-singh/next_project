@@ -1,4 +1,5 @@
 import styles from '../styles/ProfileParts.module.css'
+import ProfileComponent from './ProfileComponent';
 const ProfileHome = () => {
     return (
         <>

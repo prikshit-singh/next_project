@@ -27,10 +27,11 @@ import Cookies from 'js-cookie';
   }, [])
   const getBlogs = async () => {
     // let blogs = await axios.get('/api/getblogs')
-    if (props.res.CODE === 200) {
+    console.log(props.res)
+    // if (props.res.CODE === 200) {
       setBlogs(props.res.blog)
       setLoader(false)
-    }
+    // }
   }
 
   const readBlog = (data) => {
@@ -123,11 +124,14 @@ export const getServerSideProps = async (context) => {
   try {
     const res = await axios.get(`${process.env.DOMAIN_NAME}/api/getblogs`)
     console.log(res.data.CODE,res.data.blog)
-    return {
-      props: {
-        res:res.data
-      }
-    };
+    if(res.data.CODE === 200){
+      return {
+        props: {
+          res:res.data
+        }
+      };
+    }
+   
   } catch (error) {
     console.log(error)
     return {

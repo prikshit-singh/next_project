@@ -59,7 +59,7 @@ const ProfileComponent = () => {
             </div>
           </div>
           <div className={styles.divTwo}>
-            <div className={styles.name}>{name[0].toUpperCase()}</div>
+            {/* <div className={styles.name}>{name[0].toUpperCase()}</div> */}
             <div>
               <h3 className={styles.author}> Anju malik</h3>
               <div>

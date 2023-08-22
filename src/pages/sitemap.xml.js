@@ -8,14 +8,21 @@ function generateSiteMap(posts) {
          <loc>https://gitgurus.com</loc>
        </url>
        <url>
-         <loc>https://gitgurus.com</loc>
+         <loc>https://gitgurus.com/write</loc>
+       </url>
+       <url>
+         <loc>https://gitgurus.com/login</loc>
+       </url>
+       <url>
+         <loc>https://gitgurus.com/signup</loc>
        </url>
        ${posts
             .map((data) => {
                 return `
          <url>
-             <loc>${`https://gitgurus.com/blog/${data.title.split(' ').join('-')}-${data._id}`}</loc>
+             <loc>${`https://gitgurus.com/blog/${data}`}</loc>
          </url>
+        
        `;
             })
             .join('')}
@@ -28,20 +35,25 @@ function SiteMap() {
 }
 
 export async function getServerSideProps({ res }) {
-   
+
     try {
         const blog = await axios.get(`https://gitgurus.com/api/getblogs`)
-        
-        blog.data.blog
-        if(blog.data.CODE===200){
-            const sitemap = generateSiteMap(blog.data.blog);
+        console.log(new Date())
+        const slugObj = await blog.data.blog.map((data) => {
+            const slug1 = data.slug.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-') + '-' + `${data._id}`
+            return slug1.replaceAll('--', '-');
+        })
+
+        console.log(slugObj)
+        if (blog.data.CODE === 200) {
+            const sitemap = generateSiteMap(slugObj);
 
             res.setHeader('Content-Type', 'text/xml');
             // we send the XML to the browser
             res.write(sitemap);
             res.end();
         }
-        
+
 
         return {
             props: {},
