@@ -65,8 +65,6 @@ function Publish(props) {
 
     return (
         <>
-
-        
             <div className={styles.crossBtn}>
                 {/* <Close  /> */}
                 <Icon  
