@@ -63,8 +63,7 @@ const ProfileComponent = () => {
             <div>
               <h3 className={styles.author}> Anju malik</h3>
               <div>
-                {" "}
-                <p
+               <p
                   className={styles.edit}
                   onClick={() => {
                     setShowEdit(true);

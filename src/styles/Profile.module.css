@@ -66,6 +66,7 @@ cursor: pointer;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
   }
   .author{
+    padding-top: 120px;
     display: flex;
     flex-direction:column ;
     margin: 110px 0px 20px 10px;
@@ -74,9 +75,10 @@ cursor: pointer;
     cursor: pointer;
     font-weight: 500;
     font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 }
 .edit{
-    
+     padding-top: 30px;
      color : rgb(120, 172, 120);
      margin-left: 10px;
      cursor: pointer;
