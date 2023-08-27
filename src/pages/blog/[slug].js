@@ -63,7 +63,7 @@ function Page(props) {
     // }
   }, [router.pathname]);
   const paragraph = <img alt='user image' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-
+console={.log(paragraph)}
   const getBlogById = async () => {
     let slug1 = window.location.pathname.split('/').reverse()[0]
     let ID = slug1.split('-').reverse()[0]
