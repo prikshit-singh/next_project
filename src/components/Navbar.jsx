@@ -3,7 +3,7 @@ import Link from "next/link";
 import logo from '../../public/Logo.jpg'
 import { useDispatch, useSelector } from "react-redux";
 import { updateEditorContent } from "../../slices/editorSlice";
-import { toggolDialogue } from "../../slices/piblisherDialogueSlice";
+import { toggolDialogue } from "../../slices/publisherDialogueSlice";
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import {
@@ -24,6 +24,7 @@ function Navbar(props) {
   const [dialogue, setDialogue] = useState(false)
 const dispatch = useDispatch()
   const handleRequest = () => {
+    console.log('handleRequest')
     // dispatch(updateEditorContent(editor.current.getContents()));
     dispatch(toggolDialogue(true));
   };
@@ -50,6 +51,7 @@ const dispatch = useDispatch()
             {typeof(window) != 'undefined' && window.location.href === 'https://gitgurus.com/write' ?  <button
                 // className={styles.publishButton}
                 onClick={() => {
+                  console.log('clicked')
                   handleRequest();
                 }}
               >

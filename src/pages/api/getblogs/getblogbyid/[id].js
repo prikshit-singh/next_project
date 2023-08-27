@@ -19,11 +19,17 @@ export default async function handler(req, res) {
     await connectDB()
     // console.log(req.body.id)
     const { id } = await req.query
-    console.log('id',id)
+    // console.log('id',id)
 
     const blog = await Blog.findOne({ _id: id }).populate('writtenby')
     if (blog) {
-      return res.status(200).json({ CODE: 200, blog: blog })
+      // let newTimeString = time.toLocaleDateString() + ' ' + time.toLocaleTimeString()
+      let slug1 =await blog.slug.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-') + '-' + `${blog._id}`
+      slug1 = `https://gitgurus.com/blog/${slug1}`
+      slug1= slug1.replaceAll('--','-')
+      // console.log('blog', slug1)
+
+      return res.status(200).json({ CODE: 200, blog: blog,url:slug1 })
 
     }
   } catch (error) {

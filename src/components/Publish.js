@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from 'react-redux';
-import { toggolDialogue } from '../../slices/piblisherDialogueSlice';
+import { toggolDialogue } from '../../slices/publisherDialogueSlice';
 import Files from 'react-files'
 import myImg from "../utils/img.png";
 import { AccessAlarm, ThreeDRotation, Close } from '@mui/icons-material';
@@ -50,7 +50,7 @@ function Publish(props) {
 
         if (res.data.CODE === 200) {
             toast('Uploaded successfully', { hideProgressBar: false,autoClose: 2000,  type: 'success' })
-            // dispatch(toggolDialogue(false))
+            dispatch(toggolDialogue(false))
             // router.push('/')
     
         }else{
@@ -71,7 +71,9 @@ function Publish(props) {
                 size='big' 
                 name='close' 
                 color='grey' 
-                onClick={() => { dispatch(toggolDialogue(false)) }} />
+                onClick={() => { dispatch(toggolDialogue(false)) }} 
+
+                />
 
             </div>
            

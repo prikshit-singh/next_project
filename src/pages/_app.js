@@ -16,6 +16,7 @@ import 'semantic-ui-css/semantic.min.css'
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/globals.css'
+import Head from 'next/head';
 
 
 function App({ Component, pageProps }) {
@@ -38,7 +39,7 @@ function App({ Component, pageProps }) {
 
   return (
     <>
-      <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-RBQ5TWCSZ7"></Script>
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-RBQ5TWCSZ7"></Script>
       <Script
         id='google-analytics'
         strategy="afterInteractive"
@@ -53,6 +54,14 @@ function App({ Component, pageProps }) {
         `,
         }}
       />
+
+      <Head>
+      <meta name="robots" content="all" />
+      <meta name="google" content="nositelinkssearchbox" key="sitelinks" />
+        <meta name="google" content="notranslate" key="notranslate" />
+        {/* <link rel="canonical" href="https://gitgurus.com" /> */}
+      
+      </Head>
 
       <Provider store={store}>
         {/* <PersistGate loading={null} persistor={persistor}> */}
@@ -85,4 +94,4 @@ function App({ Component, pageProps }) {
 
 const wrapper = createWrapper(() => store);
 
-export default wrapper.withRedux(App);
+export default App;

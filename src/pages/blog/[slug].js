@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Head from 'next/head'
 import Layout from "@/layouts/mainLayout";
 import Navbar from "@/components/Navbar";
+import Image from 'next/image';
 import dynamic from 'next/dynamic'
 import { ThumbUp } from '@mui/icons-material';
 import imag from '../../../public/react.jpg'
@@ -26,10 +27,12 @@ export const getServerSideProps = async (context) => {
     const ID = await slug.split('-').reverse()[0]
     const res = await axios.get(`${process.env.DOMAIN_NAME}/api/getblogs/getblogbyid/${ID}`)
     const htmlFile = await axios.get(res.data.blog.content)
+    console.log(res)
     return {
       props: {
         res: res.data,
-        htmlFile: htmlFile.data
+        htmlFile: htmlFile.data,
+        url:res.data.url
       }
     };
   } catch (error) {
@@ -55,14 +58,12 @@ function Page(props) {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    if (props.res) {
+    // if (props.res) {
       getBlogById();
-    }
-    // 
-
+    // }
   }, [router.pathname]);
+  const paragraph = <img alt='user image' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
 
-  const paragraph = <img src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
   const getBlogById = async () => {
     let slug1 = window.location.pathname.split('/').reverse()[0]
     let ID = slug1.split('-').reverse()[0]
@@ -97,10 +98,7 @@ function Page(props) {
       // router.push('/login')
     }
   }
-  if (likedBy) {
-    console.log('userId', userId)
-    console.log(likedBy, likedBy.includes(userId))
-  }
+  
 
 
 
@@ -108,22 +106,22 @@ function Page(props) {
     <>
       {loader ? <Loader /> : null}
       <Head>
-        <title>{title}</title>
+        <title>{props.res.blog.title}</title>
         <meta
           key="og:title"
           name="og:title"
-          content={title}
+          content={props.res.blog.title}
         />
 
-        <meta data-rh="true" name="description" content={title}></meta>
-        <meta data-rh="true" property="og:description" content={title}></meta>
+        <meta data-rh="true" name="description" content={props.res.blog.title}></meta>
+        <meta data-rh="true" property="og:description" content={props.res.blog.title}></meta>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width" />
-        <meta property="title" content={title}/>
-        <meta name="keywords" content={title} />
-        <meta property="og:title" content={title} />
-        <meta property="og:images" content="https://gitgurus.com/nLogo.png" />
-        <meta property="og:url" content="https://gitgurus.com/" />
+        <meta property="title" content={props.res.blog.title}/>
+        <meta name="keywords" content={props.res.blog.keywords} />
+        <meta property="og:title" content={props.res.blog.title} />
+        <meta property="og:images" content={props.res.blog.image}/>
+        <meta property="og:url" content={props.url} />
         <meta property="og:site_name" content="gitgurus" />
         <meta property="og:type" content="Website" />
       </Head>
@@ -149,7 +147,7 @@ function Page(props) {
             <Item.Description className={style.uderMetaDataItemDescription} >{paragraph}</Item.Description>
 
             <Item.Content className={style.uderMetaDataName}>
-              <Item.Header as='a'>{writerData ? `${writerData.name} ${writerData.lastname}` : ''}</Item.Header>
+              <Item.Header as='p'>{writerData ? `${writerData.name} ${writerData.lastname}` : ''}</Item.Header>
               <Item.Meta>
                 <span className='cinema'>{writerData ? `${writerData.profession}` : ''}</span>
               </Item.Meta>
@@ -168,7 +166,7 @@ function Page(props) {
             <div >
 
               <Icon className={style.likeCommentSubDivIcons} size='big' name='heart' color={likedBy && likedBy.includes(userId) ? 'red' : 'grey'} onClick={() => likeBlog()} />
-              <Label className={style.likeCommentSubDivIcons} as='a' basic color='white' pointing='left' onClick={() => likeBlog()}>
+              <Label className={style.likeCommentSubDivIcons} as='p' basic color='white' pointing='left' onClick={() => likeBlog()}>
                 {likedBy ? likedBy.length : 0}
               </Label>
 
@@ -178,7 +176,7 @@ function Page(props) {
 
               <Icon className={style.likeCommentSubDivIcons} size='big' name='comments' color='grey' onClick={() => { setDialogue(true) }} />
 
-              <Label className={style.likeCommentSubDivIcons} as='a' basic pointing='left' onClick={() => { setDialogue(true) }} >
+              <Label className={style.likeCommentSubDivIcons} as='p' basic pointing='left' onClick={() => { setDialogue(true) }} >
                 {commentedBy ? commentedBy.length : 0}
               </Label>
 

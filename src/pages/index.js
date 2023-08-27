@@ -8,7 +8,7 @@ import images from '../../public/react.jpg'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux';
-import { toggolDialogue } from '../../slices/piblisherDialogueSlice'
+import { toggolDialogue } from '../../slices/publisherDialogueSlice'
 import Navbar from '@/components/Navbar'
 import Loader from '@/components/Loader'
 import CategoryNav from '@/components/CategoryNav'
@@ -20,14 +20,12 @@ import Cookies from 'js-cookie';
   const [blogs, setBlogs] = useState([])
   const [loader, setLoader] = useState(true)
   const router = useRouter()
-  const dispatch = useDispatch()
   useEffect(() => {
     getBlogs()
-    dispatch(toggolDialogue(true))
   }, [])
   const getBlogs = async () => {
     // let blogs = await axios.get('/api/getblogs')
-    console.log(props.res)
+    // console.log(props.res)
     // if (props.res.CODE === 200) {
       setBlogs(props.res.blog)
       setLoader(false)
@@ -35,7 +33,8 @@ import Cookies from 'js-cookie';
   }
 
   const readBlog = (data) => {
-    router.push(`/blog/${data.title.split(' ').join('-')}-${data._id}`)
+    const slug1 = data.slug.toLowerCase().replace(/[^a-zA-Z0-9]/g, '-') + '-' + `${data._id}`
+    router.push(`blog/${slug1.replaceAll('--', '-')}`)
   }
 
   
@@ -47,6 +46,23 @@ import Cookies from 'js-cookie';
 
       <Head>
         <title>GitGurus</title>
+        <meta
+          key="og:title"
+          name="og:title"
+          content="gitgurus.com"
+        />
+
+        <meta data-rh="true" name="description" content="gitgurus.com"></meta>
+        <meta data-rh="true" property="og:description" content="gitgurus.com"></meta>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta property="title" content="gitgurus.com"/>
+        <meta name="keywords" content="blog, study material, data structure, JavaScript, Design, Web Development, React.js" />
+        <meta property="og:title" content="gitgurus.com" />
+        {/* <meta property="og:images" content={props.res.blog.image}/> */}
+        <meta property="og:url" content="www.gitgurus.com" />
+        <meta property="og:site_name" content="gitgurus" />
+        <meta property="og:type" content="Website" />
       </Head>
       <Navbar />
 
@@ -123,7 +139,6 @@ import Cookies from 'js-cookie';
 export const getServerSideProps = async (context) => {
   try {
     const res = await axios.get(`${process.env.DOMAIN_NAME}/api/getblogs`)
-    console.log(res.data.CODE,res.data.blog)
     if(res.data.CODE === 200){
       return {
         props: {

@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { toggolDialogue } from "../../slices/piblisherDialogueSlice";
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { updateEditorContent } from "../../slices/editorSlice";
@@ -36,6 +35,8 @@ const CustomEditor = () => {
   const editor = useRef(null);
   const state = useSelector((state) => state.editorSlice.content);
   const publishModelState = useSelector((state) => state.publisherDialogueSlice.state)
+  console.log('publishModelState',publishModelState)
+
   const dispatch = useDispatch();
 
   const getSunEditorInstance = (sunEditor) => {

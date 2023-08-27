@@ -2,6 +2,7 @@
 
 import { connectDB } from '@/pages/api/users/dbconfig/dbconfig.js'
 import Signup from '../models/signup';
+
 import path from 'path';
 import fs from 'fs'
 import { IncomingForm } from 'formidable';
@@ -16,6 +17,11 @@ export default async function handler(req, res) {
   try {
     await connectDB()
     console.log(typeof(parseInt(req.body.phone)))
+
+
+    
+
+
     const signup = await new Signup({
       name: req.body.firstName,
       lastname: req.body.lastName,

@@ -4,7 +4,7 @@ import { configureStore,combineReducers} from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import editorSlice from "../slices/editorSlice";
-import publisherDialogueSlice from "../slices/piblisherDialogueSlice";
+import publisherDialogueSlice from "../slices/publisherDialogueSlice";
 import userData from "../slices/user/user";
 import blogData from "../slices/blog/blog";
 const middleware = (getDefaultMiddleware) =>

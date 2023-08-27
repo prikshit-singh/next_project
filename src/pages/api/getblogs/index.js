@@ -1,6 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import  {connectDB}  from '@/pages/api/users/dbconfig/dbconfig.js'
+import nodemailer from 'nodemailer'
+
 import Blog from '../models/blog';
 export const config = {
   api: {
@@ -16,8 +18,34 @@ export default async function handler(req, res) {
       return
     }
     await connectDB()
+
+    let testAccount = await nodemailer.createTestAccount()
+    const transporter = nodemailer.createTransport({
+      // 465 or 25
+      host: 'mail.gitgurus.com',
+      port: 587,
+      auth: {
+        // user: 'gregoria.weissnat@ethereal.email',
+        user: 'support@gitgurus.com',
+        pass: 'support@gitgurus'
+      }
+  });
+    
+    const mailOptions = {
+      from: ' "Prikshit Singh" <support@gitgurus>',
+      to: 'prikshitlatherlather@gmail.com',
+      subject: 'Invoices due',
+      text: 'Dudes, we really need your money.'
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+      console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
     const blog = await Blog.find({})
-      console.log(11111,blog)
       if(blog){
         return res.status(200).json({CODE:200, blog: blog })
 

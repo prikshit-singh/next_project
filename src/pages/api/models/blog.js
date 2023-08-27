@@ -19,13 +19,17 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
-  
+
   content: {
     type: String,
     required: true,
   },
   image: {
     type: String,
+  },
+  url: {
+    type: String,
+    
   },
   date: {
     type: String,
@@ -37,10 +41,10 @@ const blogSchema = new Schema({
       type: Schema.Types.ObjectId, ref: 'Signup'
     }
   ],
-  isvarified:{
-    type:String,
+  isvarified: {
+    type: String,
   },
-  description:{
+  description: {
     type: String,
   },
   Comments: [
@@ -52,7 +56,7 @@ const blogSchema = new Schema({
         required: true,
       },
       commentreplies: [{
-        commentText: { type: String},
+        commentText: { type: String },
         commentedBy: { type: Schema.Types.ObjectId, ref: 'Signup' },
         commentDate: {
           type: String,

@@ -20,7 +20,14 @@ const nextConfig = {
           port: '3000',
           pathname: '**',
         },
-    ],
+        {
+          protocol: 'https',
+          hostname: 'react.semantic-ui.com',
+          port: '',
+          pathname: '**',
+      },   
+   
+      ],
 },
 webpack: (config) => {
     config.module.rules.push({

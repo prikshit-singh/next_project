@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export default function Document() {
   return (
-    <Html>
+    <Html lang='en'>
       <Head >
       </Head>
       <body>
