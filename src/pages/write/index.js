@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Head from 'next/head'
-import dynamic from "next/dynamic";
-import { useSelector } from 'react-redux';
-import CustomEditor from '@/components/Editor';
-import Publish from '@/components/Publish';
-import axios from 'axios';
-import withAuth from '@/components/Auth';
-import Layout from '@/layouts/mainLayout'
+// import Head from 'next/head'
+// import dynamic from "next/dynamic";
+// import { useSelector } from 'react-redux';
+import CustomEditor from '../../components/Editor';
+// import Publish from '../../components/Publish';
+// import axios from 'axios';
+import withAuth from '../../components/Auth';
+// import Layout from '@/layouts/mainLayout'
 import styles from '../../styles/Write.module.css'
 import 'suneditor/dist/css/suneditor.min.css';
-import Navbar from '@/components/Navbar';
-import Loader from '@/components/Loader'
+import Navbar from '../../components/Navbar';
+// import Loader from '@/components/Loader'
 
 function Write() {
-    const [loader, setLoader] = useState(true)
-    const openDialogue = useSelector(state => state.publisherDialogueSlice.state)
     return (
         <>
             <Navbar />

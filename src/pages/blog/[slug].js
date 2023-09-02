@@ -4,8 +4,8 @@ import { updateBlogData } from '../../../slices/blog/blog';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from "next/router";
 import Head from 'next/head'
-import Layout from "@/layouts/mainLayout";
-import Navbar from "@/components/Navbar";
+import Layout from "../../layouts/mainLayout";
+import Navbar from "../../components/Navbar";
 import Image from 'next/image';
 import dynamic from 'next/dynamic'
 import { ThumbUp } from '@mui/icons-material';
@@ -16,11 +16,13 @@ import { Button, Icon, Label, Header, Segment, Item } from 'semantic-ui-react'
 import axios from "axios";
 import Cookies from "js-cookie";
 
-import Loader from '@/components/Loader'
-import Writecomment from "@/components/Writecomment";
-import CategoryNav from '@/components/CategoryNav';
+import Loader from '../../components/Loader'
+import Writecomment from "../../components/Writecomment";
+import CategoryNav from '../../components/CategoryNav';
 import { Modal, Box } from '@mui/material'
 import style from "../../styles/Blog.module.css";
+import { useSession} from "next-auth/react"
+
 export const getServerSideProps = async (context) => {
   try {
     const { slug } = context.params
@@ -55,15 +57,14 @@ function Page(props) {
   const [writerData, setwriterData] = useState(false)
   const userId = Cookies.get('userId')
   // const userData = useSelector(state => state.userData.user)
-
   const dispatch = useDispatch()
+  const session = useSession()
   useEffect(() => {
     // if (props.res) {
       getBlogById();
     // }
   }, [router.pathname]);
   const paragraph = <img alt='user image' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-console={.log(paragraph)}
   const getBlogById = async () => {
     let slug1 = window.location.pathname.split('/').reverse()[0]
     let ID = slug1.split('-').reverse()[0]
@@ -84,10 +85,11 @@ console={.log(paragraph)}
 
     let slug1 = window.location.pathname.split('/').reverse()[0]
     let ID = slug1.split('-').reverse()[0]
+
     let blogs = await axios.post('/api/blogimage/updatelikedby', {}, {
       headers: {
         blogId: ID,
-        token: await Cookies.get('token')
+        token: session.data.userData.token
       }
     })
 

@@ -1,6 +1,6 @@
-import { connectDB } from '@/pages/api/users/dbconfig/dbconfig.js'
-import Jwt from 'jsonwebtoken';
-import varifyuser from '@/components/backendmodules/varifyuser'
+import { connectDB } from '../../users/dbconfig/dbconfig'
+// import Jwt from 'jsonwebtoken';
+import varifyuser from '../../../../components/backendmodules/varifyuser'
 import Blog from '../../models/blog';
 // import Signup from '../models/signup';
 

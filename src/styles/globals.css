@@ -1,4 +1,16 @@
 /* @import '~bulma/bulma'; */
+:root{
+    --primary:#ffffff;
+    /* --secondery:#333; 
+    --thirdcolor:#777777b5; */
+    --borderColor:#b4b3b337;
+    /* navbar colors */
+    --navlinksColor:gray;
+    --navlinksColorHover:rgb(36, 34, 34);
+    --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+}
+
+
 *{
     margin: 0px;
     padding: 0px;

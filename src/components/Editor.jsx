@@ -164,7 +164,7 @@ const CustomEditor = () => {
             ["removeFormat"],
             ["outdent", "indent"],
             ["align", "horizontalRule", "list", "lineHeight"],
-            ["table", "link", "image", "video"],
+            ["table", "link", "image", "video","codeView"],
         ]],
         // (min-width: 767)
         ['%767', [

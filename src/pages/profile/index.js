@@ -1,6 +1,6 @@
 
-import ProfileComponent from "@/components/ProfileComponent";
-import Navbar from "@/components/Navbar";
+import ProfileComponent from "../../components/ProfileComponent";
+import Navbar from "../../components/Navbar";
 
 
 const Profile = () => {
