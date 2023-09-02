@@ -5,7 +5,7 @@ import store, { persistor } from '../../store/store'
 import { Provider } from "react-redux";
 import { createWrapper } from 'next-redux-wrapper';
 import { ToastContainer } from 'react-toastify';
-import * as gtag from '@/components/backendmodules/gtag'
+import * as gtag from '../components/backendmodules/gtag'
 import { useRouter } from 'next/router';
 // import { PersistGate } from 'redux-persist/integration/react';
 import Script from 'next/script'
