@@ -1,14 +1,16 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { connectDB } from '@/pages/api/users/dbconfig/dbconfig.js'
+import { connectDB } from '../users/dbconfig/dbconfig.js'
 import Blog from '../models/blog';
 import path from 'path';
 import fs from 'fs'
 import { IncomingForm } from 'formidable';
 import { join } from 'path';
 import { readFile } from 'fs/promises';
-import varifyuser from '@/components/backendmodules/varifyuser'
+import varifyuser from '../../../components/backendmodules/varifyuser.js'
 import Signup from '../models/signup';
+import { getSession } from 'next-auth/react';
+
 export const config = {
   api: {
     bodyParser: false,
@@ -62,6 +64,8 @@ export default async function handler(req, res) {
         });
       } else {
         console.log("Given Directory already exists !!");
+        const session = await getSession(req);
+    console.log('verifyTokan',session)
         const form = new IncomingForm();
         // Set the upload directory
         form.uploadDir = path.join(process.cwd(), 'public/images');
@@ -89,12 +93,18 @@ export default async function handler(req, res) {
           fs.renameSync(oldPath, newPath);
           const baseUrl = `${process.env.IMAGE_DOMANE}/images/`
           const imagePath = await files.image[0].originalFilename
-          console.log('imagepath',files.image[0])
 
           const imageContent = baseUrl+imagePath
           let fileNameTime = Date.now()
           fs.writeFileSync(`public/files/${fileNameTime}.txt`, fields.content[0]);
+
+
+          
          const user =await varifyuser(fields.token[0])
+
+
+
+
          if(user){
          var userData =await Signup.find({email:user.email})
          }

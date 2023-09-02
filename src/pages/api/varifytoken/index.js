@@ -1,6 +1,6 @@
 import Jwt from 'jsonwebtoken';
 import Signup from '../models/signup';
-import  {connectDB}  from '@/pages/api/users/dbconfig/dbconfig.js'
+import  {connectDB}  from '../users/dbconfig/dbconfig'
 export default async function handler (req, res){
     console.log(req.body.token)
     await connectDB()
@@ -10,8 +10,8 @@ export default async function handler (req, res){
             if(err.name==='TokenExpiredError')
             return  res.status(401).send({err})
         }
-        console.log(decoded)
-        const result = await Signup.findOne({ 'email': decoded.email, 'password': decoded.password })
+        console.log('decoded',decoded)
+        const result = await Signup.findOne({ 'email': decoded.email,'_id':decoded._id })
         if (result) {
            return  res.status(200).send({CODE:200,message:'success'})
         }else{

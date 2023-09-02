@@ -6,15 +6,9 @@ import { updateEditorContent } from "../../slices/editorSlice";
 import { toggolDialogue } from "../../slices/publisherDialogueSlice";
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import { useSession, signOut } from "next-auth/react"
 import {
-  Checkbox,
-  Grid,
-  Header,
   Icon,
-  Image,
-  Menu,
-  Segment,
-  Sidebar,
   Input
 } from 'semantic-ui-react'
 
@@ -22,6 +16,9 @@ import styles from "../styles/Navbar.module.css";
 import { Search, Close } from "@mui/icons-material";
 function Navbar(props) {
   const [dialogue, setDialogue] = useState(false)
+  const session = useSession()
+  console.log(session)
+
 const dispatch = useDispatch()
   const handleRequest = () => {
     console.log('handleRequest')
@@ -48,7 +45,7 @@ const dispatch = useDispatch()
           </div>
           <div className={styles.navigationDiv}>
             <div className={styles.publishButton}>
-            {typeof(window) != 'undefined' && window.location.href === 'https://gitgurus.com/write' ?  <button
+            {typeof(window) != 'undefined' && window.location.href === 'http://localhost:3000/write' ?  <button
                 // className={styles.publishButton}
                 onClick={() => {
                   console.log('clicked')
@@ -60,27 +57,37 @@ const dispatch = useDispatch()
              
             </div>
             
-            
+            {session.data != undefined?
+              <Stack direction="row" spacing={2}>
+              <Avatar 
+              onClick={() => {
+                setDialogue(!dialogue)
+                // document.getElementById("mySidenav").style.width = "250px";
+              }} alt="Remy Sharp" src={session.data.userData.picture} />
+            </Stack>
+            :
             <Stack direction="row" spacing={2}>
               <Avatar onClick={() => {
-                setDialogue(true)
+                setDialogue(!dialogue)
                 // document.getElementById("mySidenav").style.width = "250px";
               }} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
             </Stack>
+            }
+            
 
           </div>
 
 
 
-          <div id="mySidenav" style={dialogue ? { display: 'flex', width: '250px' , zIndex:2} : { display: 'flex', width: '0px' }} className={styles.dialogueBox}>
+          <div id="mySidenav" style={dialogue ? { display: 'flex', width: '250px' , zIndex:9} : { display: 'none' }} className={styles.dialogueBox}>
 
 
-          <Icon  
+          {/* <Icon  
                 size='big' 
                 name='close' 
                 
                 className={styles.closebtn}
-                onClick={() => { setDialogue(false) }} />
+                onClick={() => { setDialogue(false) }} /> */}
             
 
             <Link className={styles.navLinks} href="/">Home</Link>

@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { connectDB } from '@/pages/api/users/dbconfig/dbconfig.js'
+// import { connectDB } from '@/pages/api/users/dbconfig/dbconfig.js'
+import { connectDB } from '../users/dbconfig/dbconfig.js'
 import Signup from '../models/signup';
 
 import path from 'path';
@@ -23,14 +24,14 @@ export default async function handler(req, res) {
 
 
     const signup = await new Signup({
-      name: req.body.firstName,
-      lastname: req.body.lastName,
+      name: req.body.name,
+      lastname:'',
       userName:`${Date.now()}`,
-      userImage:'',
+      userImage:req.body.email,
       profession:'',
-      phone: parseInt(req.body.phone),
+      phone: 123456789,
       email: req.body.email,
-      password: req.body.password,
+      password: '1234',
       roles:[],
       isvarify:'false',
       isvarifiedWriter:'',

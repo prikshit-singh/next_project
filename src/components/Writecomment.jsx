@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import {  toast } from 'react-toastify';
+import { useSession} from "next-auth/react"
 const SunEditor = dynamic(async () => await import("suneditor-react").then((a) => a), {
     ssr: false,
 });
@@ -35,6 +36,10 @@ const Writecomment = (props) => {
     const [comments, setComments] = useState('')
     const [selectedComment, setSelectedComment] = useState(null)
     const editor = useRef(null);
+
+    const session = useSession()
+
+
     const getSunEditorInstance = (sunEditor) => {
         console.log(1, sunEditor)
         editor.current = sunEditor;
@@ -58,7 +63,7 @@ const Writecomment = (props) => {
         let comments = await axios.post('/api/blogimage/getcomments', {}, {
             headers: {
                 blogId: ID,
-                token:await Cookies.get('token')
+                token:session.data.userData.token
             }
         })
         if (comments.data.CODE === 200) {
@@ -79,7 +84,7 @@ const Writecomment = (props) => {
         let COMMENTS = await axios.post('/api/blogimage/postcomment', data, {
             headers: {
                 blogId: ID,
-                token:await Cookies.get('token')
+                token:session.data.userData.token
             }
         })
         if(COMMENTS.data.CODE ===200){
@@ -105,7 +110,7 @@ const Writecomment = (props) => {
         let comment = await axios.post('/api/blogimage/replycomment', data, {
             headers: {
                 blogId: ID,
-                token:await Cookies.get('token'),
+                token:session.data.userData.token,
                 commentId: selectedComment._id
             }
         })

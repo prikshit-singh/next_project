@@ -1,9 +1,10 @@
-import Jwt from 'jsonwebtoken';
-import varifyuser from '@/components/backendmodules/varifyuser'
+// import Jwt from 'jsonwebtoken';
+// import varifyuser from '../../../../components/backendmodules/varifyuser'
 import Blog from '../../models/blog';
-import Signup from '@/pages/signup';
+// import Signup from '@/pages/signup';
+// import Signup from '../../../signup/index'
 // import Signup from '../models/signup';
-import { connectDB } from '@/pages/api/users/dbconfig/dbconfig.js'
+import { connectDB } from '../../../api/users/dbconfig/dbconfig'
 
 export default async function handler(req, res) {
     try {

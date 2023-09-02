@@ -13,6 +13,7 @@ import {  toast } from 'react-toastify';
 import dynamic from "next/dynamic";
 import Cookies from 'js-cookie';
 import {Icon} from 'semantic-ui-react'
+import { useSession} from "next-auth/react"
 // const Files = dynamic(() => import("react-files").then((a) => a), {
 //     ssr: false,
 //   });
@@ -26,11 +27,13 @@ function Publish(props) {
     const editorContent = useSelector((state) => state.editorSlice.content)
     const dispatch = useDispatch()
     const router = useRouter();
+    const session = useSession()
     const handleChange = (e) => {
         setImageSrc(URL.createObjectURL(e.target.files[0]))
         setFileSrc(e.target.files[0])
     }
 
+    console.log('session',session.data.userData.token)
     const handlePublish = async () => {
         const cookieValue = await Cookies.get('token');
         const formData = new FormData();
@@ -41,7 +44,7 @@ function Publish(props) {
         formData.append('keywords', keywordText);
         formData.append('content', editorContent);
         formData.append('date', Date.now());
-        formData.append('token', cookieValue);
+        formData.append('token', session.data.userData.token);
         const res = await axios.post('/api/blogimage', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',

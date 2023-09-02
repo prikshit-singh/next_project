@@ -17,9 +17,9 @@ import 'semantic-ui-css/semantic.min.css'
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/globals.css'
 import Head from 'next/head';
+import { SessionProvider } from "next-auth/react"
 
-
-function App({ Component, pageProps }) {
+function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter();
 
 
@@ -39,7 +39,7 @@ function App({ Component, pageProps }) {
 
   return (
     <>
-        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-RBQ5TWCSZ7"></Script>
+      <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-RBQ5TWCSZ7"></Script>
       <Script
         id='google-analytics'
         strategy="afterInteractive"
@@ -56,31 +56,32 @@ function App({ Component, pageProps }) {
       />
 
       <Head>
-      <meta name="robots" content="all" />
-      <meta name="google" content="nositelinkssearchbox" key="sitelinks" />
+        <meta name="robots" content="all" />
+        <meta name="google" content="nositelinkssearchbox" key="sitelinks" />
         <meta name="google" content="notranslate" key="notranslate" />
         {/* <link rel="canonical" href="https://gitgurus.com" /> */}
-      
+
       </Head>
 
       <Provider store={store}>
-        {/* <PersistGate loading={null} persistor={persistor}> */}
         <Layout>
-          <Component {...pageProps} />
-          <ToastContainer
-            position="top-right"
-            autoClose={2000}
-            hideProgressBar={false}
-            newestOnTop={true}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
+          <SessionProvider>
+
+            <Component {...pageProps} />
+            <ToastContainer
+              position="top-right"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={true}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
+          </SessionProvider>
         </Layout>
-        {/* </PersistGate> */}
 
       </Provider>
 

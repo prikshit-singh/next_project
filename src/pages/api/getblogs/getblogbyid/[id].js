@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { connectDB } from '@/pages/api/users/dbconfig/dbconfig.js'
+import { connectDB } from '../../users/dbconfig/dbconfig'
 import Blog from '../../models/blog';
 export const config = {
   api: {

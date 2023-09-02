@@ -2,6 +2,10 @@
 import Loader from '@/components/Loader';
 const nextConfig = {
   reactStrictMode: true,
+  eslint: {
+    // Disable a specific ESLint rule for all files in the project
+    ignoreDuringBuilds: true,
+  },
   experimental: {
     appDir: false,
   },

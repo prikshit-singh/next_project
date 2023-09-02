@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import  {connectDB}  from '@/pages/api/users/dbconfig/dbconfig.js'
+import  {connectDB}  from '../dbconfig/dbconfig'
 import Signup from '../../models/signup';
 
 // const router = express.Router();

@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
     await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      ssl:true
     });
     console.log('Connected to MongoDB');
   } catch (error) {

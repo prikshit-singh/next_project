@@ -47,7 +47,9 @@ const CategoryNav = () => {
         style={styleFix ? stickeyStyle : {}}
         className={styles.categoryOuterMainDiv}
       >
-      <ArrowBackIosNewIcon onClick={()=>{
+      <ArrowBackIosNewIcon 
+      className={styles.categorynavlinksIcon} 
+      onClick={()=>{
           const navScroll =  document.getElementById('navDiv')
           navScroll.scrollBy(-400, 0);
           }}/>
@@ -69,7 +71,10 @@ const CategoryNav = () => {
 
           
         </div>
-        <ArrowForwardIosIcon onClick={()=>{
+        <ArrowForwardIosIcon 
+      className={styles.categorynavlinksIcon} 
+        
+        onClick={()=>{
              const navScroll =  document.getElementById('navDiv')
           navScroll.scrollBy(400, 0);
           }}/>

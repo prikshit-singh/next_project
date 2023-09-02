@@ -1,9 +1,9 @@
 .categoryOuterMainDiv{
     display: flex;
-    border-top: 2px solid rgb(203, 202, 202) ;
+    border-top: 2px solid var(--borderColor) ;
     align-items: center;
     width: 100%;
-    background-color: rgb(233, 231, 231);
+    background-color: var(--primary);
 
 }
 .categoryMainDiv{
@@ -29,7 +29,19 @@
   .categoryMainDiv a {
     margin: 0px 13px 0px 10px;
     text-decoration: none;
-    color: black;
+    color: var(--navlinksColor);
+
+}
+.categoryMainDiv a:hover {
+    color: var(--navlinksColorHover);
+
+}
+.categorynavlinksIcon{
+    color: var(--navlinksColor) !important;
+    cursor: pointer;
+}
+.categorynavlinksIcon:hover{
+    color: var(--navlinksColorHover) !important;
 }
 
 
