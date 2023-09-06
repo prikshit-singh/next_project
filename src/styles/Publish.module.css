@@ -26,6 +26,7 @@
     grid-template-columns: 40% 40%;
     grid-gap: 50px;
     padding-top: 20px;
+    overflow-y:auto
   }
   
   .imageBox {
@@ -91,13 +92,28 @@
      border: none;
   }
   @media (min-width: 320px) and (max-width: 680px) {
+    .modelDiv{
+      
+      padding-bottom: 5px;
+  }
     .publishMainDiv {
-      display: block;
-   
+      /* width:80%; */
+     height: 500px;
+     overflow-y:auto;
+     grid-template-columns: 100%;
    }
    .imageBox {
-    display: block;
+    display: flex;
+    height: 300px;
+    flex-direction: column;
    
+  }
+  .imageInput{
+    /* border: 2px solid black; */
+    /* height: 50px; */
+  }
+  .imageContent{
+    margin: 20px;
   }
   
   }

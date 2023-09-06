@@ -86,7 +86,7 @@ function Publish(props) {
                     <div>
                         <h1>story preview</h1>
                         <div className={styles.imageBox}>
-                            <input accept="image/*" type="file" id="files" onChange={handleChange} />
+                            <input className={styles.imageInput} accept="image/*" type="file" id="files" onChange={handleChange} />
                             {/* <img id="image" src={imageSrc} /> */}
                             <Image
                                 className={styles.imageContent}

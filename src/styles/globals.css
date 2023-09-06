@@ -7,7 +7,7 @@
     /* navbar colors */
     --navlinksColor:gray;
     --navlinksColorHover:rgb(36, 34, 34);
-    --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
+    --boxShadow:rgba(30, 30, 30, 0.489);
 }
 
 

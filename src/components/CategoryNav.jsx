@@ -3,6 +3,7 @@ import styles from "../styles/CategoryNav.module.css";
 import Link from "next/link";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { WidthFull } from "@mui/icons-material";
 const CategoryNav = () => {
   const [styleFix, setStylefix] = useState(false);
   const [scrollYheight, setscrollYheight] = useState(0);
@@ -20,8 +21,8 @@ const CategoryNav = () => {
   const stickeyStyle = {
     position: "fixed",
     top: 0,
-    zIndex:1
-    // marginTop: '-50px'
+    zIndex:1,
+   width:'100%',
   };
   const secNavItems = [
     { type : 1 , name : " Data Structures", subcategory: "" },

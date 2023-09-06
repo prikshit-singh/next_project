@@ -48,12 +48,13 @@ const CustomEditor = () => {
     setwindowWidth(window.innerWidth)
   },[windowWidth])
 
-  const style1 = {
+  var style1 = {
     // dispatch:'flex',
     position: 'absolute',
     width:'70%',
     top: '50%',
     left: '50%',
+  //  bottom:'0%',
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
     boxShadow: 24,
@@ -65,7 +66,12 @@ const CustomEditor = () => {
     editorWidth = '780px'
   }
   if(windowWidth <= 480){
-    editorWidth = '400px'
+    editorWidth = '100%'
+    style1.width = '80%'
+    style1.p = 2
+    style1.top='50%'
+    style1.left= '45%'
+    // style1.bottom='50%'
   }
 
   return (
@@ -188,15 +194,16 @@ const CustomEditor = () => {
         // (min-width: 480)
         ['%480', [
             ['undo', 'redo'],
-            ["font", "fontSize", "formatBlock"], ["paragraphStyle", "blockquote","bold",],
-            ["underline","hiliteColor", "textStyle","removeFormat","outdent", "indent",
+            ["font", "fontSize", "formatBlock"], 
+            ["paragraphStyle", "blockquote","bold", "superscript","align", "horizontalRule"],["underline","hiliteColor", "textStyle",],
+            ["removeFormat","outdent", "indent",
               "italic",
               "strike",
-              "subscript",
-              "superscript","align", "horizontalRule",],
+              "subscript","link",
+             ],
               
             [ "list", "lineHeight"],
-            ["table", "link", "image", "video"],
+            ["table",  "image", "video"],
         ]]
     ]
 

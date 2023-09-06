@@ -21,7 +21,7 @@ import Writecomment from "../../components/Writecomment";
 import CategoryNav from '../../components/CategoryNav';
 import { Modal, Box } from '@mui/material'
 import style from "../../styles/Blog.module.css";
-import { useSession} from "next-auth/react"
+import { useSession } from "next-auth/react"
 
 export const getServerSideProps = async (context) => {
   try {
@@ -34,7 +34,7 @@ export const getServerSideProps = async (context) => {
       props: {
         res: res.data,
         htmlFile: htmlFile.data,
-        url:res.data.url
+        url: res.data.url
       }
     };
   } catch (error) {
@@ -55,13 +55,14 @@ function Page(props) {
   const [title, setTitle] = useState(null)
   const [dialogue, setDialogue] = useState(false)
   const [writerData, setwriterData] = useState(false)
-  const userId = Cookies.get('userId')
+  // const userId = Cookies.get('userId')
   // const userData = useSelector(state => state.userData.user)
   const dispatch = useDispatch()
   const session = useSession()
+  console.log(141, session)
   useEffect(() => {
     // if (props.res) {
-      getBlogById();
+    getBlogById();
     // }
   }, [router.pathname]);
   const paragraph = <img alt='user image' src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
@@ -70,6 +71,7 @@ function Page(props) {
     let ID = slug1.split('-').reverse()[0]
     if (ID) {
       if (props.res.CODE === 200) {
+
         dispatch(updateBlogData([props.res.blog]))
         setwriterData(props.res.blog.writtenby)
         setTitle(props.res.blog.title)
@@ -81,11 +83,15 @@ function Page(props) {
     }
 
   };
+  console.log('userImage', writerData.userImage)
   const likeBlog = async (data) => {
 
     let slug1 = window.location.pathname.split('/').reverse()[0]
     let ID = slug1.split('-').reverse()[0]
-
+    if (!session.data) {
+      toast('Please Login First', { hideProgressBar: false, autoClose: 2000, type: 'warning' })
+      return 0;
+    }
     let blogs = await axios.post('/api/blogimage/updatelikedby', {}, {
       headers: {
         blogId: ID,
@@ -100,13 +106,13 @@ function Page(props) {
       // router.push('/login')
     }
   }
-  
+
 
 
 
   return (
     <>
-      {loader ? <Loader /> : null}
+      {/* {loader ? <Loader /> : null} */}
       <Head>
         <title>{props.res.blog.title}</title>
         <meta
@@ -118,11 +124,11 @@ function Page(props) {
         <meta data-rh="true" name="description" content={props.res.blog.title}></meta>
         <meta data-rh="true" property="og:description" content={props.res.blog.title}></meta>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <meta property="title" content={props.res.blog.title}/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta property="title" content={props.res.blog.title} />
         <meta name="keywords" content={props.res.blog.keywords} />
         <meta property="og:title" content={props.res.blog.title} />
-        <meta property="og:images" content={props.res.blog.image}/>
+        <meta property="og:images" content={props.res.blog.image} />
         <meta property="og:url" content={props.url} />
         <meta property="og:site_name" content="gitgurus" />
         <meta property="og:type" content="Website" />
@@ -146,7 +152,9 @@ function Page(props) {
       <div className={style.uderMetaData}>
         <Item.Group divided className={style.uderMetaDataItems}>
           <Item>
-            <Item.Description className={style.uderMetaDataItemDescription} >{paragraph}</Item.Description>
+            <Item.Description className={style.uderMetaDataItemDescription} >
+              <img src={writerData ? `${writerData.userImage}` : 'https://react.semantic-ui.com/images/avatar/small/matt.jpg'} alt={writerData ? `${writerData.name} ${writerData.lastname} ${writerData.title}` : ''} />
+            </Item.Description>
 
             <Item.Content className={style.uderMetaDataName}>
               <Item.Header as='p'>{writerData ? `${writerData.name} ${writerData.lastname}` : ''}</Item.Header>
@@ -167,7 +175,7 @@ function Page(props) {
           <div className={style.likeCommentSubDiv}>
             <div >
 
-              <Icon className={style.likeCommentSubDivIcons} size='big' name='heart' color={likedBy && likedBy.includes(userId) ? 'red' : 'grey'} onClick={() => likeBlog()} />
+              <Icon className={style.likeCommentSubDivIcons} size='big' name='heart' color={likedBy ? 'red' : 'grey'} onClick={() => likeBlog()} />
               <Label className={style.likeCommentSubDivIcons} as='p' basic color='white' pointing='left' onClick={() => likeBlog()}>
                 {likedBy ? likedBy.length : 0}
               </Label>
@@ -194,8 +202,14 @@ function Page(props) {
       </div>
 
 
-      <div className={style.blogContainerMainDiv}  >
-        <div className={style.blogContainerContentDiv} dangerouslySetInnerHTML={{ __html: content }} />
+      <div
+        className={style.blogContainerMainDiv}
+      >
+        <div
+          className={style.blogContainerContentDiv}
+          dangerouslySetInnerHTML={{ __html: content }}
+
+        ></div>
       </div >
     </>
   );
@@ -203,5 +217,5 @@ function Page(props) {
 
 
 
-Page.Layout = Layout;
+// Page.Layout = Layout;
 export default Page

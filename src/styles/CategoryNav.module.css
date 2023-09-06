@@ -1,6 +1,6 @@
 .categoryOuterMainDiv{
     display: flex;
-    border-top: 2px solid var(--borderColor) ;
+    border-bottom: 2px solid var(--borderColor) ;
     align-items: center;
     width: 100%;
     background-color: var(--primary);
@@ -42,6 +42,24 @@
 }
 .categorynavlinksIcon:hover{
     color: var(--navlinksColorHover) !important;
+}
+
+@media (min-width: 320px) and (max-width: 680px) {
+    .categoryMainDiv{
+        
+        margin-left: 0px;
+        margin-right: 5px;
+        padding: 10px 0px 10px 0px;
+        font-size: medium;
+       
+    }
+   
+    
+      .categoryMainDiv a {
+        margin: 0px 0px 0px 5px;
+       
+    
+    }
 }
 
 

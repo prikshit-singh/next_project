@@ -20,8 +20,10 @@ export const authOptions: NextAuthOptions = {
           password: { label: "Password", type: "password" }
         },
         async authorize(Credentials, req) {
+          console.log('authorize Credentials',Credentials)
           await connectDB()
           const user =  await Signup.findOne({'email':Credentials.username,'password':Credentials.password})
+          console.log('authorize',user)
           if (user) {
             return user
           } else {
@@ -57,9 +59,15 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user, account, profile, email }) {
       // Check if the user already exists
       await connectDB()
-      console.log(103,profile)
+      console.log(103,profile,user,account,email)
+let userEmail = ''
+      if(account.type == 'credentials'){
+        userEmail = user.email
+      }else{
+        userEmail = profile.email
+      }
 
-      const existingUser = await Signup.findOne({ email:profile.email });
+      const existingUser = await Signup.findOne({ email:userEmail });
       console.log(102,existingUser)
 
       if (existingUser==null) {

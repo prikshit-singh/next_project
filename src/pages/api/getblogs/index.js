@@ -20,38 +20,39 @@ export default async function handler(req, res) {
     await connectDB()
 
     // let testAccount = await nodemailer.createTestAccount()
-    const transporter = nodemailer.createTransport({
-      // 465 or 25
-      host: 'mail.gitgurus.com',
-      port: 587,
-      auth: {
-        // user: 'gregoria.weissnat@ethereal.email',
-        user: 'support@gitgurus.com',
-        pass: 'support@gitgurus'
-      },
-      secure: false, // Set to false to use non-secure connection
-      tls: {
-        rejectUnauthorized: false, // Disable certificate verification
-      },
-    });
+    // const transporter = nodemailer.createTransport({
+    //   // 465 or 25
+    //   host: 'mail.gitgurus.com',
+    //   port: 587,
+    //   auth: {
+    //     // user: 'gregoria.weissnat@ethereal.email',
+    //     user: 'support@gitgurus.com',
+    //     pass: 'support@gitgurus'
+    //   },
+    //   secure: false, // Set to false to use non-secure connection
+    //   tls: {
+    //     rejectUnauthorized: false, // Disable certificate verification
+    //   },
+    // });
 
-    const mailOptions = {
-      from: "support@gitgurus.com",
-      to: 'prikshitlatherlather@gmail.com',
-      subject: 'Invoices due',
-      text: 'Dudes, we really need your money.'
-    };
+    // const mailOptions = {
+    //   from: "support@gitgurus.com",
+    //   to: 'prikshitlatherlather@gmail.com',
+    //   subject: 'Invoices due',
+    //   text: 'Dudes, we really need your money.'
+    // };
+    // transporter.sendMail(mailOptions, function (error, info) {
+    //   if (error) {
+    //     console.log('errorFromMail', error);
+    //   } else {
+    //     console.log('Email sent: ' + info.response);
+    //   }
+    // });
 
     
-    const blog = await Blog.find({})
+    const blog = await Blog.find({}).populate('writtenby')
     if (blog) {
-      transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log('errorFromMail', error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+     
       return res.status(200).json({ CODE: 200, blog: blog })
 
     }

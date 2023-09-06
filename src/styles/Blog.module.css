@@ -1,6 +1,4 @@
-
-
-.likeCommentMainDiv{
+.likeCommentMainDiv {
     display: flex;
     justify-content: center;
 }
@@ -47,7 +45,16 @@
 }
 
 
+.blogContainerContentDiv {
+    overflow: hidden;
+    width: 50%;
+}
 
+.blogContainerContentDiv h1 {
+    line-height: 50px;
+    /* font-size: 25px; */
+
+ }
 
 .blogDiv {
     display: flex;
@@ -55,7 +62,10 @@
     padding-top: 100px;
 }
 
-
+/* .blogDiv h1{
+    line-height: 30px;
+   
+} */
 .blogDiv h1 span {
 
     font-size: 30px !important;
@@ -95,6 +105,7 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    overflow: hidden;
 }
 
 
@@ -109,20 +120,20 @@
     height: 50px;
 }
 
-.blogContainerContentDiv{
-    width: 50%;
-}
-.toggolDialogueMainContainer{
+
+
+.toggolDialogueMainContainer {
     display: flex;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50% ,-50%);
+    transform: translate(-50%, -50%);
     background-color: white;
     box-shadow: 24;
     padding: 40px;
     width: 50%;
 }
+
 @media (min-width: 320px) and (max-width: 680px) {
     .uderMetaDataItems {
         padding: 10px 0px 10px 0px;
@@ -144,23 +155,43 @@
         position: relative;
         justify-content: space-around;
         width: 100%;
-        
+
     }
-    .blogContainerContentDiv{
+    
+    .blogContainerContentDiv {
         padding: 10px;
-        width: 100%;
+        overflow: hidden;
+        width: 100% !important;
+        max-width: 100% !important;
     }
-    .blogContainerContentDiv img{
+    /* .blogContainerContentDiv div{
+       
+        width: 100% !important;
+        max-width: 50% !important;
+    } */
+    .blogContainerContentDiv h1 {
+       line-height: 25px;
+       font-size: 15px;
+
+    }
+
+    .blogContainerContentDiv img {
         width: 100% !important;
     }
-    .blogContainerContentDiv figure{
+
+    .blogContainerContentDiv figure {
         width: 80% !important;
 
     }
-    .toggolDialogueMainContainer{
+
+    .toggolDialogueMainContainer {
         /* margin-bottom: 60px; */
         width: 100%;
     }
 
-}
+    .blogDiv h1 {
+        color: red;
+        font-size: 10px !important;
+    }
 
+}

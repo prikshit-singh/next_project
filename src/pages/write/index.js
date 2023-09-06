@@ -16,7 +16,6 @@ function Write() {
     return (
         <>
             <Navbar />
-           
                 <div className={styles.editorScreen}>
                     <div className={styles.EditorMainDiv}>
                         <CustomEditor />

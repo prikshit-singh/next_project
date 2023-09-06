@@ -7,11 +7,17 @@
 }
 .EditorMainDiv{
    margin-top: 80px;
-    /* width:80%; */
-    /* margin-left: 20%; */
+   
 }
 .logoDiv{
   display: flex;
+}
+
+@media (min-width: 320px) and (max-width: 680px) {
+  .EditorMainDiv{
+    margin-top: 40px;
+     width:100%;
+ }
 }
 
 

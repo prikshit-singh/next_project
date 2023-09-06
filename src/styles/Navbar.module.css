@@ -7,7 +7,7 @@
 
   top: 0;
   background-color: var(--primary);
-
+  border-bottom: 2px solid var(--borderColor);
 }
 
 .navBarSeconderyDiv {
@@ -22,8 +22,8 @@
   flex-direction: column;
   width: 0;
   position: fixed;
-  border: 1px solid #808080bd;
-  box-shadow: 0px 0px 10px gray;
+  /* border: 1px solid #808080bd; */
+  box-shadow: 0px 0px 10px var(--boxShadow);
   border-radius: 8px;
   top: 57px;
   right: 19px;
@@ -43,6 +43,7 @@
   color: var(--navlinksColor);
   display: block;
   transition: 0.3s;
+  cursor: pointer;
 
 }
 
@@ -120,6 +121,52 @@
   color: white;
   font-weight: 700;
   border-radius: 20px;
+  cursor: pointer;
+}
+
+
+.signUpMainDiv {
+
+  /* background-color: #ebf0f3; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  padding: 20px 20px 30px 20px;
+  color: var(--navlinksColor);
+}
+
+.form {
+  width: 350px;
+}
+
+.form label {
+  display: flex;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.form input {
+  width: 100%;
+  padding: 7px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 6px;
+  outline: none;
+}
+
+.button {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+  background-color: #49c1a2;
+  color: white;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 18px;
   cursor: pointer;
 }
 

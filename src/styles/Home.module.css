@@ -3,17 +3,42 @@
 /* .imageStyle{
     width: 100% !important;
 } */
+
+/* .homeContentDiv{
+    margin-top: 70px;
+
+} */
+
+.homeComponentLayout{
+    display: flex;
+   
+}
+
+.homeRightContainer{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    border-right: 1px solid var(--borderColor);
+    padding: 0px 5% 0px 10%;
+}
+
+.homeLeftContainer{
+
+}
+
+
 .cardMainDiv{
     display: flex;
-    /* border: 1px solid black; */
-    /* background-color: rgba(244, 240, 240, 0.545); */
-    background-color: hsla(0,15%,95%,.545);
-    box-shadow: 0px 0px 10px 0px rgba(170, 170, 171, 11.2);
-    border-radius: 20px;
+    flex-direction: column;
+    margin-top: 40px;
+    border-bottom: 1px solid var(--borderColor);
+    /* background-color: hsla(0,15%,95%,.545);
+    box-shadow: 0px 0px 10px var(--boxShadow);
+    border-radius: 20px; */
 }
 .cardMainDivImageStyle{
    height: 200px;
-   width: 200px;
+   width: 00px;
 }
 
 .cardMainDiv span{
@@ -25,10 +50,21 @@
 }
 .cardMainDiv h3{
     font-size: 1.5rem;
+    margin: 0px;
+    cursor: pointer;
 }
 .cardContent{
-    /* border: 1px solid red; */
-    margin: 10px;
+    display: flex;
+    margin-top: 5px;
+    justify-content: space-between;
+}
+.cardContentImage{
+   margin-left: 10px;
+   cursor: pointer;
+}
+.cardContentImage img{
+    width: 100px;
+    height: 100px;
 }
 
 
@@ -40,11 +76,14 @@
 .writerInfo img{
     height: 30px;
     width: 30px;
+    border-radius: 20px
 }
 .writerInfo span{
- color :gray;
+ color :var(--navlinksColor);
+ font-size: 15px;
  background-color: transparent;
  padding-left: 10px;
+ cursor: pointer;
 }
 .writerInfo p{
     color :black;
@@ -53,19 +92,21 @@
 .imageStyleWriter{
     border-radius: 50%;
     /* border: 1px solid gray; */
-    box-shadow: 1px 1px 3px gray;
+    box-shadow: 0px 0px 3px var(--boxShadow);
 }
 .cardContentPara{
-    padding-top: 15px;
-   overflow: hidden;
-   display: -webkit-box;
-   -webkit-box-orient:vertical;
-   -webkit-line-clamp: 5;
-   white-space: pre-wrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    white-space: pre-wrap;
 }
 
 
 @media (min-width: 320px) and (max-width: 680px) {
+   
     .Search {
       display: none;
     }
@@ -74,16 +115,31 @@
         padding-right: 20px;
         padding-left: 30px;
     }
-
+    .homeRightContainer{
+        width: 100%;
+        padding: 0px;
+    }
     .homeContentDiv{
        width: 90%;
     }
     .cardMainDiv{
        flex-direction: column;
+       padding-left: 10px;
     }
     .cardMainDivImageStyle{
         height: 200px;
         width: 100%;
      }
+
+     .writerInfo span{
+        font-size: 15px;
+        padding-left: 5px;
+       }
+
+     .homeComponentLayout{
+        flex-direction: column;
+     }
+
+     
   
   }
