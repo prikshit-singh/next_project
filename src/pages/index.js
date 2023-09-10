@@ -4,6 +4,7 @@ import Blog from '../components/blogs/Blog'
 import styles from '../styles/Home.module.css'
 import Navbar from '../components/Navbar'
 import Loader from '../components/Loader'
+import Footer from '../components/Footer'
 import CategoryNav from '../components/CategoryNav'
 import axios from 'axios'
 
@@ -66,7 +67,7 @@ function Home(props) {
       <Catagorybanner /> */}
 
 
-
+       <Footer/>
 
     </>
   )
