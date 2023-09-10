@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import logo from '../../public/Logo.jpg'
 import { useDispatch, useSelector } from "react-redux";
@@ -14,23 +14,43 @@ import {
 } from 'semantic-ui-react'
 import Login from "./Login";
 import { toast } from 'react-toastify';
-
 import styles from "../styles/Navbar.module.css";
 import { Search, Close } from "@mui/icons-material";
 import { Modal, Box } from '@mui/material'
 import Loginmodel from "./Loginmodel";
+import Uploadpreviouspapers from "./Uploadpreviouspapers";
 
 
 function Navbar(props) {
   const [dialogue, setDialogue] = useState(false)
   const [loginDialogue, setloginDialogue] = useState(false)
+  const [uploadpreviousDialog, setUploadpreviousDialog] = useState(false)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const session = useSession()
 
+  const divRef = useRef(null);
 
-  
+  // useEffect(() => {
+  //   // Add a click event listener to the document
+  //     document.addEventListener('click', handleClickOutside);
+  //   // Cleanup: remove the event listener when the component unmounts
+  //   return () => {
+  //     document.removeEventListener('click', handleClickOutside);
+  //   };
+  // }, []);
 
+
+  const handleClickOutside = (event) => {
+    if (divRef.current && !divRef.current.contains(event.target)) {
+      if (dialogue) {
+        // divRef.current = null
+        console.log('dialogue', dialogue)
+
+        setDialogue(false);
+      }
+    }
+  };
   const dispatch = useDispatch()
   const handleRequest = () => {
     console.log('handleRequest')
@@ -39,12 +59,13 @@ function Navbar(props) {
   };
 
 
- 
 
 
   return (
     <>
-    <Loginmodel loginDialogue={loginDialogue} setloginDialogue={setloginDialogue}/>
+    
+      <Loginmodel loginDialogue={loginDialogue} setloginDialogue={setloginDialogue} />
+      <Uploadpreviouspapers uploadpreviousDialog={uploadpreviousDialog} setUploadpreviousDialog={setUploadpreviousDialog} />
       {/* <div>
         <Modal
           open={loginDialogue}
@@ -134,15 +155,19 @@ function Navbar(props) {
 
 
 
-          <div id="mySidenav" style={dialogue ? { display: 'flex', width: '250px', zIndex: 9 } : { display: 'none' }} className={styles.dialogueBox}>
+          <div id="mySidenav" ref={divRef} style={dialogue ? { display: 'flex', width: '250px', zIndex: 9 } : { display: 'none' }} className={styles.dialogueBox}>
             <Link className={styles.navLinks} href="/">Home</Link>
             <Link className={styles.navLinks} href="/write">Write</Link>
             {/* <Link className={styles.navLinks} href="/signup">Signup</Link> */}
-
             {session.data != undefined ?
-              <p onClick={() => signOut('google',{callbackUrl:'https://gitgurus.com'})} className={styles.navLinks} >Logout</p>
-            :
-            <p onClick={()=>setloginDialogue(true)} className={styles.navLinks} >Sign In</p>
+              <p onClick={() => setUploadpreviousDialog(true)} className={styles.navLinks} style={{ margin: 0 }} >Upload Papers</p>
+              :
+              null
+            }
+            {session.data != undefined ?
+              <p onClick={() => signOut('google', { callbackUrl: 'https://gitgurus.com' })} className={styles.navLinks} >Logout</p>
+              :
+              <p onClick={() => setloginDialogue(true)} className={styles.navLinks} >Sign In</p>
             }
           </div>
         </header>
