@@ -24,6 +24,7 @@
     "eslint-config-next": "13.3.0",
     "express": "^4.18.2",
     "formidable": "^3.5.0",
+    "formik": "^2.4.4",
     "googleapis": "^126.0.0",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.1",
@@ -31,6 +32,7 @@
     "multer": "^1.4.5-lts.1",
     "next": "13.3.0",
     "next-auth": "^4.23.1",
+    "next-connect": "^1.0.0",
     "next-redux-wrapper": "^8.1.0",
     "nodemailer": "^6.9.4",
     "react": "18.2.0",
@@ -45,6 +47,7 @@
     "slate": "^0.94.1",
     "slate-react": "^0.98.1",
     "suneditor": "^2.45.1",
-    "suneditor-react": "^3.6.1"
+    "suneditor-react": "^3.6.1",
+    "yup": "^1.2.0"
   }
 }

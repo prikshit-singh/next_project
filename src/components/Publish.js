@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggolDialogue } from '../../slices/publisherDialogueSlice';
 import Files from 'react-files'
 import myImg from "../utils/img.png";
+import Loader from "./Loader";
+
 import { AccessAlarm, ThreeDRotation, Close } from '@mui/icons-material';
 import styles from "../styles/Publish.module.css";
 import axios from 'axios';
@@ -19,6 +21,7 @@ import { useSession} from "next-auth/react"
 //   });
 
 function Publish(props) {
+    const [loader, setLoader] = useState(false)
     const [title, setTitle] = useState("");
     const [subTitle, setSubTitle] = useState("");
     const [keywordText, setKeywordText] = useState("");
@@ -37,6 +40,7 @@ function Publish(props) {
     const handlePublish = async () => {
         const cookieValue = await Cookies.get('token');
         const formData = new FormData();
+        setLoader(true)
         formData.append('image', fileSrc);
         formData.append('title', title);
         formData.append('slug', title);
@@ -52,11 +56,13 @@ function Publish(props) {
         })
 
         if (res.data.CODE === 200) {
+            setLoader(false)
             toast('Uploaded successfully', { hideProgressBar: false,autoClose: 2000,  type: 'success' })
             dispatch(toggolDialogue(false))
             // router.push('/')
     
         }else{
+            setLoader(false)
             toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
 
         }
@@ -68,6 +74,8 @@ function Publish(props) {
 
     return (
         <>
+            {loader ? <Loader /> : null}
+
             <div className={styles.crossBtn}>
                 {/* <Close  /> */}
                 <Icon  

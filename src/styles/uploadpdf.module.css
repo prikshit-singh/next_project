@@ -1,0 +1,80 @@
+.modelHeader{
+    border-bottom: 2px solid var(--borderColor);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 10px 0px 10px;
+}
+
+
+.form {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px 10px 20px 10px;
+}
+
+.formFields label {
+  display: flex;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.formFields input {
+  width: 100%;
+  padding: 7px;
+  margin-bottom:20px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 6px;
+  outline: none;
+}
+.formFields select {
+    width: 100%;
+    padding: 7px;
+    margin-bottom:15px;
+    border: 1px solid gray;
+    border-radius: 6px;
+    outline: none;
+  }
+
+.button {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+  background-color: #49c1a2;
+  color: white;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.closebtn {
+    -webkit-text-fill-color: gray;
+    font-size: 36px;
+    cursor: pointer;
+  }
+  
+  .closebtn:hover {
+    -webkit-text-fill-color: black;
+  
+  }
+  
+.formInputDiv{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.leftForm{
+    width: 100%;
+    margin-right: 40px;
+
+}
+.rightForm{
+    width: 100%;
+
+}
