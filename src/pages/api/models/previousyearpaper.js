@@ -24,6 +24,9 @@ const previousYearPaperSchema = new Schema({
     course: {
         type: String,
     },
+    subject: {
+        type: String,
+    },
     year: {
         type: String,
 
@@ -41,6 +44,6 @@ const previousYearPaperSchema = new Schema({
 });
 
 // Create the signup model
-const Papers = mongoose.models['Papers'] || mongoose.model('Papers', previousYearPaperSchema);
+const Papers = mongoose.models['Papers1'] || mongoose.model('Papers1', previousYearPaperSchema);
 
 export default Papers;

@@ -22,7 +22,7 @@ function Home(props) {
     setLoader(false)
     // }
   }
-
+   console.log('index',props)
  
 
   return (
@@ -77,10 +77,12 @@ function Home(props) {
 export const getServerSideProps = async (context) => {
   try {
     const res = await axios.get(`${process.env.DOMAIN_NAME}/api/getblogs`)
+    const res1 = await axios.get(`${process.env.DOMAIN_NAME}/api/pdfupload/getpreviousyearpaper`)
     if (res.data.CODE === 200) {
       return {
         props: {
-          res: res.data
+          res: res.data,
+          res1: res1.data,
         }
       };
     }

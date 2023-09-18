@@ -41,7 +41,7 @@ function Uploadpreviouspapers(props) {
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
     const [semester, setSemester] = useState('');
-    const [college, setCollege] = useState('')
+    const [college, setCollege] = useState('');
     const session = useSession()
 
     const style1 = {
@@ -89,6 +89,10 @@ function Uploadpreviouspapers(props) {
             toast('Please select pdf', { hideProgressBar: false, autoClose: 2000, type: 'error' })
             return 0;
         }
+        if (subject == '') {
+            toast('Please enter subject', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+            return 0;
+        }
         setLoader(true)
         const formData = new FormData();
         formData.append('pdf', file);
@@ -100,6 +104,7 @@ function Uploadpreviouspapers(props) {
         formData.append('year', year);
         formData.append('semester', semester);
         formData.append('token', session.data.userData.token);
+        formData.append('subject', subject);
         try {
 
             const res = await axios.post('/api/pdfupload', formData, {
@@ -201,11 +206,19 @@ function Uploadpreviouspapers(props) {
                                     <option value="8">Semester 8</option>
                                 </select>
                             </div>
-
+                      
 
 
                         </div>
+                         
+                        
                         <div className={styles.rightForm}>
+                        <div className={styles.formFields}>
+                                <label htmlFor="subject">subject</label>
+                                <input type="text" placeholder=" " value={subject} onChange={(e) => {
+                                    setSubject(e.target.value)
+                                }} />
+                            </div>
                             <div className={styles.formFields}>
                                 <label htmlFor="Year" >Year</label>
                                 <input type="date" placeholder=" " onChange={(e) => {

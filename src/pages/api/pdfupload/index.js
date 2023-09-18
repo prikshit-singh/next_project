@@ -160,6 +160,7 @@ export default async function handler(req, res) {
                         state: fields.state[0],
                         city: fields.city[0],
                         course: fields.course[0],
+                        subject:fields.subject[0],
                         year: fields.year[0],
                         semester: fields.semester[0],
                         uploadby: userData[0]._id,
