@@ -19,13 +19,14 @@ function MultiSelectReferences(props) {
    
     const [university, setUniversity] = useState([])
     const session = useSession()
+    console.log(session)
     useEffect(() => {
         if (session.data) {
-            getMenus()
+            getAllUniversity()
         }
     }, [])
 
-    const getMenus = async () => {
+    const getAllUniversity = async () => {
         const menus = await axios.get(`${apis.baseUrl}${apis.getAllUniversity}`, {
             headers: {
                 'token': session.data ? session.data.userData.token : '',
@@ -91,7 +92,7 @@ function MultiSelectReferences(props) {
         <>
 
             {(university !== undefined && university.length > 0) ?
-                <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
+                <div className="ag-theme-alpine" style={{ height: 500, width: '100%' }}>
                     <AgGridReact
                         rowData={university}
                         columnDefs={columnDefs}

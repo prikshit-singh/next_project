@@ -2,6 +2,11 @@
     font-family: var(--font-bold);
     color: #fff;
     text-transform: capitalize;
+    margin-left: 20px;
+}
+.adminLinks{
+    align-items: center;
+    border: 1px solid black;
 }
 
 .profileUrl {

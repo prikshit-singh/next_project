@@ -17,7 +17,7 @@ import Dropdown from '../../../multiLeveldropdown/Dropdown'
 import Link from 'next/link';
 import Loginmodel from '../../../Loginmodel';
 import styles from './style.module.css'
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Univesity', 'User', 'Roles'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 import { useSession, signOut } from "next-auth/react"
 
@@ -31,6 +31,7 @@ function Navadmin() {
 
     const [profileMenus, setProfileMenus] = useState([])
     const session = useSession()
+    // console.log(session)
     // const session = useSession()
     useEffect(() => {
         if (session && session.data) {
@@ -60,6 +61,8 @@ function Navadmin() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    console.table(pages)
     return (
         <>
 
@@ -142,8 +145,11 @@ function Navadmin() {
                         >
                             LOGO
                         </Typography>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Box className={styles.adminLinks} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
                             <Link className={styles.navLinks} href='/'>Home</Link>
+                            <p className={styles.navLinks} >Universi</p>
+                            <p className={styles.navLinks} >User</p>
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
@@ -182,7 +188,7 @@ function Navadmin() {
                                     profileMenus.map((setting) => (
                                         <MenuItem key={setting.title} onClick={handleCloseUserMenu}>
                                             <Typography textAlign="center">
-                                            <Link className={styles.profileUrl} href={setting.url}>{setting.title}</Link>
+                                                <Link className={styles.profileUrl} href={setting.url}>{setting.title}</Link>
                                             </Typography>
                                         </MenuItem>
                                     )
@@ -196,7 +202,6 @@ function Navadmin() {
                                 {session.data ?
                                     <MenuItem key="logout" onClick={handleCloseUserMenu}>
                                         <Typography className={styles.profileUrl} onClick={() => signOut('google', { callbackUrl: 'https://gitgurus.com' })} textAlign="center">
-                                           
                                             <Link className={styles.profileUrl} href='#'> Log Out</Link>
                                         </Typography>
                                     </MenuItem>
