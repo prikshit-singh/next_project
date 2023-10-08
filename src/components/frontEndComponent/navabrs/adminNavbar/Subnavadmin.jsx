@@ -14,12 +14,13 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 
-const Subnavadmin = () => {
+const Subnavadmin = (props) => {
+    console.log('props',props)
     return (
         <>
             <div className={styles.subNavAppBar}>
                 <div className={styles.subNavContainerLeft}>
-                    UNIVERSITY
+                    {props.name}
                 </div>
                 <div className={styles.subNavContainerRight}>
                     <ColorButton >
