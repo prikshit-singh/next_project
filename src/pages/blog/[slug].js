@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from "next/router";
 import Head from 'next/head'
 import Layout from "../../layouts/mainLayout";
-import Navbar from "../../components/Navbar";
+import Navbar from '../../components/frontEndComponent/navabrs/Navbar';
 import Image from 'next/image';
 import dynamic from 'next/dynamic'
 import { ThumbUp } from '@mui/icons-material';
@@ -29,7 +29,6 @@ export const getServerSideProps = async (context) => {
     const ID = await slug.split('-').reverse()[0]
     const res = await axios.get(`${process.env.DOMAIN_NAME}/api/getblogs/getblogbyid/${ID}`)
     const htmlFile = await axios.get(res.data.blog.content)
-    console.log(res)
     return {
       props: {
         res: res.data,
@@ -59,7 +58,6 @@ function Page(props) {
   // const userData = useSelector(state => state.userData.user)
   const dispatch = useDispatch()
   const session = useSession()
-  console.log(141, session)
   useEffect(() => {
     // if (props.res) {
     getBlogById();
@@ -83,7 +81,6 @@ function Page(props) {
     }
 
   };
-  console.log('userImage', writerData.userImage)
   const likeBlog = async (data) => {
 
     let slug1 = window.location.pathname.split('/').reverse()[0]
@@ -134,7 +131,7 @@ function Page(props) {
         <meta property="og:type" content="Website" />
       </Head>
 
-      <Navbar />
+      {/* <Navbar /> */}
       <CategoryNav />
 
       <div>

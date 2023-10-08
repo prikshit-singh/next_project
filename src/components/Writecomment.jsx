@@ -41,11 +41,9 @@ const Writecomment = (props) => {
 
 
     const getSunEditorInstance = (sunEditor) => {
-        console.log(1, sunEditor)
         editor.current = sunEditor;
     };
     const blogData = useSelector((state) => { return state.blogData })
-    console.log(blogData)
     const initialValue = [
         {
             type: 'paragraph',
@@ -75,7 +73,6 @@ const Writecomment = (props) => {
     const postComment = async () => {
         let slug1 = window.location.pathname.split('/').reverse()[0]
         let ID = slug1.split('-').reverse()[0]
-        console.log(editor.current.getContents())
         const data = {
             commentText: await editor.current.getContents(),
             commentedBy: '',
@@ -126,8 +123,6 @@ const Writecomment = (props) => {
 
     }
 
-
-    // console.log(comments)
     return (
         <>
 
@@ -139,7 +134,6 @@ const Writecomment = (props) => {
                 <div className={styles.commentsGroupDiv}>
                     {comments.length > 0 ?
                         comments.map((data) => {
-                            console.log(data)
 
                             return (
                                 <>

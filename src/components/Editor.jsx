@@ -31,16 +31,13 @@ import styles from "../styles/Write.module.css";
 const CustomEditor = () => {
   const [windowWidth,setwindowWidth]= useState(window.innerWidth)
   // const windowWidth = useRef(window.innerWidth);
-  console.log('windowWidth',windowWidth)
   const editor = useRef(null);
   const state = useSelector((state) => state.editorSlice.content);
   const publishModelState = useSelector((state) => state.publisherDialogueSlice.state)
-  console.log('publishModelState',publishModelState)
 
   const dispatch = useDispatch();
 
   const getSunEditorInstance = (sunEditor) => {
-    console.log(1, sunEditor)
     editor.current = sunEditor;
   };
 
@@ -210,7 +207,6 @@ const CustomEditor = () => {
         }}
 
         onChange={() => {
-          console.log(editor.current.getContents())
           dispatch(updateEditorContent(editor.current.getContents()))
         }}
       />

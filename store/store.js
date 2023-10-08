@@ -1,8 +1,7 @@
 "use client"
 
 import { configureStore,combineReducers} from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+// import storage from 'redux-persist/lib/storage';
 import editorSlice from "../slices/editorSlice";
 import publisherDialogueSlice from "../slices/publisherDialogueSlice";
 import userData from "../slices/user/user";
@@ -12,10 +11,10 @@ const middleware = (getDefaultMiddleware) =>
         serializableCheck:false
     });
 
-    const persistConfig = {
-        key: 'root', // Key for local storage
-        storage,
-      };
+    // const persistConfig = {
+    //     key: 'root', // Key for local storage
+    //     storage,
+    //   };
            
 
 const reducers = {

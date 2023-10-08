@@ -59,7 +59,6 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
         <meta name="robots" content="all" />
         <meta name="google" content="nositelinkssearchbox" key="sitelinks" />
         <meta name="google" content="notranslate" key="notranslate" />
-        {/* <link rel="canonical" href="https://gitgurus.com" /> */}
 
       </Head>
 

@@ -1,0 +1,49 @@
+.navLinks {
+    font-family: var(--font-bold);
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.profileUrl {
+    font-family: var(--font-bold);
+    color: #861f4184;
+    text-transform: capitalize;
+}
+
+.profileUrl:hover {
+    color: var(--primary)
+}
+
+.navLinks:hover {
+    color: #fff;
+    border-bottom: 1px solid #fff;
+    text-decoration: none;
+}
+
+
+
+/* subNav style */
+.subNavAppBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff ;
+    margin-top: 20px;
+    margin-left: 1%;
+    box-shadow: 0px 5px  10px rgb(158, 158, 158);
+    width: 98% !important;
+    color: black !important;
+}
+
+.subNavContainerLeft {
+    margin-left: 20px;
+    color: var(--primary);
+    font-family: var(--font-bold);
+    font-size: larger;
+}
+.subNavContainerRight {
+    padding: 10px;
+    margin-right: 20px;
+    font-family: var(--font-bold);
+    font-size: larger;
+}

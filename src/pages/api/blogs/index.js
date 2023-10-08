@@ -8,7 +8,6 @@ export default async function handler(req, res) {
       res.status(405).send({ message: 'Only POST requests allowed' })
       return
     }
-    console.log(req.body.data)
     
     await connectDB()
     const blog =await new Blog({
@@ -20,7 +19,6 @@ export default async function handler(req, res) {
       date:req.body.data.date,
     });
     const result = await blog.save()
-    // console.log(result)
     return res.status(200).json({CODE:200, name: result })
   } catch (error) {
     return res.status(200).json({CODE:400, error: error })

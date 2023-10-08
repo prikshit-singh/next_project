@@ -21,7 +21,7 @@ import Loginmodel from "./Loginmodel";
 import Uploadpreviouspapers from "./Uploadpreviouspapers";
 
 
-function Navbar(props) {
+function Navbar({domainName}) {
   const [dialogue, setDialogue] = useState(false)
   const [loginDialogue, setloginDialogue] = useState(false)
   const [uploadpreviousDialog, setUploadpreviousDialog] = useState(false)
@@ -45,7 +45,6 @@ function Navbar(props) {
     if (divRef.current && !divRef.current.contains(event.target)) {
       if (dialogue) {
         // divRef.current = null
-        console.log('dialogue', dialogue)
 
         setDialogue(false);
       }
@@ -53,13 +52,9 @@ function Navbar(props) {
   };
   const dispatch = useDispatch()
   const handleRequest = () => {
-    console.log('handleRequest')
     // dispatch(updateEditorContent(editor.current.getContents()));
     dispatch(toggolDialogue(true));
   };
-
-
-
 
   return (
     <>
@@ -121,10 +116,9 @@ function Navbar(props) {
           </div>
           <div className={styles.navigationDiv}>
             <div className={styles.publishButton}>
-              {typeof (window) != 'undefined' && window.location.href === 'https://gitgurus.com/write' ? <button
+              {typeof (window) != 'undefined' && window.location.href === `http://localhost:3000/write` ? <button
                 // className={styles.publishButton}
                 onClick={() => {
-                  console.log('clicked')
                   handleRequest();
                 }}
               >
@@ -174,6 +168,15 @@ function Navbar(props) {
       </div>
     </>
   );
+}
+
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      domainName: process.env.DOMAIN_NAME,
+    },
+  };
 }
 
 export default Navbar;

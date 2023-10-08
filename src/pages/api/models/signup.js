@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 var Schema = mongoose.Schema;
 // Define the signup schema
 const signupSchema = new Schema({
@@ -29,7 +30,7 @@ const signupSchema = new Schema({
   password:{
     type: String,
   },
-  roles:[],
+  roles:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Roles_collection' }],
   isvarify:{
     type:'String'
   },
@@ -43,9 +44,12 @@ const signupSchema = new Schema({
   date:{
     type: String,
   },
+},{
+  strict: false, // Set strict to false to allow changes to the schema
+  collection: 'user_collection', // Specify the collection name (optional)
 });
 
 // Create the signup model
-const Signup =mongoose.models.Signup || mongoose.model('Signup', signupSchema);
+const Signup =  mongoose.models.User_collection || mongoose.model('User_collection', signupSchema);
 
  export default Signup;

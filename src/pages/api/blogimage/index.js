@@ -31,7 +31,6 @@ export default async function handler(req, res) {
           if (error) {
             console.log(error);
           } else {
-            console.log("New Directory created successfully !!");
             const form = new IncomingForm();
 
             // Set the upload directory
@@ -40,7 +39,6 @@ export default async function handler(req, res) {
             // Parse the incoming form data
             form.on('fileBegin', function (name, file) {
               // Modify the filename as per your requirements
-              console.log(1)
               const fileName = Date.now() + '_' + file.newFilename + path.extname('.jpg');
               file.path = path.join(form.uploadDir, fileName);
             });
@@ -65,7 +63,6 @@ export default async function handler(req, res) {
       } else {
         console.log("Given Directory already exists !!");
         const session = await getSession(req);
-    console.log('verifyTokan',session)
         const form = new IncomingForm();
         // Set the upload directory
         form.uploadDir = path.join(process.cwd(), 'public/images');
@@ -83,12 +80,10 @@ export default async function handler(req, res) {
             console.error(err);
 
           }
-          // console.log(fields)
           // Move the uploaded file to the desired location
 
          
           const oldPath = files.image[0].filepath;
-          // console.log(1,files.image[0].path.split('/')[0].split('//'))
           const newPath = files.image[0].path
           fs.renameSync(oldPath, newPath);
           const baseUrl = `${process.env.IMAGE_DOMANE}/images/`
@@ -123,14 +118,12 @@ export default async function handler(req, res) {
               Comments:[],
             });
             const result = await blog.save()
-            // console.log(result)
             return res.status(200).json({CODE:200, result })
           // res.status(200).send({ msg: 'file stored successfully' })
         });
       }
     });
   } catch (error) {
-    console.log(2)
     return res.status(200).json({CODE:400, error })
 
   }

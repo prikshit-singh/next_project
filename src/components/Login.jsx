@@ -5,14 +5,11 @@ function Login() {
   const { data: session } = useSession()
   if (session) {
     const { email, image, name } = session.user
-    // handleSignup(email,image,name)
-    // console.log(email,image,name)
-
   }
   return (
     <>
-    <input  type="button" value="Google"
-              onClick={() => signIn('google',{callbackUrl:'https://gitgurus.com'})} />
+      <input type="button" value="Google"
+        onClick={() => signIn('google', { callbackUrl: 'https://gitgurus.com' })} />
     </>
   )
 }

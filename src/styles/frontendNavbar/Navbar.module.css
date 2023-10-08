@@ -1,0 +1,55 @@
+
+  
+  /* Style for the dropdown container */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Style for the top-level menu */
+  .menu {
+    list-style-type: none;
+    background-color: #333;
+    padding: 10px;
+  }
+  
+  .menu li {
+    display: inline-block;
+    margin-right: 20px;
+    position: relative;
+  }
+  
+  .menu a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  /* Style for the submenu */
+  .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    padding: 10px;
+  }
+  
+  .menu li:hover .submenu {
+    display: block;
+  }
+  
+  .submenu li {
+    display: block;
+    margin-right: 0;
+  }
+  
+  /* Style for nested submenus */
+  .submenu .submenu {
+    left: 100%;
+    top: 0;
+  }
+  
+  /* Additional styling for better visibility */
+  .menu li:hover > a {
+    background-color: #555;
+  }

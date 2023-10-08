@@ -11,7 +11,6 @@ export default async function handler(req, res) {
     if (token) {
       // token= token.split('token=')[1]
       let userData = await varifyuser(token)
-      console.log('request', userData)
 
       if (userData) {
         let findBlog = await Blog.findById({ _id: req.headers.blogid })

@@ -103,7 +103,7 @@
 
 .Search input {
   padding: 3px;
-  padding-left: 17px;
+  /* padding-left: 17px; */
   border-radius: 25px;
   font-size: 1.3rem;
   border: 2px solid #f4f6f7;

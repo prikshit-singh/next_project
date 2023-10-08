@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import Userschema1 from './signup'
 var Schema = mongoose.Schema;
 // Define the signup schema
@@ -34,16 +35,19 @@ const previousYearPaperSchema = new Schema({
     semester: {
         type: String,
     },
-    uploadby: { type: mongoose.Schema.Types.ObjectId, ref: 'Signup' },
+    uploadby: { type: mongoose.Schema.Types.ObjectId, ref: 'User_collection' },
     isvarified: {
         type: String,
     },
     
    
 
-});
+},{
+    strict: false, // Set strict to false to allow changes to the schema
+    collection: 'papers_collection', // Specify the collection name (optional)
+  });
 
 // Create the signup model
-const Papers = mongoose.models['Papers1'] || mongoose.model('Papers1', previousYearPaperSchema);
+const Papers = mongoose.models['Papers_collection'] || mongoose.model('Papers_collection', previousYearPaperSchema);
 
 export default Papers;

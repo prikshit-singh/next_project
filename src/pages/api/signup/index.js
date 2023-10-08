@@ -17,7 +17,6 @@ export default async function handler(req, res) {
 
   try {
     await connectDB()
-    console.log(typeof(parseInt(req.body.phone)))
 
 
     
