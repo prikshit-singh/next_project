@@ -1,8 +1,8 @@
 .navLinks {
-    font-family: var(--font-bold);
+    font-family: var(--font-bold) !important;
     color: #fff;
     text-transform: capitalize;
-    margin-left: 20px;
+    margin-left: 20px !important;
     align-self: center !important;
 }
 .adminLinks{
