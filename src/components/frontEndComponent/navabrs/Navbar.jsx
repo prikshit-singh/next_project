@@ -32,9 +32,14 @@ function Navbar({ menus }) {
     const [profileMenus, setProfileMenus] = useState([])
 const session = useSession()
     // const session = useSession()
+    console.log(session.data)
     useEffect(() => {
         if (session && session.data) {
-            setProfileMenus(session.data.existingUser.roles[0].canaccessprofilemenus)
+            if(session.data.existingUser === null){
+                setloginDialogue(true)
+            }else{
+                setProfileMenus(session.data.existingUser.roles[0].canaccessprofilemenus)
+            }
         }
     }, [session])
 
