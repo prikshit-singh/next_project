@@ -148,8 +148,8 @@ function Navadmin() {
                         <Box className={styles.adminLinks} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
                             <Link className={styles.navLinks} href='/'>Home</Link>
-                            <p className={styles.navLinks} >Universi</p>
-                            <p className={styles.navLinks} >User</p>
+                            <Typography className={styles.navLinks} >University</Typography>
+                            <Typography className={styles.navLinks} >User</Typography>
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>

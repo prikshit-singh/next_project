@@ -3,10 +3,11 @@
     color: #fff;
     text-transform: capitalize;
     margin-left: 20px;
+    align-self: center !important;
 }
 .adminLinks{
     align-items: center;
-    border: 1px solid black;
+    cursor: pointer;
 }
 
 .profileUrl {
