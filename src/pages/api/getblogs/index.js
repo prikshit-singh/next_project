@@ -1,5 +1,4 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
 import { connectDB } from '../users/dbconfig/dbconfig'
 import nodemailer from 'nodemailer'
 

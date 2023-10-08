@@ -36,9 +36,7 @@ function Publish(props) {
         setFileSrc(e.target.files[0])
     }
 
-    console.log('session',session.data.userData.token)
     const handlePublish = async () => {
-        const cookieValue = await Cookies.get('token');
         const formData = new FormData();
         setLoader(true)
         formData.append('image', fileSrc);

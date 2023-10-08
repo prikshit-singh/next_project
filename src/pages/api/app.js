@@ -13,14 +13,12 @@ export default async function handler(req, res) {
     }
 
     await connectDB()
-    console.log(req.body.data)
     const blog =await new Blog({
       title: 'prikshit',
       slug: req.body.data,
       content: req.body.data
     });
     const result = await blog.save()
-    console.log(result)
     return res.status(200).json({CODE:200, name: req.body.data })
   } catch (error) {
     return res.status(200).json({CODE:400, error: error })

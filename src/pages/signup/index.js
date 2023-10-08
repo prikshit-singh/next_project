@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../../styles/signup.module.css";
 import { useState } from "react";
 import { useRouter } from 'next/router'
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/frontEndComponent/navabrs/Navbar";
 import axios from "axios";
 import {  toast } from 'react-toastify';
 const Signup = () => {
@@ -39,7 +39,6 @@ const Signup = () => {
               placeholder=" "
               onChange={(e) => {
                 setFirstName(e.target.value);
-                console.log(e.target.value);
               }}
             />
             <label>Last Name</label>

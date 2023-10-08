@@ -19,7 +19,6 @@ function Blog(props) {
             <div className={styles.homeContentDiv}>
                 <div className={styles.containerColumn}>
                     {props.props.map((data, index) => {
-                        console.log(data)
                         {/* const htmlFile = await axios.get(data.content) */ }
                         let time = new Date(parseInt(data.date));
                         let newTimeString = time.toLocaleDateString()

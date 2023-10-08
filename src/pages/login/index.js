@@ -22,13 +22,7 @@ const Loginpage = () => {
   const [password, setPassword] = useState("");
   const [loader, setLoader] = useState(false)
   const dispatch = useDispatch()
-
-  // const session = useSession()
-  // console.log(session)
-
-
   const router = useRouter()
-
 
   const handleLogin = async () => {
     setLoader(true)
@@ -48,9 +42,19 @@ const Loginpage = () => {
   return (
     <>
       {loader ? <Loader /> : null}
+
+
+
+
+
+
+
+
+
+      
       {/* <Navbar /> */}
 
-      <div className={styles.signUpMainDiv}>
+      {/* <div className={styles.signUpMainDiv}>
         <div className={styles.loginbox}>
           <h1>Login</h1>
           <form className={styles.form}>
@@ -74,7 +78,12 @@ const Loginpage = () => {
             </Layout>
           </form>
         </div>
-      </div>
+      </div> */}
+
+
+
+
+
     </>
   );
 };
@@ -82,20 +91,19 @@ export default Loginpage;
 // Login.Layout = Layout
 
 
-export const getServerSideProps = async (context) => {
-  try {
-    const session = await getSession(context)
-    console.log('session', session)
+// export const getServerSideProps = async (context) => {
+//   try {
+//     const session = await getSession(context)
 
-    return {
-      props: {}
-    };
-  } catch (error) {
-    console.log(error)
-    return {
-      props: {}
-    };
-  }
+//     return {
+//       props: {}
+//     };
+//   } catch (error) {
+//     console.log(error)
+//     return {
+//       props: {}
+//     };
+//   }
 
-}
+// }
 

@@ -16,7 +16,6 @@ function Loginmodel(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
-    console.log(process.env)
     const style1 = {
         // dispatch:'flex',
         position: 'absolute',
@@ -37,14 +36,13 @@ function Loginmodel(props) {
           // setLoader(false)
           router.push('/')
         } else {
-          setLoader(false)
+          // setLoader(false)
     
           toast('Invald Email or Password', { hideProgressBar: false, autoClose: 2000, type: 'error' })
     
         }
       }
 
-      console.log(props.loginDialogue)
     return (
         <>
         <div>

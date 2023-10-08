@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       res.status(200).send({ CODE: 405, message: 'Only POST requests allowed' })
       return
     }
-    await connectDB()
+     connectDB()
 
    
     

@@ -1,19 +1,61 @@
 /* @import '~bulma/bulma'; */
-:root{
-    --primary:#ffffff;
-    /* --secondery:#333; 
-    --thirdcolor:#777777b5; */
-    --borderColor:#b4b4b337;
+/* @import 'bootstrap/dist/css/bootstrap.min.css'; */
+
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
+
+@font-face {
+    font-family: 'Roboto-Bold';
+    src: url(./fonts/Roboto-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'Roboto-Medium';
+    src: url(./fonts/Roboto-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url(./fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Roboto-Bold';
+    src: url(./fonts/Roboto-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'Roboto-Bold';
+    src: url(./fonts/Roboto-Bold.ttf);
+}
+:root {
+    --primary: #861f41;
+    --secondary:rgba(122, 27, 58, 0.764);
+    --borderColor: #b4b4b337;
     /* navbar colors */
-    --navlinksColor:gray;
-    --navlinksColorHover:rgb(36, 34, 34);
-    --boxShadow:rgba(30, 30, 30, 0.489);
+    --navlinksColor: gray;
+    --navlinksColorHover: rgb(36, 34, 34);
+    --boxShadow: rgba(30, 30, 30, 0.489);
+    /* --theme-color: #03519a; */
+    --font-regular: 'Roboto-Regular';
+    --font-medium: 'Roboto-Medium';
+    --font-bold: 'Roboto-Bold';
 }
 
 
-*{
+* {
     margin: 0px;
     padding: 0px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
 }
 
+body{
+    background-color: rgba(236, 236, 236, 0.464);
+
+}
+
+
+/* navbar style  */
 

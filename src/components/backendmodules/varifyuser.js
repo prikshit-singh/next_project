@@ -10,11 +10,10 @@ export default async function handler (token){
 
    const veify= Jwt.verify(token, 'this key is private', async function (err, decoded) {
         if(err){
-            console.log(err)
-            if(err.name==='TokenExpiredError')
-            return  false
+            // console.log(err)
+            // if(err.name==='TokenExpiredError')
+            return  {CODE:401,msg:'token invalid'}
         }
-        console.log('decoded1',decoded)
         const result = await Signup.findOne({ 'email': decoded.email, '_id': decoded._id })
         if (result) {
            return  {CODE:200,email:decoded.email,_id:decoded._id}

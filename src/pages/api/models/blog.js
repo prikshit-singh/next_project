@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import Userschema1 from './signup'
 var Schema = mongoose.Schema;
 // Define the signup schema
@@ -35,10 +36,10 @@ const blogSchema = new Schema({
     type: String,
     required: true,
   },
-  writtenby: { type: mongoose.Schema.Types.ObjectId, ref: 'Signup' },
+  writtenby: { type: mongoose.Schema.Types.ObjectId, ref: 'User_collection' },
   LikedBy: [
     {
-      type: Schema.Types.ObjectId, ref: 'Signup'
+      type: mongoose.Schema.Types.ObjectId, ref: 'User_collection'
     }
   ],
   isvarified: {
@@ -50,14 +51,14 @@ const blogSchema = new Schema({
   Comments: [
     {
       commentText: { type: String, required: true, },
-      commentedBy: { type: Schema.Types.ObjectId, ref: 'Signup' },
+      commentedBy: { type: Schema.Types.ObjectId, ref: 'User_collection' },
       commentDate: {
         type: String,
         required: true,
       },
       commentreplies: [{
         commentText: { type: String },
-        commentedBy: { type: Schema.Types.ObjectId, ref: 'Signup' },
+        commentedBy: { type: Schema.Types.ObjectId, ref: 'User_collection' },
         commentDate: {
           type: String,
         },
@@ -65,9 +66,12 @@ const blogSchema = new Schema({
     }
   ]
 
+},{
+  strict: false, // Set strict to false to allow changes to the schema
+  collection: 'blog_collection', // Specify the collection name (optional)
 });
 
 // Create the signup model
-const Blog = mongoose.models['Blog'] || mongoose.model('Blog', blogSchema);
+const Blog = mongoose.models['Blog_collection'] || mongoose.model('Blog_collection', blogSchema);
 
 export default Blog;

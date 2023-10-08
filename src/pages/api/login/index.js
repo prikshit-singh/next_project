@@ -5,9 +5,7 @@ import  Jwt  from 'jsonwebtoken';
 import Signup from '../models/signup';
 
 export default async function handler(req, res) {
-console.log(req.body.email)
 const {email,password}= req.body
-console.log(email,password)
   try {
     await connectDB()
   const result =  await Signup.findOne({'email': req.body.email,'password':req.body.password})

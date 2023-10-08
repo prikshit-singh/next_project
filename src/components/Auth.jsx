@@ -1,56 +1,72 @@
-// withAuth.js
 
+
+
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-// import axios from "axios";
-// import Cookies from 'js-cookie';
-import Loader from './Loader';
-import { toast } from 'react-toastify';
-import { useSession } from "next-auth/react"
 import Loginmodel from './Loginmodel';
+import PageLoader from './frontEndComponent/loader/PermLoader';
+import axios from 'axios';
 
-export default function withAuth(WrappedComponent) {
-    return function WithAuth(props) {
-        const [isAuthenticated, setIsAuthenticated] = useState(false)
-        const [loginDialogue, setloginDialogue] = useState(true)
-        const router = useRouter();
-        const { data: session, status } = useSession()
+export const withAuth = (WrappedComponent) => {
+  return (props) => {
+    const [loginDialogue, setloginDialogue] = useState(true)
+    const session= useSession();
+    const router = useRouter();
+    const [isAuthorized, setIsAuthorized] = useState(false);
+    // useEffect(() => {
+    //   const checkAuthorization = async () => {
+    //     if (status === 'authenticated' && session?.user) {
+    //       try {
+    //         // Make an API call to check if the user has access to the current URL
 
+    //         const response = await axios.get('/api/settings/rolesettings/getuserroles', {
+    //             headers: {
+    //                 'token': session.userData.token ,
+    //             }
+    //         });
+    //         console.log(router.pathname)
+    //         console.log(response.data.userMenuRoles.includes(router.pathname))
 
-        // useEffect(() => {
-        //     if(session.data != undefined){
-        //         checkAuth()
-        //     }
-        // }, [session]);
-console.log('status',status)
+    //         if (response.data.CODE === 200 && response.data.userMenuRoles.includes(router.pathname)) {
+    //           setIsAuthorized(true);
+    //           setloginDialogue(false);
+    //         } else {
+    //           // Redirect to an unauthorized page or display a message
+    //           setloginDialogue(true);
+    //         }
+    //       } catch (error) {
+    //         console.error('Error checking authorization:', error);
+    //         // Handle the error as needed
+    //       }
+    //     }
+    //   };
 
-        const checkAuth = async () => {
-            if (session.data != undefined) {
-                setIsAuthenticated(true)
-                return true
-            } else {
-                toast('Please Login First', { hideProgressBar: false, autoClose: 2000, type: 'warning' })
-                router.push('/login')
-                return false
-            }
+    //   checkAuthorization();
+    // }, [status, session, router]);
+
+    useEffect(()=>{
+      if(session && session.data){
+        const index = session.data.existingUser.roles[0].canaccessprofilemenus.findIndex((data)=>data.url === router.pathname)
+        if(index !== -1){
+          setIsAuthorized(true)
         }
-        if (status === "loading") {
-            return <Loader />
-        }
+      }
+    },[session])
+    
+    if ( session && session.status === 'authenticated' && !isAuthorized) {
+        return  <p>Not Authorised...</p>; // You can use a loading indicator or unauthorized message here
+      }
+      if (session && session.status === "unauthenticated") {
+        return <Loginmodel loginDialogue={loginDialogue} setloginDialogue={setloginDialogue}/>
+    }
+    if (session && session.status === 'loading' || !isAuthorized) {
+      return <PageLoader/>; // You can use a loading indicator or unauthorized message here
+    }
+    
+   
 
-        if (status === "unauthenticated") {
-            return <Loginmodel loginDialogue={loginDialogue} setloginDialogue={setloginDialogue}/>
-        }
 
-        // Render the component if authenticated, or loading/spinner otherwise
-        // if (isAuthenticated) {
-            return <WrappedComponent {...props} />;
-        // }
-        // else {
-        //     return <Loader />
-        //     // You can replace this with a spinner component
-
-        // }
-
-    };
-}
+    return <WrappedComponent {...props} />;
+  };
+};

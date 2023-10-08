@@ -167,14 +167,12 @@ export default async function handler(req, res) {
                         isvarified: 'false',
                     });
                     const result = await paper.save()
-                    console.log(result)
                     return res.status(200).json({ CODE: 200, result: result })
                     // res.status(200).send({ msg: 'file stored successfully' })
                 });
             }
         });
     } catch (error) {
-        console.log(2)
         return res.status(200).json({ CODE: 400, error })
 
     }
