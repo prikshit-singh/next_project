@@ -2,7 +2,7 @@
     font-family: var(--font-bold);
     color: #fff;
     text-transform: capitalize;
-    margin-left: 20px;
+    margin-left: 20px !important;
     align-self: center !important;
 }
 .adminLinks{
