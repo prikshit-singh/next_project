@@ -1,56 +1,71 @@
 .footerMainDiv{
     margin-top: 40px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     background-color:rgba(0,0,0,.25);
     position: fixed;
     display: flex;
     flex-direction: column;
     position: relative;
+    height: 50px;
     
 
     
 }
-.footerMinDiv {
+.footerMainDiv2{
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+
+    padding-bottom: 5px;
+     height: 25px;
+    background-color:rgba(139, 139, 139, 0.25);
     
-    padding-top: 20px;
+}
+
+.footerLinks{
+
+    padding-right: 10px;
+    padding-left: 10px;
+    font-weight: 800;
+    
+}
+.logoDiv2{
+    
+    padding-bottom: 10px;
+
+}
+/* .footerMinDiv {
+    
+    padding-top: 5px;
     display: grid;
-    grid-template-columns:30%  30% 30%;
-    grid-gap:50px;                         
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI";
+    grid-template-columns:30% 70%;
+    grid-gap:30px;                         
+    
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 100;
     line-height: 1;
     text-align: center;
 }
 .footerDivOne{
 
     color: rgb(63, 63, 63);
-     margin-left:120px;
+     margin-left:60px;
     display: flex;
-     flex-direction: column;
-    font-weight: 300;
-    font-style: oblique;
+     flex-direction: column; */
+   
     
-}
+/* } */
 
-.notes{
 
-    font-weight:400;
-    color: rgb(129, 123, 123);
-    line-height: 1.3;
-    font-family: var(--font-bold);
-    font-size: 14px;
-    
-}
-.footerDivTwo{
+/* .footerDivTwo{
     display: flex;
     flex-direction: column;
-    text-align: left;
+ 
    
     
     
-}
-.footerDivThree{
+} */
+/* .footerDivThree{
     padding-top: 13px;
     display: flex;
     flex-direction: column;
@@ -62,50 +77,32 @@
     color: rgb(100, 97, 97);
     
     
-}
-.footerMainDiv2{
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-    padding-left: 30px;
-     height: 50px;
-    background-color:rgba(139, 139, 139, 0.25);
-    
-}
+} */
 
-.footerLinks{
-
-    padding-right: 30px;
-    padding-left: 30px;
-    font-weight: 800;
-    
-}
-.info{
+/* .info{
     display: flex;
     flex-direction: column;
     padding-top: 4px;
     padding-bottom: 10px;
     text-align: left;
     font-weight: 700;
-    color:rgba(82, 65, 65, 0.25);
-}
-.footerDivTwolink{
-    padding-top: 40px;
+    color:rgba(82, 65, 65, 0.25); */
+/* } */
+/* .footerDivTwolink{
+
+    padding-bottom:40px ;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     text-align: center;
-}
-.footerLinks2{
+} */
+/* .footerLinks2{
     font-weight: 500;
-     font-style: oblique;
+    padding-right: 30px;
+     padding-left: 100px;
      line-height: 1.5;
      color: rgb(148, 146, 146);
-     font-family: var(--font-bold);
-     font-size: 18px;
-     padding-bottom: 5px;
-}
-.logoDiv2{
-    padding-top:5px;
-    padding-bottom: 10px;
+  
 
-}
+     font-size: 18px;
+     padding-bottom: 10px; */
+/* } */

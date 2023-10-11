@@ -1,46 +1,32 @@
-import styles from '../styles/Footer.module.css'
-import Link from 'next/link';
-import logo from '../../public/Logo.jpg'
+import styles from "../styles/Footer.module.css";
+import Link from "next/link";
+import logo from "../../public/Logo.jpg";
 const Footer = () => {
-    return (
-        <>
-        <div className={styles.footerMainDiv}>
-          <div className={ styles.footerMinDiv}>
-          <div className={styles.footerDivOne}>
-             <div className={styles.logoDiv2}>
-            <img style={{ height: '40px' }} src={`https://gitgurus.com/favicon.png`} alt='gitgurus.com logo' />
-          </div>
-            <div className={styles.notes}> We are a young company always looking for new and creative ideas to help you with our content in your everyday work.</div>
-            </div>
-            <div className={styles.footerDivTwo}>
-            <div className={ styles.footerDivTwolink}> 
-            <Link className={styles.footerLinks2} href="/">Home</Link>
-      <Link className={styles.footerLinks2} href="/Blog"> Blog</Link>
-      <Link className={styles.footerLinks2} href="/About us">About us</Link>
-      
-            </div>
-            </div>
-
-
-            <div className={styles.footerDivThree}>
-            <h4>  Contact us </h4>
-             <div className={styles.contact}> <span className={ styles. info}>phone : </span>
-            <span className={ styles. info}> Email :      </span>
-              <span className={ styles. info}>Skype :</span>
-             </div>
-            </div>
-            
-          </div>
-          
-        </div>
+  return (
+    <>
+      <div className={styles.footerMainDiv}>
         <div className={styles.footerMainDiv2}>
-      <div className={ styles.copyright}> copyright 
-      <Link className={styles.footerLinks} href="/">Terms</Link>
-      <Link className={styles.footerLinks} href="/privacy"> Privacy</Link>
-      </div>
+          <div className={styles.logoDiv2}>
+            <img
+              style={{ height: "40px" }}
+              src={`https://gitgurus.com/favicon.png`}
+              alt="gitgurus.com logo"
+            />
+          </div>
+          <div className={styles.copyright}>
+            @-All Rights Reserved
+            <Link className={styles.footerLinks} href="/">
+              Terms
+            </Link>
+            <Link className={styles.footerLinks} href="/privacy">
+
+              Privacy
+            </Link>
+          </div>
         </div>
-        </>
-    );
+      </div>
+    </>
+  );
 };
 
 export default Footer;
