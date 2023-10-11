@@ -1,6 +1,7 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import axios from "axios"
 import { toast } from 'react-toastify';
+import GoogleButton from 'react-google-button'
 function Login() {
   const { data: session } = useSession()
   if (session) {
@@ -8,7 +9,10 @@ function Login() {
   }
   return (
     <>
-      <input type="button" value="Google"
+      <GoogleButton style={{
+        width:'100%',
+        marginTop:'10px'
+      }} type="dark" label="Google"
         onClick={() => signIn('google', { callbackUrl: 'https://gitgurus.com' })} />
     </>
   )

@@ -84,7 +84,7 @@ function Multiselectcourse(props) {
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.createdby.email
+                    let name = data.data.createdby.email 
                     return <>
                         <p > {name}</p>
 

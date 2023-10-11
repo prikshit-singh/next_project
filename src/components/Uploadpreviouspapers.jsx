@@ -1,7 +1,25 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Modal, Box } from '@mui/material'
+import { Box } from '@mui/material'
+
+import Modal from '@mui/material/Modal';
+import axios from 'axios';
 import { useSession } from "next-auth/react"
+import { useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
+import TextField from '@mui/material/TextField';
+
+import DoneIcon from '@mui/icons-material/Done';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import styles from "../styles/uploadpdf.module.css";
 import { toast } from 'react-toastify';
 import Loader from "./Loader";
@@ -9,11 +27,48 @@ import { apis } from '../../apis';
 
 
 
-import axios from 'axios';
 import {
     Icon,
     Input
 } from 'semantic-ui-react'
+
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+
+});
+const style = {
+    // display:'flex',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    bgcolor: 'background.paper',
+    border: '2px solid transparent',
+    borderRadius: '20px',
+    boxShadow: 24,
+    p: 4,
+};
+
+
+const WhiteBorderTextField = styled(FormControl)`
+    & label.Mui-focused {
+      color: var(--primary);
+    }
+    & .MuiOutlinedInput-root {
+      &.Mui-focused fieldset {
+        border-color: var(--primary);
+      }
+    }
+  `;
 
 function Uploadpreviouspapers(props) {
 
@@ -61,17 +116,7 @@ function Uploadpreviouspapers(props) {
         }
     }
 
-    const style1 = {
-        // dispatch:'flex',
-        position: 'absolute',
-        width: '50%',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        // p: 0,
-    };
+    
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         setFile(selectedFile);
@@ -104,7 +149,6 @@ function Uploadpreviouspapers(props) {
             toast('Please select pdf', { hideProgressBar: false, autoClose: 2000, type: 'error' })
             return 0;
         }
-        console.log(selectedUniversity, selectedCourse, selectedYear, semester, college, selectedSubject, file)
 
         setLoader(true)
         const formData = new FormData();
@@ -134,8 +178,6 @@ function Uploadpreviouspapers(props) {
             }
         } catch (error) {
             setLoader(false)
-
-            // setSubmitting(false);
             console.error('An error occurred while uploading the file:', error);
         }
     };
@@ -174,104 +216,146 @@ function Uploadpreviouspapers(props) {
 
 
     };
-
+console.log(1234,props)
     return (
         <>
 
             <Modal
                 open={props.uploadpreviousDialog}
+                
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                onClose={()=>{props.setUploadpreviousDialog(false)}}
             >
-                <Box sx={style1}>
+                <Box sx={style}>
                     {/* <div className={styles.signUpMainDiv}> */}
                     {loader ? <Loader /> : null}
 
-                    <div className={styles.modelHeader}>
-                        <h1>University Previous Year Papers</h1>
-                        <Icon
-                            size='big'
-                            name='close'
-                            className={styles.closebtn}
-                            onClick={() => { props.setUploadpreviousDialog(false) }} />
+
+                    <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', }}>
+                        <h2 style={{
+                            color: 'var(--primary)',
+                        }} id="parent-modal-title">University Previous Year Papers</h2>
+                        <DoneIcon
+                            onClick={handleSubmit}
+                            style={{
+                                border: ' 2px solid var(--primary)',
+                                borderRadius: '50%',
+                                fontSize: '20px',
+                                fontSize: '31px',
+                                fontWeight: 'bolder',
+                                color: 'var(--primary)',
+                                cursor: 'pointer'
+                            }}
+
+                        />
                     </div>
+
+
 
 
                     <div className={styles.form}>
                         <div className={styles.leftForm}>
-                            <div className={styles.formFields} >
-                                <label htmlFor="university">University</label>
-                                <select name="university" id="university" defaultValue='Select University' onChange={handleUniversityChange}>
-                                    <option value="">Select University</option>
-                                    {university ? university.map((data) => {
-                                        return (
-                                            <option key={data._id} value={JSON.stringify(data)}>{data.title}</option>
-                                        )
-                                    }) : null}
-                                </select>
+                            <WhiteBorderTextField fullWidth className={styles.FormControl}>
+                                <InputLabel id="demo-simple-select-label">University</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    label="University"
+                                    defaultValue='Select University'
+                                    onChange={handleUniversityChange}
+                                >
+                                    {university.map((data) => (
+                                        <MenuItem key={data._id} value={JSON.stringify(data)}>
+                                            {data.title}
+                                        </MenuItem>
+                                    ))}
 
-                            </div>
-                            <div className={styles.formFields}>
-                                <label htmlFor="Course">Course</label>
-                                <select name="semester" id="semester" defaultValue='Select Course' onChange={(e) => {
-                                    if (e.target.value !== 'Select Course') {
+                                </Select>
+                            </WhiteBorderTextField>
+                            <WhiteBorderTextField fullWidth className={styles.FormControl}>
+                                <InputLabel id="demo-simple-select-label">Course</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    name="semester"
+                                    id="semester"
+                                    defaultValue='Select Course'
+                                    label="Course"
+                                    onChange={(e) => {
+                                        if (e.target.value !== 'Select Course') {
 
-                                        const dataValue = JSON.parse(e.target.value)
-                                        setisDisabledSemester(false)
-                                        setSelectedCourse(dataValue.coursecode)
-                                        setSubject(dataValue.subject)
-                                        setisDisabledSubject(false)
+                                            const dataValue = JSON.parse(e.target.value)
+                                            setisDisabledSemester(false)
+                                            setSelectedCourse(dataValue.coursecode)
+                                            setSubject(dataValue.subject)
+                                            setisDisabledSubject(false)
+                                            setSelectedSubject('Select Subject')
+                                            setSelectedYear('Select Year');
+                                            setisDisabledYear(true)
+
+                                        } else {
+                                            setisDisabledSemester(true)
+                                            setSelectedCourse(e.target.value)
+                                            setSubject([])
+                                            setisDisabledSubject(true)
+                                            setSelectedSubject('Select Subject')
+                                            setSelectedYear('Select Year');
+                                            setisDisabledYear(true)
+                                        }
+
+
+                                    }} disabled={isDisabledCourse}
+                                >
+                                    {course ? course.map((data) => (
+                                        <MenuItem key={data._id} value={JSON.stringify(data)}>
+                                            {data.title}
+                                        </MenuItem>
+                                    )) : null}
+
+                                </Select>
+                            </WhiteBorderTextField>
+                            <WhiteBorderTextField fullWidth className={styles.FormControl}>
+                                <TextField type="text"
+                                    id="College"
+                                    name="College"
+                                    value={college} onChange={(e) => {
+                                        setCollege(e.target.value)
+                                    }}
+                                    label="College"
+                                    variant="outlined"
+
+                                />
+                            </WhiteBorderTextField>
+
+
+                            <WhiteBorderTextField fullWidth className={styles.FormControl}>
+                                <InputLabel id="demo-simple-select-label">Semester</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    name="semester"
+                                    id="semester"
+                                    defaultValue='Select Course'
+                                    label="Semester"
+                                    onChange={(e) => {
+                                        setSemester(e.target.value)
                                         setSelectedSubject('Select Subject')
                                         setSelectedYear('Select Year');
                                         setisDisabledYear(true)
+                                    }} disabled={isDisabledCourse}
+                                >
 
-                                    } else {
-                                        setisDisabledSemester(true)
-                                        setSelectedCourse(e.target.value)
-                                        setSubject([])
-                                        setisDisabledSubject(true)
-                                        setSelectedSubject('Select Subject')
-                                        setSelectedYear('Select Year');
-                                        setisDisabledYear(true)
-                                    }
+                                    <MenuItem value={semester}>Select Semester</MenuItem>
+                                    <MenuItem value="1">Semester 1</MenuItem>
+                                    <MenuItem value="2">Semester 2</MenuItem>
+                                    <MenuItem value="3">Semester 3</MenuItem>
+                                    <MenuItem value="4">Semester 4</MenuItem>
+                                    <MenuItem value="5">Semester 5</MenuItem>
+                                    <MenuItem value="6">Semester 6</MenuItem>
+                                    <MenuItem value="7">Semester 7</MenuItem>
+                                    <MenuItem value="8">Semester 8</MenuItem>
+                                </Select>
+                            </WhiteBorderTextField>
 
-
-                                }} disabled={isDisabledCourse}>
-                                    <option value={selectedCourse}>Select Course</option>
-                                    {course ? course.map((data) => {
-                                        return (
-                                            <option key={data._id} value={JSON.stringify(data)}>{data.title}</option>
-                                        )
-                                    }) : null}
-
-                                </select>
-
-                            </div>
-                            
-                            <div className={styles.formFields}>
-                                <label htmlFor="college">College</label>
-                                <input type="text" placeholder=" " value={college} onChange={(e) => {
-                                    setCollege(e.target.value)
-                                }} />
-                            </div>
-
-                            <div className={styles.formFields}>
-                                <label htmlFor="Semester">Semester</label>
-                                <select name="semester" id="semester" onChange={(e) => {
-                                    setSemester(e.target.value)
-                                    setSelectedSubject('Select Subject')
-                                    setSelectedYear('Select Year');
-                                    setisDisabledYear(true)
-                                }} disabled={isDisabledSemester}>
-                                    <option value={semester}>Select Semester</option>
-                                    <option value="1">Semester 1</option>
-                                    <option value="2">Semester 2</option>
-                                    <option value="3">Semester 3</option>
-                                    <option value="4">Semester 4</option>
-                                    <option value="5">Semester 5</option>
-                                    <option value="6">Semester 6</option>
-                                    <option value="7">Semester 7</option>
-                                    <option value="8">Semester 8</option>
-                                </select>
-                            </div>
 
 
 
@@ -279,56 +363,61 @@ function Uploadpreviouspapers(props) {
 
 
                         <div className={styles.rightForm}>
-                            <div className={styles.formFields}>
-                                <label htmlFor="Subject">Subject</label>
-                                <select name="Subject" id="Subject" defaultValue='Select Subject' onChange={(e) => {
-                                    if (e.target.value !== 'Select Subject') {
-                                        const dataValue = JSON.parse(e.target.value)
-                                        setSelectedSubject(dataValue.title)
-                                        setSelectedYear('Select Year');
-                                        setisDisabledYear(false)
-                                    } else {
-                                        setSelectedSubject(e.target.value)
-                                        setSelectedYear('Select Year');
-                                        setisDisabledYear(true)
-                                    }
 
 
-                                }} disabled={isDisabledSubject}>
-                                    <option value="Select Subject">Select Subject</option>
-                                    {subject ? subject.map((data) => {
-                                        return (
-                                            <option key={data._id} value={JSON.stringify(data)}>{data.title}</option>
-                                        )
-                                    }) : null}
 
-                                </select>
+                            <WhiteBorderTextField fullWidth className={styles.FormControl}>
+                                <InputLabel id="demo-simple-select-label">Subject</InputLabel>
+                                <Select
+                                    name="Subject" id="Subject" defaultValue='Select Subject' label='Subject' onChange={(e) => {
+                                        if (e.target.value !== 'Select Subject') {
+                                            const dataValue = JSON.parse(e.target.value)
+                                            setSelectedSubject(dataValue.title)
+                                            setSelectedYear('Select Year');
+                                            setisDisabledYear(false)
+                                        } else {
+                                            setSelectedSubject(e.target.value)
+                                            setSelectedYear('Select Year');
+                                            setisDisabledYear(true)
+                                        }
 
-                            </div>
-                            <div className={styles.formFields}>
-                                <label htmlFor="Year">Year</label>
-                                <select
+
+                                    }} disabled={isDisabledSubject} >
+                                    {subject ? subject.map((data) => (
+                                        <MenuItem key={data._id} value={JSON.stringify(data)}>
+                                            {data.title}
+                                        </MenuItem>
+                                    )) : null}
+
+                                </Select>
+                            </WhiteBorderTextField>
+
+                            <WhiteBorderTextField fullWidth className={styles.FormControl}>
+                                <InputLabel id="demo-simple-select-label">Year</InputLabel>
+                                <Select
                                     name="year"
                                     id="year"
                                     value={selectedYear}
                                     onChange={handleYearChange}
-                                    disabled={isDisabledYear}
+                                    disabled={isDisabledYear} label='Year'
+                                    defaultValue='Select Year'
+
                                 >
-                                    <option value="">Select Year</option>
-                                    {years.map((year) => (
-                                        <option key={year} value={year}>
-                                            {year}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className={styles.formFields}>
-                                <label htmlFor="PDF">PDF</label>
-                                <input type="file" accept=".pdf" onChange={handleFileChange} />
-                            </div>
-                            <div className={styles.formFields}>
-                                <button type='button' className={styles.button} onClick={handleSubmit}>Submit</button>
-                            </div>
+                                    {years ? years.map((data) => (
+                                        <MenuItem key={data} value={data}>
+                                            {data}
+                                        </MenuItem>
+                                    )) : null}
+
+                                </Select>
+                            </WhiteBorderTextField>
+                            <WhiteBorderTextField fullWidth >
+                                <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
+                                    {file ? 'PDF Selected' : "Select PDF"}
+                                    <VisuallyHiddenInput type="file" accept=".pdf" onChange={handleFileChange} />
+                                </Button>
+                            </WhiteBorderTextField>
+
                         </div>
 
 

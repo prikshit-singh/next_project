@@ -1,28 +1,32 @@
 export const apis = {
     //user apis
-    baseUrl :'http://localhost:3000/api/',
-    
+    baseUrl: 'http://localhost:3000/api/',
 
-    getAllUniversity :'university/university/getuniversity',
-    getUniversityCreateDetails :'university/university/getuniversitycreatedetails',
-    createUniversity:'university/university/createuniversity',
+    // menus
 
 
-    getAllCity :'university/city/getcity',
+    getAllUniversity: 'university/university/getuniversity',
+    getUniversityCreateDetails: 'university/university/getuniversitycreatedetails',
+    createUniversity: 'university/university/createuniversity',
 
 
-    getAllState :'university/state/getstate',
+    getAllCity: 'university/city/getcity',
+    createCity: 'university/city/createcity',
+
+    getAllState: 'university/state/getstate',
+    createState: 'university/state/createstate',
 
 
-    getAllCourse :'university/course/getcourse',
+    getAllCourse: 'university/course/getcourse',
+    createCourse: 'university/course/createcourse',
 
+    getAllSubject: 'university/subject/getsubject',
+    createSubject: 'university/subject/createsubject',
 
-    getAllSubject :'university/subject/getsubject',
-
-
-    getAllRoles :'settings/rolesettings/getroles',
+    getAllRoles: 'settings/rolesettings/getroles',
 
 
     //question paper details
-    getquestionpaperdetails:'university/questionpapers/getquestionpaperdetails'
+    getquestionpaperdetails: 'university/questionpapers/getquestionpaperdetails',
+    uoloadQuestionPapers:''
 }

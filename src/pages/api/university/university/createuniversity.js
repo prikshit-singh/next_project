@@ -8,6 +8,7 @@ import University from '../../models/universitymodels/university.js';
 import path from 'path';
 import fs from 'fs'
 import { IncomingForm } from 'formidable';
+import { json } from 'body-parser';
 
 export const config = {
     api: {
@@ -151,7 +152,7 @@ export default async function handler(req, res) {
                     const pdfPath = await files.universitylogo[0].originalFilename
                     const pdfPathContent = baseUrl + pdfPath
                     const user = await varifyuser(fields.token[0])
-                console.log(fields.course[0])
+                console.log('course',fields.course[0].split(','))
                     if (user) {
                         const University1 = await new University({
                             title: fields.title[0].toLowerCase(),
@@ -159,13 +160,13 @@ export default async function handler(req, res) {
                             state:fields.state[0],
                             city:fields.city[0],
                             universitylogo:pdfPathContent,
-                            course:fields.course[0],
+                            course:fields.course[0].split(','),
                             createdby: user._id
                         });
                         const result = await University1.save()
                         return res.status(200).json({ CODE: 200, result: result })
                     }
-                    // res.status(200).send({ msg: 'file stored successfully' })
+                    res.status(200).send({ msg: 'file stored successfully' })
                 });
             }
         });

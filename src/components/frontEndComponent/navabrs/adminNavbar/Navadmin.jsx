@@ -28,7 +28,7 @@ function Navadmin(props) {
     const [isOpen, setIsOpen] = useState(false);
     const [dialogue, setDialogue] = useState(false)
     const [loginDialogue, setloginDialogue] = useState(false)
-    const [uploadpreviousDialog, setUploadpreviousDialog] = useState(true)
+    const [uploadpreviousDialog, setUploadpreviousDialog] = useState(false)
 
     const [profileMenus, setProfileMenus] = useState([])
     const session = useSession()
@@ -158,6 +158,7 @@ function Navadmin(props) {
                             <Typography name="City" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >City</Typography>
                             <Typography name="Course" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >Course</Typography>
                             <Typography name="Subject" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >Subject</Typography>
+                            <Typography name="Subject" onClick={(e) => setUploadpreviousDialog(true)} className={styles.navLinks} >Upload Question Papers</Typography>
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
