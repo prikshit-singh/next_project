@@ -15,17 +15,18 @@ const rowData = [
 
 
 
-function MultiSelectUniversity(props) {
+function MultiSelectUser(props) {
    
     const [university, setUniversity] = useState([])
     const session = useSession()
+    console.log(session)
     useEffect(() => {
         if (session.data) {
-            getAllUniversity()
+            getAllUser()
         }
     }, [])
 
-    const getAllUniversity = async () => {
+    const getAllUser = async () => {
         const menus = await axios.get(`${apis.baseUrl}${apis.getAllUniversity}`, {
             headers: {
                 'token': session.data ? session.data.userData.token : '',
@@ -46,6 +47,7 @@ function MultiSelectUniversity(props) {
                 filter: true,
                 cellRenderer: (data) => {
                     let name = data.data.title
+                    console.log(data)
                     return <>
                         <p > {name}</p>
                     </>
@@ -58,6 +60,7 @@ function MultiSelectUniversity(props) {
                 filter: true,
                 cellRenderer: (data) => {
                     let name = data.data.city.title
+                    console.log(data)
                     return <>
                         <p > {name}</p>
                     </>
@@ -71,6 +74,7 @@ function MultiSelectUniversity(props) {
                 filter: true,
                 cellRenderer: (data) => {
                     let name = data.data.state.title
+                    console.log(data)
                     return <>
                         <p > {name}</p>
 
@@ -107,4 +111,4 @@ function MultiSelectUniversity(props) {
     );
 }
 
-export default MultiSelectUniversity;
+export default MultiSelectUser;

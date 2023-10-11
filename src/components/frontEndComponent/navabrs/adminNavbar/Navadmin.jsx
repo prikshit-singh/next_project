@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import Uploadpreviouspapers from '../../../Uploadpreviouspapers';
 import Dropdown from '../../../multiLeveldropdown/Dropdown'
 import Link from 'next/link';
 import Loginmodel from '../../../Loginmodel';
@@ -21,18 +22,17 @@ const pages = ['Univesity', 'User', 'Roles'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 import { useSession, signOut } from "next-auth/react"
 
-function Navadmin() {
+function Navadmin(props) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [dialogue, setDialogue] = useState(false)
     const [loginDialogue, setloginDialogue] = useState(false)
-    const [uploadpreviousDialog, setUploadpreviousDialog] = useState(false)
+    const [uploadpreviousDialog, setUploadpreviousDialog] = useState(true)
 
     const [profileMenus, setProfileMenus] = useState([])
     const session = useSession()
-    // console.log(session)
-    // const session = useSession()
+   
     useEffect(() => {
         if (session && session.data) {
             setProfileMenus(session.data.existingUser.roles[0].canaccessprofilemenus)
@@ -40,12 +40,6 @@ function Navadmin() {
     }, [session])
 
 
-    // const getMenus = async () => {
-    //     const menus = await axios.get(`http://localhost:3000/api/settings/menusettings/profilemenus/getprofilemenus`)
-    //     if (menus.data && menus.data.CODE == 200) {
-    //         setProfileMenus(menus.data.menus)
-    //     }
-    // }
 
 
     const handleOpenNavMenu = (event) => {
@@ -61,12 +55,19 @@ function Navadmin() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    const navBarLinksonClick = (e) => {
+        console.log(e.target.name)
+        props.setSubnavName(e.target.getAttribute('name'))
+    }
 
-    console.table(pages)
+
+
+
     return (
         <>
 
             <Loginmodel loginDialogue={loginDialogue} setloginDialogue={setloginDialogue} />
+            <Uploadpreviouspapers uploadpreviousDialog={uploadpreviousDialog} setUploadpreviousDialog={setUploadpreviousDialog}/>
             <AppBar style={{ paddingRight: '0px', backgroundColor: 'var(--primary)' }} position="sticky">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
@@ -148,8 +149,15 @@ function Navadmin() {
                         <Box className={styles.adminLinks} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
                             <Link className={styles.navLinks} href='/'>Home</Link>
-                            <Typography className={styles.navLinks} >University</Typography>
-                            <Typography className={styles.navLinks} >User</Typography>
+                            <Typography name="University"
+                                className={styles.navLinks}
+                                onClick={(e) => navBarLinksonClick(e)} >
+                                University
+                            </Typography>
+                            <Typography name="State" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >State</Typography>
+                            <Typography name="City" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >City</Typography>
+                            <Typography name="Course" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >Course</Typography>
+                            <Typography name="Subject" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >Subject</Typography>
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>

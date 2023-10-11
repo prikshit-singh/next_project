@@ -140,13 +140,13 @@ export default async function handler(req, res) {
                    
                     const oldPath = files.pdf[0].filepath;
                     // // console.log(1,files.pdf[0].path.split('/')[0].split('//'))
-                    const destinationDirPath = `public/previousyearpaperspdf/${fields.university[0]}/${fields.course[0]}/${fields.year[0]}/${fields.semester[0]}`
+                    const destinationDirPath = `public/previousyearpaperspdf/${fields.university[0]}/${fields.course[0]}/${fields.year[0]}/${fields.semester[0]}/${fields.subject[0]}/`
                     if (!fs.existsSync(destinationDirPath)) {
                         fs.mkdirSync(destinationDirPath, { recursive: true });
                     }
                     const destinationFilePath = path.join(destinationDirPath, path.basename(oldPath))
                     fs.renameSync(oldPath, destinationFilePath);
-                    const baseUrl = `${process.env.IMAGE_DOMANE}/previousyearpaperspdf/${fields.university[0]}/${fields.course[0]}/${fields.year[0]}/${fields.semester[0]}/`
+                    const baseUrl = `${process.env.IMAGE_DOMANE}/previousyearpaperspdf/${fields.university[0]}/${fields.course[0]}/${fields.year[0]}/${fields.semester[0]}/${fields.subject[0]}/`
                     const pdfPath = await files.pdf[0].originalFilename
                     const pdfPathContent = baseUrl + pdfPath
                     const user = await varifyuser(fields.token[0])
@@ -157,12 +157,10 @@ export default async function handler(req, res) {
                         university: fields.university[0],
                         college: fields.college[0],
                         content: pdfPathContent,
-                        state: fields.state[0],
-                        city: fields.city[0],
                         course: fields.course[0],
                         subject:fields.subject[0],
-                        year: fields.year[0],
                         semester: fields.semester[0],
+                        year: fields.year[0],
                         uploadby: userData[0]._id,
                         isvarified: 'false',
                     });

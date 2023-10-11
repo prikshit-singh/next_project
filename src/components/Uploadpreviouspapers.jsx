@@ -1,10 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal, Box } from '@mui/material'
 import { useSession } from "next-auth/react"
 import styles from "../styles/uploadpdf.module.css";
 import { toast } from 'react-toastify';
 import Loader from "./Loader";
+import { apis } from '../../apis';
+
+
 
 import axios from 'axios';
 import {
@@ -15,34 +18,48 @@ import {
 function Uploadpreviouspapers(props) {
 
     const [loader, setLoader] = useState(false)
-
+    const [isDisabledCourse, setIsDisabledCourse] = useState(true);
+    const [isDisabledSemester, setisDisabledSemester] = useState(true);
+    const [isDisabledSubject, setisDisabledSubject] = useState(true);
+    const [isDisabledYear, setisDisabledYear] = useState(true);
     const [file, setFile] = useState(null);
-    const [university, setUniversity] = useState([
-
-        { name: 'MDU', value: 'mdu' },
-        { name: 'KUK', value: 'kuk' },
-        { name: 'CU', value: 'cu' },
-        { name: 'PU', value: 'pu' },
 
 
-    ]);
+    const [university, setUniversity] = useState([]);
+    const [course, setCourse] = useState([]);
+    const [subject, setSubject] = useState([]);
+
     const [selectedUniversity, setSelectedUniversity] = useState('')
     const [selectedCourse, setSelectedCourse] = useState('')
-    const [course, setCourse] = useState([
-        { name: 'BCA', value: 'bca' },
-        { name: 'MCA', value: 'mca' },
-        { name: 'BA.', value: 'ba' },
-        { name: 'MA', value: 'MA' },
-        { name: 'BSC', value: 'bsc' },
-        { name: 'MSc', value: 'msc' },
-    ]);
-    const [year, setYear] = useState('');
-    const [subject, setSubject] = useState('');
-    const [state, setState] = useState('');
-    const [city, setCity] = useState('');
-    const [semester, setSemester] = useState('');
+    const [selectedSubject, setSelectedSubject] = useState('')
+
+    const [semester, setSemester] = useState('Select Semester');
     const [college, setCollege] = useState('');
+    const [selectedYear, setSelectedYear] = useState('');
+
     const session = useSession()
+    const years = [];
+    const currentYear = new Date().getFullYear();
+
+    // Create a list of years (adjust the range as needed)
+    for (let year = currentYear; year >= currentYear - 50; year--) {
+        years.push(year);
+    }
+
+    useEffect(() => {
+        getQuestionPaperUploadDetails()
+    }, [])
+
+    const getQuestionPaperUploadDetails = async () => {
+        const menus = await axios.get(`${apis.baseUrl}${apis.getquestionpaperdetails}`, {
+            headers: {
+                'token': session.data ? session.data.userData.token : '',
+            }
+        })
+        if (menus.data && menus.data.CODE == 200) {
+            setUniversity(menus.data.result)
+        }
+    }
 
     const style1 = {
         // dispatch:'flex',
@@ -61,50 +78,44 @@ function Uploadpreviouspapers(props) {
     };
     const handleSubmit = async () => {
         // Handle form submission here
+
         if (selectedUniversity == '') {
             toast('Please select university', { hideProgressBar: false, autoClose: 2000, type: 'error' })
             return 0;
         }
-        if (selectedCourse == '') {
+        if (selectedCourse == 'Select Course') {
             toast('Please select course', { hideProgressBar: false, autoClose: 2000, type: 'error' })
             return 0;
         }
-        if (year == '') {
-            toast('Please select year', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-            return 0;
-        }
-        if (state == '') {
-            toast('Please enter state', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-            return 0;
-        }
-        if (semester == '') {
+        if (semester == 'Select Semester') {
             toast('Please select semester', { hideProgressBar: false, autoClose: 2000, type: 'error' })
             return 0;
         }
-        if (college == '') {
-            toast('Please enter college', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+
+        if (selectedSubject == 'Select Subject') {
+            toast('Please enter subject', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+            return 0;
+        }
+        if (selectedYear == '') {
+            toast('Please select year', { hideProgressBar: false, autoClose: 2000, type: 'error' })
             return 0;
         }
         if (file == null) {
             toast('Please select pdf', { hideProgressBar: false, autoClose: 2000, type: 'error' })
             return 0;
         }
-        if (subject == '') {
-            toast('Please enter subject', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-            return 0;
-        }
+        console.log(selectedUniversity, selectedCourse, selectedYear, semester, college, selectedSubject, file)
+
         setLoader(true)
         const formData = new FormData();
         formData.append('pdf', file);
         formData.append('university', selectedUniversity);
         formData.append('college', college);
-        formData.append('state', state);
-        formData.append('city', city);
         formData.append('course', selectedCourse);
-        formData.append('year', year);
+        formData.append('year', selectedYear);
         formData.append('semester', semester);
         formData.append('token', session.data.userData.token);
-        formData.append('subject', subject);
+        formData.append('subject', selectedSubject);
         try {
 
             const res = await axios.post('/api/pdfupload', formData, {
@@ -128,8 +139,41 @@ function Uploadpreviouspapers(props) {
             console.error('An error occurred while uploading the file:', error);
         }
     };
+    const handleYearChange = (e) => {
+        setSelectedYear(e.target.value);
+    };
+    const handleUniversityChange = (e) => {
+        if (e.target.value) {
+            const dataValue = JSON.parse(e.target.value)
+            setSelectedUniversity(dataValue.universitycode)
+            setCourse(dataValue.course)
+            setSelectedCourse('Select Course')
+            setIsDisabledCourse(false)
+            setisDisabledSemester(true)
+            setisDisabledSubject(true)
+            setSemester('Select Semester')
+            setSelectedSubject('Select Subject')
+            setSelectedYear('Select Year');
+            setSelectedYear('Select Year');
+            setisDisabledYear(true)
+            setSubject([])
+
+        } else {
+            setSelectedCourse('Select Course')
+            setSelectedUniversity('')
+            setCourse([])
+            setSubject([])
+            setIsDisabledCourse(true)
+            setisDisabledSemester(true)
+            setisDisabledSubject(true)
+            setSemester('Select Semester')
+            setSelectedSubject('Select Subject')
+            setSelectedYear('Select Year');
+            setisDisabledYear(true)
+        }
 
 
+    };
 
     return (
         <>
@@ -139,7 +183,7 @@ function Uploadpreviouspapers(props) {
             >
                 <Box sx={style1}>
                     {/* <div className={styles.signUpMainDiv}> */}
-            {loader ? <Loader /> : null}
+                    {loader ? <Loader /> : null}
 
                     <div className={styles.modelHeader}>
                         <h1>University Previous Year Papers</h1>
@@ -155,13 +199,11 @@ function Uploadpreviouspapers(props) {
                         <div className={styles.leftForm}>
                             <div className={styles.formFields} >
                                 <label htmlFor="university">University</label>
-                                <select name="university" id="university" defaultValue='Select University' onChange={(e) => {
-                                    setSelectedUniversity(e.target.value)
-                                }}>
+                                <select name="university" id="university" defaultValue='Select University' onChange={handleUniversityChange}>
                                     <option value="">Select University</option>
                                     {university ? university.map((data) => {
                                         return (
-                                            <option key={data.value} value={data.value}>{data.name}</option>
+                                            <option key={data._id} value={JSON.stringify(data)}>{data.title}</option>
                                         )
                                     }) : null}
                                 </select>
@@ -170,19 +212,40 @@ function Uploadpreviouspapers(props) {
                             <div className={styles.formFields}>
                                 <label htmlFor="Course">Course</label>
                                 <select name="semester" id="semester" defaultValue='Select Course' onChange={(e) => {
-                                    setSelectedCourse(e.target.value)
-                                }}>
-                                    <option value="0">Select Course</option>
+                                    if (e.target.value !== 'Select Course') {
+
+                                        const dataValue = JSON.parse(e.target.value)
+                                        setisDisabledSemester(false)
+                                        setSelectedCourse(dataValue.coursecode)
+                                        setSubject(dataValue.subject)
+                                        setisDisabledSubject(false)
+                                        setSelectedSubject('Select Subject')
+                                        setSelectedYear('Select Year');
+                                        setisDisabledYear(true)
+
+                                    } else {
+                                        setisDisabledSemester(true)
+                                        setSelectedCourse(e.target.value)
+                                        setSubject([])
+                                        setisDisabledSubject(true)
+                                        setSelectedSubject('Select Subject')
+                                        setSelectedYear('Select Year');
+                                        setisDisabledYear(true)
+                                    }
+
+
+                                }} disabled={isDisabledCourse}>
+                                    <option value={selectedCourse}>Select Course</option>
                                     {course ? course.map((data) => {
                                         return (
-                                            <option key={data.value} value={data.value}>{data.name}</option>
+                                            <option key={data._id} value={JSON.stringify(data)}>{data.title}</option>
                                         )
                                     }) : null}
 
                                 </select>
 
                             </div>
-
+                            
                             <div className={styles.formFields}>
                                 <label htmlFor="college">College</label>
                                 <input type="text" placeholder=" " value={college} onChange={(e) => {
@@ -194,8 +257,11 @@ function Uploadpreviouspapers(props) {
                                 <label htmlFor="Semester">Semester</label>
                                 <select name="semester" id="semester" onChange={(e) => {
                                     setSemester(e.target.value)
-                                }}>
-                                    <option value="">Select Semester</option>
+                                    setSelectedSubject('Select Subject')
+                                    setSelectedYear('Select Year');
+                                    setisDisabledYear(true)
+                                }} disabled={isDisabledSemester}>
+                                    <option value={semester}>Select Semester</option>
                                     <option value="1">Semester 1</option>
                                     <option value="2">Semester 2</option>
                                     <option value="3">Semester 3</option>
@@ -206,34 +272,56 @@ function Uploadpreviouspapers(props) {
                                     <option value="8">Semester 8</option>
                                 </select>
                             </div>
-                      
+
 
 
                         </div>
-                         
-                        
+
+
                         <div className={styles.rightForm}>
-                        <div className={styles.formFields}>
-                                <label htmlFor="subject">subject</label>
-                                <input type="text" placeholder=" " value={subject} onChange={(e) => {
-                                    setSubject(e.target.value)
-                                }} />
+                            <div className={styles.formFields}>
+                                <label htmlFor="Subject">Subject</label>
+                                <select name="Subject" id="Subject" defaultValue='Select Subject' onChange={(e) => {
+                                    if (e.target.value !== 'Select Subject') {
+                                        const dataValue = JSON.parse(e.target.value)
+                                        setSelectedSubject(dataValue.title)
+                                        setSelectedYear('Select Year');
+                                        setisDisabledYear(false)
+                                    } else {
+                                        setSelectedSubject(e.target.value)
+                                        setSelectedYear('Select Year');
+                                        setisDisabledYear(true)
+                                    }
+
+
+                                }} disabled={isDisabledSubject}>
+                                    <option value="Select Subject">Select Subject</option>
+                                    {subject ? subject.map((data) => {
+                                        return (
+                                            <option key={data._id} value={JSON.stringify(data)}>{data.title}</option>
+                                        )
+                                    }) : null}
+
+                                </select>
+
                             </div>
                             <div className={styles.formFields}>
-                                <label htmlFor="Year" >Year</label>
-                                <input type="date" placeholder=" " onChange={(e) => {
-                                    setYear(e.target.value)
-                                }} />
+                                <label htmlFor="Year">Year</label>
+                                <select
+                                    name="year"
+                                    id="year"
+                                    value={selectedYear}
+                                    onChange={handleYearChange}
+                                    disabled={isDisabledYear}
+                                >
+                                    <option value="">Select Year</option>
+                                    {years.map((year) => (
+                                        <option key={year} value={year}>
+                                            {year}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
-
-                            <div className={styles.formFields}>
-                                <label htmlFor="State">State</label>
-                                <input type="text" placeholder=" " value={state} onChange={(e) => {
-                                    setState(e.target.value)
-                                }} />
-                            </div>
-
-
                             <div className={styles.formFields}>
                                 <label htmlFor="PDF">PDF</label>
                                 <input type="file" accept=".pdf" onChange={handleFileChange} />
