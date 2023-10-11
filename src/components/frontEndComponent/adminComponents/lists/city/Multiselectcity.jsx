@@ -7,26 +7,22 @@ import axios from 'axios';
 import { useSession } from "next-auth/react"
 import styles from './style.module.css'
 
-const rowData = [
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxter", price: 72000 }
-];
 
 
 
-function MultiSelectUniversity(props) {
+
+function Multiselectcity(props) {
    
     const [university, setUniversity] = useState([])
     const session = useSession()
     useEffect(() => {
         if (session.data) {
-            getAllUniversity()
+            getAllUser()
         }
     }, [])
 
-    const getAllUniversity = async () => {
-        const menus = await axios.get(`${apis.baseUrl}${apis.getAllUniversity}`, {
+    const getAllUser = async () => {
+        const menus = await axios.get(`${apis.baseUrl}${apis.getAllCity}`, {
             headers: {
                 'token': session.data ? session.data.userData.token : '',
             }
@@ -36,7 +32,6 @@ function MultiSelectUniversity(props) {
         }
 
     }
-
     const columnDefs =
         [
             {
@@ -52,25 +47,25 @@ function MultiSelectUniversity(props) {
                 },
             },
             {
-                field: 'City',
-                headerName: 'City',
+                field: 'state',
+                headerName: 'state',
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.city.title
+                    let name = data.data.state.title
                     return <>
                         <p > {name}</p>
                     </>
                 },
             },
             {
-                field: 'State',
-                headerName: 'State',
+                field: 'Statecode',
+                headerName: 'Statecode',
 
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.state.title
+                    let name = data.data.state.statecode
                     return <>
                         <p > {name}</p>
 
@@ -107,4 +102,4 @@ function MultiSelectUniversity(props) {
     );
 }
 
-export default MultiSelectUniversity;
+export default Multiselectcity;

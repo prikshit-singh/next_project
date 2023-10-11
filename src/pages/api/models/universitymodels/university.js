@@ -9,7 +9,9 @@ const UniversitySchema = new Schema({
     },
     universitycode: {
         type: String,
-        required: true,
+    },
+    universitylogo: {
+        type: String,
     },
     state: { type: mongoose.Schema.Types.ObjectId, ref: 'State_collection' },
     city: { type: mongoose.Schema.Types.ObjectId, ref: 'Cities_collection' },

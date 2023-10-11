@@ -12,9 +12,9 @@ export default async function handler(req, res) {
         await connectDB()
             const state = await State.find({}).populate('createdby')
             if (state) {
-                res.status(200).send({ CODE: 200, state });
+                res.status(200).send({ CODE: 200, result:state });
             } else {
-                res.status(200).send({ CODE: 405, state });
+                res.status(200).send({ CODE: 405, result:state });
             }
         
     } catch (error) {

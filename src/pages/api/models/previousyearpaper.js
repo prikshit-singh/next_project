@@ -15,17 +15,7 @@ const previousYearPaperSchema = new Schema({
         type: String,
         required: true,
     },
-    state: {
-        type: String,
-    },
-    city: {
-        type: String,
-    },
-    
     course: {
-        type: String,
-    },
-    subject: {
         type: String,
     },
     year: {
@@ -33,6 +23,9 @@ const previousYearPaperSchema = new Schema({
 
     },
     semester: {
+        type: String,
+    },
+    subject: {
         type: String,
     },
     uploadby: { type: mongoose.Schema.Types.ObjectId, ref: 'User_collection' },
