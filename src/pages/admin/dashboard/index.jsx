@@ -10,7 +10,7 @@ import Multiselectsubject from '../../../components/frontEndComponent/adminCompo
 import Subnavadmin from '../../../components/frontEndComponent/navabrs/adminNavbar/Subnavadmin';
 import style from '../../../styles/admin/Dashboard.module.css'
 
-const index = () => {
+const Index = () => {
     const [subnavName, setSubnavName] = useState("University")
     const [multiSelectConponent,setMultiSelectConponent] = useState()
     const [subnavBtn, setsubNavBtn] = useState()
@@ -41,4 +41,4 @@ const index = () => {
     );
 };
 
-export default withAuth(index);
+export default withAuth(Index);

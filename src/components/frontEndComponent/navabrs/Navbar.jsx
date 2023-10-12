@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
+import logo from '../../../../public/logo1.jpg'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -19,7 +20,7 @@ import Loginmodel from '../../Loginmodel';
 import styles from '../../../styles/frontendNavbar/Navbar.module.css'
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-import { useSession,signOut } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 
 function Navbar({ menus }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -28,9 +29,9 @@ function Navbar({ menus }) {
     const [dialogue, setDialogue] = useState(false)
     const [loginDialogue, setloginDialogue] = useState(false)
     const [uploadpreviousDialog, setUploadpreviousDialog] = useState(false)
-  
+
     const [profileMenus, setProfileMenus] = useState([])
-const session = useSession()
+    const session = useSession()
     // const session = useSession()
     useEffect(() => {
         if (session && session.data) {
@@ -63,28 +64,25 @@ const session = useSession()
     return (
         <>
 
-             <Loginmodel loginDialogue={loginDialogue} setloginDialogue={setloginDialogue} />
+            <Loginmodel loginDialogue={loginDialogue} setloginDialogue={setloginDialogue} />
             <AppBar style={{ paddingRight: '0px', backgroundColor: 'var(--primary)' }} position="sticky">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="#app-bar-with-responsive-menu"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            LOGO
+                        {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+                        <Typography sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}>
+                            <img src='/favicon.png' style={{ height: '50px', background: 'transparent' }} alt='logo' />
+
                         </Typography>
+
+                        
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
@@ -115,15 +113,12 @@ const session = useSession()
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                                {pages.map((page) => (
-
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page}</Typography>
-                                    </MenuItem>
-                                ))}
+                            <Typography style={{paddingLeft:"11px",paddingRight:"11px"}} textAlign="center">
+                            <Link style={{color:"var(--primary)",fontFamily:'var(--font-bold)'}} href="/">HOME</Link>
+                            </Typography>
+                                
                             </Menu>
                         </Box>
-                        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                         <Typography
                             variant="h5"
                             noWrap
@@ -140,22 +135,28 @@ const session = useSession()
                                 textDecoration: 'none',
                             }}
                         >
-                            LOGO
+
+                            <img src='/favicon.png' style={{ height: '50px', background: 'transparent' }} alt='logo' />
+
                         </Typography>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Box sx={{ 
+                            flexGrow: 1, 
+                            display: { xs: 'none', md: 'flex' }
+                            
+                            }}>
                             <Dropdown menus={menus} />
 
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
                             {session && session.data != undefined ?
-                                <Tooltip title="Profile">
+                                <Tooltip title="MENU">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                         <Avatar alt="Remy Sharp" src={session.data.userData.picture} />
                                     </IconButton>
                                 </Tooltip>
                                 :
-                                <Tooltip title="Profile">
+                                <Tooltip title="MENU">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                         <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                                     </IconButton>
@@ -178,28 +179,28 @@ const session = useSession()
                                 onClose={handleCloseUserMenu}
                             >
                                 {session.data ?
-                                   
-                                        profileMenus.map((setting) => (
-                                            <MenuItem key={setting.url} onClick={handleCloseUserMenu}>
-                                                <Typography textAlign="center"><Link href={setting.url}>{setting.title}</Link></Typography>
-                                            </MenuItem>
-                                        ))
-                                       
-                                  
+
+                                    profileMenus.map((setting) => (
+                                        <MenuItem key={setting.url} onClick={handleCloseUserMenu}>
+                                            <Typography textAlign="center"><Link  style={{color:"var(--primary)", fontFamily:'var(--font-bold)'}} href={setting.url}>{setting.title.toUpperCase()}</Link></Typography>
+                                        </MenuItem>
+                                    ))
+
+
 
                                     :
-                                   null
+                                    null
                                 }
                                 {session.data ?
                                     <MenuItem key="logout" onClick={handleCloseUserMenu}>
-                                        <Typography className={styles.profileUrl} onClick={() => signOut('google', { callbackUrl: 'https://gitgurus.com' })} textAlign="center">
-                                           
-                                             Log Out
+                                        <Typography  style={{color:"var(--primary)", fontFamily:'var(--font-bold)'}} className={styles.profileUrl} onClick={() => signOut('google', { callbackUrl: 'https://gitgurus.com' })} textAlign="center">
+
+                                            LOG OUT
                                         </Typography>
                                     </MenuItem>
                                     :
                                     <MenuItem key="login" onClick={handleCloseUserMenu}>
-                                        <Typography onClick={() => setloginDialogue(true)} textAlign="center">Log In</Typography>
+                                        <Typography  style={{color:"var(--primary)", fontFamily:'var(--font-bold)'}} onClick={() => setloginDialogue(true)} textAlign="center">LOG IN</Typography>
                                     </MenuItem>
                                 }
 

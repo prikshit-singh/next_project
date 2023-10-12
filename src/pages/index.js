@@ -6,28 +6,31 @@ import Navbar from '../components/frontEndComponent/navabrs/Navbar'
 import Loader from '../components/Loader'
 import Footer from '../components/Footer'
 import CategoryNav from '../components/CategoryNav'
+import { apis } from '../../apis'
 import axios from 'axios'
 import Test from '../components/multiLeveldropdown/Test'
 import { useSession, signIn, signOut } from "next-auth/react"
-
+import Scrollbar from '../components/frontEndComponent/FrontPageComponent/Scrollbar'
+import Image from 'next/image'
 function Home(props) {
   const [blogs, setBlogs] = useState([])
-  const [loader, setLoader] = useState(true)
- const session = useSession()
- console.log(session)
-  useEffect(() => {
-    if(props.res){
-      getBlogs()
-    }
-  }, [])
+  const [university, setUniversity] = useState([])
+  const [loader, setLoader] = useState(false)
+  const session = useSession()
+  // useEffect(() => {
+  //   if (props.res) {
+  //     getBlogs()
+  //   }
+  // }, [])
   const getBlogs = async () => {
-    
-    setBlogs(props.res.blog)
+
+    // setBlogs(props.res.blog)
+    setUniversity(props.University)
     setLoader(false)
-   
+
   }
 
-  
+
   return (
     <>
       {loader ? <Loader /> : null}
@@ -52,27 +55,20 @@ function Home(props) {
         <meta property="og:site_name" content="gitgurus" />
         <meta property="og:type" content="Website" />
       </Head>
-      {/* <CategoryNav style={{ background: 'rgb(233, 231, 231)' }} /> */}
-
       <Navbar />
-      {/* <Navbar/> */}
 
-      <div className={styles.homeComponentLayout}>
-        <div className={styles.homeRightContainer}>
-          <Blog props={blogs} />
-
-
-        </div>
-        <div className={styles.homeLeftContainer}>
-          Trending
-        </div>
-      </div>
-
-      {/* <CategoryNav fill="green" style={{ background: 'rgb(233, 231, 231)' }} />
-      <Catagorybanner /> */}
-
-
-       <Footer/>
+      <img
+        src="/banner.jpg"
+        layout="responsive"
+        // width={200}
+        // height={100}
+        className={styles.banner}
+        alt="Picture of the author"
+      />
+<div className={styles.scrollBarDiv}>
+      <Scrollbar  university={props.University}/>
+</div>
+      <Footer />
 
     </>
   )
@@ -81,17 +77,18 @@ function Home(props) {
 
 export const getServerSideProps = async (context) => {
   try {
-    const res = await axios.get(`${process.env.DOMAIN_NAME}/api/getblogs`)
-    const res1 = await axios.get(`${process.env.DOMAIN_NAME}/api/pdfupload/getpreviousyearpaper`)
-    const menus = await axios.get(`${process.env.DOMAIN_NAME}/api/settings/menusettings/getmenus`)
-    console.log(101,menus.data)
+    const res = await axios.get(`${apis.baseUrl}getblogs`)
+    const res1 = await axios.get(`${apis.baseUrl}pdfupload/getpreviousyearpaper`)
+    const menus = await axios.get(`${apis.baseUrl}settings/menusettings/getmenus`)
+    const University = await axios.get(`${apis.baseUrl}${apis.getAllUniversity}`)
     if (res.data.CODE === 200) {
       return {
         props: {
           res: res.data,
           res1: res1.data,
-          menus:menus.data,
-          
+          menus: menus.data,
+          University:University.data.result
+
         }
       };
     }
@@ -105,3 +102,18 @@ export const getServerSideProps = async (context) => {
 
 }
 export default Home;
+
+
+{/* <div className={styles.homeComponentLayout}>
+        <div className={styles.homeRightContainer}>
+          <Blog props={blogs} />
+
+
+        </div>
+        <div className={styles.homeLeftContainer}>
+          Trending
+        </div>
+      </div> */}
+
+{/* <CategoryNav fill="green" style={{ background: 'rgb(233, 231, 231)' }} />
+      <Catagorybanner /> */}

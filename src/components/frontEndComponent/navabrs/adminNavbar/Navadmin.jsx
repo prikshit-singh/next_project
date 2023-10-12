@@ -116,15 +116,20 @@ function Navadmin(props) {
                                 open={Boolean(anchorElNav)}
                                 onClose={handleCloseNavMenu}
                                 sx={{
-                                    display: { xs: 'block', md: 'none' },
+                                    display: { xs: 'flex', md: 'none' },
                                 }}
                             >
-                                {pages.map((page) => (
-
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page}</Typography>
-                                    </MenuItem>
-                                ))}
+                                <Link className={styles.menuLinks} href='/'>Home</Link>
+                            <Typography name="University"
+                                className={styles.menuLinks}
+                                onClick={(e) => navBarLinksonClick(e)} >
+                                University
+                            </Typography>
+                            <Typography name="State" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >State</Typography>
+                            <Typography name="City" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >City</Typography>
+                            <Typography name="Course" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >Course</Typography>
+                            <Typography name="Subject" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >Subject</Typography>
+                            <Typography name="Question Paper" onClick={(e) => setUploadpreviousDialog(true)} className={styles.menuLinks} >Upload Question Paper</Typography>
                             </Menu>
                         </Box>
                         <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />

@@ -116,7 +116,7 @@ function Navbar({domainName}) {
           </div>
           <div className={styles.navigationDiv}>
             <div className={styles.publishButton}>
-              {typeof (window) != 'undefined' && window.location.href === `http://localhost:3000/write` ? <button
+              {typeof (window) != 'undefined' && window.location.href === `https://gitgurus.com/write` ? <button
                 // className={styles.publishButton}
                 onClick={() => {
                   handleRequest();

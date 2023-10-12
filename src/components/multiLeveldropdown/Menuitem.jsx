@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import Submenudropdawn from './Submenudropdawn';
-import styles from './Dropdown.module.css';
+import styles from '../../styles/FrontPageStyle/Dropdown.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 function Menuitem({ item, depth, menuData }) {
@@ -62,14 +62,14 @@ function Menuitem({ item, depth, menuData }) {
     return (
         item.submenu && item.submenu.length > 0 ? (
          
-                <li onMouseEnter={() => onMouseEnterLi()} onMouseLeave={() => onMouseLeaveLi()} ref={myref} className={styles.parent}>
-                    <button id={item._id} className={styles.liButton} onClick={() => handleToggol()} >
+                <li onMouseEnter={() => onMouseEnterLi()} onMouseLeave={() => onMouseLeaveLi()} ref={myref} className={styles.parent} >
+                    <button  id={item._id} className={styles.liButton} onClick={() => handleToggol()} >
 
-                    {item.title}
+                    {item.title.toUpperCase()}
                         {depth > 0 ?
-                            <span className={styles.ArrowRightIcon}><ArrowRightIcon /></span>
+                            <span  className={styles.ArrowRightIcon}><ArrowRightIcon /></span>
                             :
-                            <span className={styles.ArrowDropDownIcon}><ArrowDropDownIcon /></span>
+                            <span  className={styles.ArrowDropDownIcon}><ArrowDropDownIcon /></span>
                         }
 
                     </button>
@@ -79,9 +79,9 @@ function Menuitem({ item, depth, menuData }) {
         ) : (
          
                 item.title.toLowerCase() != 'question papers' && depth == 0 ?
-                    <li id={item.title} onClick={(e) => handleQuestionPaperClick(e)}><Link href={item.url}>{item.title}</Link></li>
+                    <li  id={item.title} onClick={(e) => handleQuestionPaperClick(e)}><Link style={{color:"white"}} href={item.url}>{item.title.toUpperCase()}</Link></li>
                     :
-                    <li id={item.title} onClick={(e) => handleQuestionPaperClick(e)}>{item.title}</li>
+                    <li  id={item.title} onClick={(e) => handleQuestionPaperClick(e)}>{item.title.toUpperCase()}</li>
                 
 
            

@@ -12,7 +12,7 @@
 
 .profileUrl {
     font-family: var(--font-bold);
-    color: #861f4184;
+    color: #84042fcb;
     text-transform: capitalize;
 }
 
@@ -24,6 +24,18 @@
     color: #fff;
     border-bottom: 1px solid #fff;
     text-decoration: none;
+}
+.menuLinks{
+    font-family: var(--font-bold) !important;
+    color: #84042fcb;
+    padding: 5px 10px 0px 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+    align-self: center !important;  
+}
+.menuLinks:hover {
+       color: var(--primary);
+       text-decoration: none;
 }
 
 

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Menuitem from './Menuitem';
 import styles from './Dropdown.module.css';
 import axios from 'axios';
+import { apis } from '../../../apis';
 import { useSession } from "next-auth/react"
-const Dropdown = React.memo(() => {
+const Dropdown = () => {
     const [menu, setMenu] = useState([])
 
     const session = useSession()
@@ -17,7 +18,7 @@ const Dropdown = React.memo(() => {
     }, [session])
 
     const getMenus = async () => {
-        const menus = await axios.get(`http://localhost:3000/api/settings/menusettings/getmenus`, {
+        const menus = await axios.get(`${apis.baseUrl}settings/menusettings/getmenus`, {
             headers: {
                 'token': session.data ? session.data.userData.token : '',
             }
@@ -28,7 +29,7 @@ const Dropdown = React.memo(() => {
        
     }
     const getUserMenus = async () => {
-        const menus = await axios.get(`http://localhost:3000/api/settings/menusettings/getmenus`)
+        const menus = await axios.get(`${apis.baseUrl}settings/menusettings/getmenus`)
 
         if (menus.data && menus.data.CODE == 200) {
             setMenu(menus.data.menus)
@@ -43,13 +44,13 @@ const Dropdown = React.memo(() => {
             <ul>
                 {menu && menu.length > 0 ? menu.map((item, index) => {
                     return (
-                        <Menuitem item={item} key={index} depth={0} menuData={menu} />
+                        <Menuitem item={item}  depth={0} menuData={menu} key={index} />
                     )
                 }) : null}
             </ul>
         </div>
 
     );
-});
+};
 
 export default Dropdown;
