@@ -87,3 +87,17 @@
   margin-top: 20px !important;
   
 }
+
+.searchUniversityform{
+  /* display: flex; */
+  /* justify-content: space-between; */
+  width: 100%;
+  padding: 20px 10px 20px 10px; 
+}
+
+@media only screen and (max-width: 900px){
+  .searchUniversityform{
+    padding: 0px 10px 0px 10px;
+  }
+  
+}

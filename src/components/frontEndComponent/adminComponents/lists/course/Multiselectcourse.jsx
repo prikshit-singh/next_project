@@ -6,7 +6,7 @@ import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
 import styles from './style.module.css'
-
+import Componentloader from '../../../loader/Componentloader.js';
 
 
 
@@ -115,7 +115,7 @@ function Multiselectcourse(props) {
                     </AgGridReact>
                 </div>
 
-                : null
+                : <Componentloader />
             }
         </>
     );

@@ -1,0 +1,65 @@
+
+
+
+.marginTop{
+  margin-top: 100px;
+}
+
+       
+.submitbuttonwrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+.submitbuttonwrapper button{
+  width: 50%;
+  padding: 5px 2px 5px;
+  border-radius: 8px;
+}
+.contacformmui{
+  margin-right: 20px !important;
+  box-shadow: 0px 0px 10px rgba(86, 86, 86, 0.51);
+  padding:5px 10px 5px;
+  margin-top: 10px;
+  height: 355px;
+}
+.leftsecmui{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 10px rgba(86, 86, 86, 0.51);
+  height: 355px;
+  padding:5px 10px 5px;
+  margin-left: 20px !important;
+  margin-top: 10px;
+  text-align: center;
+}
+.contactformhead h4{
+  text-align: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 25px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.contactLogo{
+  height: 200px;
+}
+
+@media screen and (max-width: 480px){
+  .leftsecmui{
+    height: 260px;
+    width: 90%;
+  }
+  .contacformmui{
+  margin-top:50px;
+  height:100%;
+  width:90%;
+  margin-left:20px;
+  }
+  .marginTop{
+    margin-top: 0px;
+  }
+  .contactLogo{
+    height: 100px;
+  }
+}

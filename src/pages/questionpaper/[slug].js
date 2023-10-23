@@ -1,11 +1,12 @@
 import React,{useContext} from 'react';
 import Navbar from '../../components/frontEndComponent/navabrs/Navbar';
+import Footer from '../../components/Footer';
+import Layout from '../../layouts/Layout';
 const Page = () => {
     
     return (
         <>
-        {/* <Navbar/> */}
-            hello
+        <Layout>hello</Layout>
         </>
     );
 };

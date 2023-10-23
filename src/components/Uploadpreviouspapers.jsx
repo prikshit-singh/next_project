@@ -24,7 +24,7 @@ import styles from "../styles/uploadpdf.module.css";
 import { toast } from 'react-toastify';
 import Loader from "./Loader";
 import { apis } from '../../apis';
-
+import PermLoader from '../components/frontEndComponent/loader/PermLoader'
 
 
 import {
@@ -56,6 +56,11 @@ const style = {
     borderRadius: '20px',
     boxShadow: 24,
     p: 4,
+    '@media (max-width: 600px)': {
+        top: '50%',
+        left: '50%',
+        width: '100%',
+      },
 };
 
 
@@ -216,7 +221,7 @@ function Uploadpreviouspapers(props) {
 
 
     };
-console.log(1234,props)
+
     return (
         <>
 
@@ -229,7 +234,7 @@ console.log(1234,props)
             >
                 <Box sx={style}>
                     {/* <div className={styles.signUpMainDiv}> */}
-                    {loader ? <Loader /> : null}
+                    {loader ? <PermLoader /> : null}
 
 
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', }}>
@@ -310,7 +315,7 @@ console.log(1234,props)
                                         <MenuItem key={data._id} value={JSON.stringify(data)}>
                                             {data.title}
                                         </MenuItem>
-                                    )) : null}
+                                    )) : <PermLoader />}
 
                                 </Select>
                             </WhiteBorderTextField>
@@ -387,7 +392,7 @@ console.log(1234,props)
                                         <MenuItem key={data._id} value={JSON.stringify(data)}>
                                             {data.title}
                                         </MenuItem>
-                                    )) : null}
+                                    )) : <PermLoader />}
 
                                 </Select>
                             </WhiteBorderTextField>
@@ -407,7 +412,7 @@ console.log(1234,props)
                                         <MenuItem key={data} value={data}>
                                             {data}
                                         </MenuItem>
-                                    )) : null}
+                                    )) : <PermLoader />}
 
                                 </Select>
                             </WhiteBorderTextField>

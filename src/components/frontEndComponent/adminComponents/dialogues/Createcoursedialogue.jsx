@@ -44,7 +44,13 @@ const style = {
   border: '2px solid transparent',
   borderRadius: '20px',
   boxShadow: 24,
+  
   p: 4,
+  '@media (max-width: 600px)': {
+    top: '50%',
+    left: '50%',
+    width: '100%',
+  },
 };
 
 

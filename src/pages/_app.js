@@ -1,12 +1,14 @@
 
 
 import { useEffect } from 'react';
-import store, { persistor } from '../../store/store'
+import store from '../../store/store'
 import { Provider } from "react-redux";
 import { createWrapper } from 'next-redux-wrapper';
 import { ToastContainer } from 'react-toastify';
 import * as gtag from '../components/backendmodules/gtag'
 import { useRouter } from 'next/router';
+import Navbar from '../components/frontEndComponent/navabrs/Navbar';
+import Footer from '../components/Footer';
 // import { PersistGate } from 'redux-persist/integration/react';
 import Script from 'next/script'
 
@@ -65,8 +67,9 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
       <Provider store={store}>
         <Layout>
           <SessionProvider>
+           
+              <Component {...pageProps} />
 
-            <Component {...pageProps} />
             <ToastContainer
               position="top-right"
               autoClose={2000}
@@ -80,6 +83,7 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
               theme="light"
             />
           </SessionProvider>
+
         </Layout>
 
       </Provider>

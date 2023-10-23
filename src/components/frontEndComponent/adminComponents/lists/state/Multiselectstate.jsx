@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useSession } from "next-auth/react"
 import styles from './style.module.css'
 
-
+import Componentloader from '../../../loader/Componentloader.js';
 
 
 
@@ -35,20 +35,20 @@ function Multiselectstate(props) {
     const columnDefs =
         [
             {
-                field: 'Name',
-                headerName: 'Name',
+                field: 'title',
+                headerName: 'Title',
                 resizable: true,
-                filter: true,
+                
+                filter: 'agTextColumnFilter',
+                
                 cellRenderer: (data) => {
-                    let name = data.data.title
-                    return <>
-                        <p > {name}</p>
-                    </>
+                    let name = data.data.title.toLowerCase()
+                    return name
                 },
             },
             
             {
-                field: 'Statecode',
+                field: 'statecode',
                 headerName: 'Statecode',
 
                 resizable: true,
@@ -81,11 +81,12 @@ function Multiselectstate(props) {
                         paginationPageSize='10'
                         editType="fullRow"
                         animateRows={true}
+                        filter={true}
                     >
                     </AgGridReact>
                 </div>
 
-                : null
+                : <Componentloader/>
             }
         </>
     );

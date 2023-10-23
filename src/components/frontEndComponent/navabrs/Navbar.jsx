@@ -21,7 +21,6 @@ import styles from '../../../styles/frontendNavbar/Navbar.module.css'
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 import { useSession, signOut } from "next-auth/react"
-
 function Navbar({ menus }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -70,19 +69,19 @@ function Navbar({ menus }) {
                     <Toolbar disableGutters>
                         {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
                         <Typography sx={{
-                            mr: 2,
+                            // mr: 2,
                             display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
+                            // fontFamily: 'monospace',
+                            // fontWeight: 700,
+                            // letterSpacing: '.3rem',
+                            // color: 'inherit',
+                            // textDecoration: 'none',
                         }}>
-                            <img src='/favicon.png' style={{ height: '50px', background: 'transparent' }} alt='logo' />
+                            <img src='/gitguruslogo.png' style={{ height: '60px', background: 'transparent' }} alt='logo' />
 
                         </Typography>
 
-                        
+
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
@@ -113,10 +112,10 @@ function Navbar({ menus }) {
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                            <Typography style={{paddingLeft:"11px",paddingRight:"11px"}} textAlign="center">
-                            <Link style={{color:"var(--primary)",fontFamily:'var(--font-bold)'}} href="/">HOME</Link>
-                            </Typography>
-                                
+                                <Typography style={{ paddingLeft: "11px", paddingRight: "11px" }} textAlign="center">
+                                    <Link style={{ color: "var(--primary)", fontFamily: 'var(--font-bold)', textDecoration: 'none' }} href="/">HOME</Link>
+                                </Typography>
+
                             </Menu>
                         </Box>
                         <Typography
@@ -125,26 +124,24 @@ function Navbar({ menus }) {
                             component="a"
                             href="#app-bar-with-responsive-menu"
                             sx={{
-                                mr: 2,
                                 display: { xs: 'flex', md: 'none' },
                                 flexGrow: 1,
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
+
                             }}
                         >
 
-                            <img src='/favicon.png' style={{ height: '50px', background: 'transparent' }} alt='logo' />
+                            <img src='/gitguruslogo.png' style={{ height: '60px', background: 'transparent' }} alt='logo' />
 
                         </Typography>
-                        <Box sx={{ 
-                            flexGrow: 1, 
+                        <Box sx={{
+                            flexGrow: 1,
                             display: { xs: 'none', md: 'flex' }
-                            
-                            }}>
-                            <Dropdown menus={menus} />
+
+                        }}>
+                            {/* <Dropdown menus={menus} /> */}
+                            <Typography style={{ paddingLeft: "11px", paddingRight: "11px" }} textAlign="center">
+                                <Link style={{ color: "white", fontFamily: 'var(--font-bold)', textDecoration: 'none' }} href="/">HOME</Link>
+                            </Typography>
 
                         </Box>
 
@@ -182,7 +179,7 @@ function Navbar({ menus }) {
 
                                     profileMenus.map((setting) => (
                                         <MenuItem key={setting.url} onClick={handleCloseUserMenu}>
-                                            <Typography textAlign="center"><Link  style={{color:"var(--primary)", fontFamily:'var(--font-bold)'}} href={setting.url}>{setting.title.toUpperCase()}</Link></Typography>
+                                            <Typography textAlign="center"><Link style={{ color: "var(--primary)", fontFamily: 'var(--font-bold)', textDecoration: 'none' }} href={setting.url}>{setting.title.toUpperCase()}</Link></Typography>
                                         </MenuItem>
                                     ))
 
@@ -193,14 +190,14 @@ function Navbar({ menus }) {
                                 }
                                 {session.data ?
                                     <MenuItem key="logout" onClick={handleCloseUserMenu}>
-                                        <Typography  style={{color:"var(--primary)", fontFamily:'var(--font-bold)'}} className={styles.profileUrl} onClick={() => signOut('google', { callbackUrl: 'https://gitgurus.com' })} textAlign="center">
+                                        <Typography style={{ color: "var(--primary)", fontFamily: 'var(--font-bold)' }} className={styles.profileUrl} onClick={() => signOut('google', { callbackUrl: 'https://gitgurus.com' })} textAlign="center">
 
                                             LOG OUT
                                         </Typography>
                                     </MenuItem>
                                     :
                                     <MenuItem key="login" onClick={handleCloseUserMenu}>
-                                        <Typography  style={{color:"var(--primary)", fontFamily:'var(--font-bold)'}} onClick={() => setloginDialogue(true)} textAlign="center">LOG IN</Typography>
+                                        <Typography style={{ color: "var(--primary)", fontFamily: 'var(--font-bold)' }} onClick={() => setloginDialogue(true)} textAlign="center">LOG IN</Typography>
                                     </MenuItem>
                                 }
 

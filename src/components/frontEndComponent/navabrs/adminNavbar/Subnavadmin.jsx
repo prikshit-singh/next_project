@@ -35,9 +35,6 @@ const Subnavadmin = (props) => {
             case 'Course':
                 setcourseDialogueOpen(true)
                 break;
-            case 'State':
-                setstateDialogueOpen(true)
-                break;
             case 'City':
                 setcityDialogueOpen(true)
                 break;

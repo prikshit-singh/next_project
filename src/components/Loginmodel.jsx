@@ -45,6 +45,11 @@ const style = {
   borderRadius: '20px',
   boxShadow: 24,
   p: 4,
+  '@media (max-width: 600px)': {
+    top: '50%',
+    left: '50%',
+    width: '100%',
+  },
 };
 
 
@@ -70,12 +75,13 @@ function Loginmodel(props) {
   const style1 = {
     // dispatch:'flex',
     position: 'absolute',
-    // width: '30%',
+    width: '600',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
     boxShadow: 24,
+    
     // p: 0,
   };
 
@@ -141,7 +147,7 @@ function Loginmodel(props) {
               </WhiteBorderTextField>
               <Button variant="contained" className={styles.button} type="button" onClick={() => handleLogin()}>Login</Button>
               
-                <div style={{display:'flex',alignItems:'center', justifyContent:'space-between'}}><hr style={{width:'45%'}}/>OR<hr style={{width:'45%'}}/></div>
+                <div style={{display:'flex',alignItems:'center', justifyContent:'space-between',marginTop:'10px'}}><hr style={{width:'45%'}}/>OR<hr style={{width:'45%'}}/></div>
               <Layout>
                   <Login  />
               </Layout>

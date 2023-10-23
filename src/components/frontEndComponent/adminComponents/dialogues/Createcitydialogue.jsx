@@ -20,18 +20,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { toast } from 'react-toastify';
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
-  height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  whiteSpace: 'nowrap',
-  width: 1,
-  
-});
+
 
 const style = {
   // display:'flex',
@@ -39,12 +28,17 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
+  width: '600',
   bgcolor: 'background.paper',
   border: '2px solid transparent',
   borderRadius: '20px',
   boxShadow: 24,
   p: 4,
+  '@media (max-width: 600px)': {
+    top: '50%',
+    left: '50%',
+    width: '100%',
+  },
 };
 
 
@@ -69,10 +63,10 @@ export default function Createcitydialogue(props) {
 
   const handleClose = () => props.setOpen(false);
   const [stateOption, setStateOption] = useState([]);
- 
+
 
   const [title, setTitle] = useState('');
- 
+
   const [state, setState] = useState('');
 
 
@@ -107,39 +101,39 @@ export default function Createcitydialogue(props) {
 
 
 
- const handleSubmit = async () => {
+  const handleSubmit = async () => {
     // Handle form submission here
     if (title == '') {
-        toast('Please Enter Title', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
+      toast('Please Enter Title', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
     }
     if (state == '') {
-        toast('Please enter State', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
+      toast('Please enter State', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
     }
 
 
-  const data = {title,state}
-    
+    const data = { title, state }
+
     try {
 
-        const res = await axios.post(`${apis.baseUrl}${apis.createCity}`, data, {
-          headers: {
-            'token': session.data ? session.data.userData.token : '',
+      const res = await axios.post(`${apis.baseUrl}${apis.createCity}`, data, {
+        headers: {
+          'token': session.data ? session.data.userData.token : '',
         }
-        })
-        if (res.data.CODE === 200) {
-            toast('City created successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
-        } else {
-            setLoader(false)
+      })
+      if (res.data.CODE === 200) {
+        toast('City created successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
+      } else {
+        setLoader(false)
 
-            toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        }
+        toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      }
     } catch (error) {
-        // setSubmitting(false);
-        console.error('An error occurred while uploading the file:', error);
+      // setSubmitting(false);
+      console.error('An error occurred while uploading the file:', error);
     }
-};
+  };
 
   return (
     <>
@@ -156,7 +150,7 @@ export default function Createcitydialogue(props) {
               color: 'var(--primary)',
             }} id="parent-modal-title">Create City</h2>
             <DoneIcon
-            onClick={handleSubmit}
+              onClick={handleSubmit}
               style={{
                 border: ' 2px solid var(--primary)',
                 borderRadius: '50%',
@@ -169,7 +163,7 @@ export default function Createcitydialogue(props) {
 
             />
           </div>
-          
+
 
           <WhiteBorderTextField fullWidth >
             <TextField type="text"
@@ -199,7 +193,7 @@ export default function Createcitydialogue(props) {
 
             </Select>
           </WhiteBorderTextField>
-         
+
         </Box>
       </Modal>
     </>

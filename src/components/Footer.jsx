@@ -1,10 +1,11 @@
 import styles from '../styles/Footer.module.css'
 import Link from 'next/link';
 import logo from '../../public/Logo.jpg'
+import Typography from '@mui/material/Typography';
 const Footer = () => {
-    return (
-        <>
-        <div className={styles.footerMainDiv}>
+  return (
+    <>
+      {/* <div className={styles.footerMainDiv}>
           <div className={ styles.footerMinDiv}>
           <div className={styles.footerDivOne}>
              <div className={styles.logoDiv2}>
@@ -32,15 +33,16 @@ const Footer = () => {
             
           </div>
           
+        </div> */}
+      <div className={styles.footerMainDiv2}>
+        <div>
+          <p className={styles.footerLinks}>copyright</p>
         </div>
-        <div className={styles.footerMainDiv2}>
-      <div className={ styles.copyright}> copyright 
-      <Link className={styles.footerLinks} href="/">Terms</Link>
-      <Link className={styles.footerLinks} href="/privacy"> Privacy</Link>
+        <Link className={styles.footerLinks} href="/contact">contact</Link>
+        <Link className={styles.footerLinks} href="/"> Privacy</Link>
       </div>
-        </div>
-        </>
-    );
+    </>
+  );
 };
 
 export default Footer;

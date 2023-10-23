@@ -41,17 +41,24 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+      console.log('user',user,token)
       if (user) {
-        const token2 = await Jwt.sign({ email: user.email, _id: user.id }, 'this key is private')
+        const token2 = await Jwt.sign({ email: user.email, _id: user.id }, 'this key is private',{
+          expiresIn: '60s', // Set the token to expire in 60 seconds
+        })
+        console.log('token2',token2)
         token.id = user.id;
         token.name = user.name;
         token.token = token2
         token._id = user.id
+        token.exp = '60'
+       
       }
-      return Promise.resolve(token);
+        return Promise.resolve(token);
     },
     async session({ session, token }) {
       // Send properties to the client, like an access_token from a provider.
+      
       await connectDB()
       await Profile_menu.find({})
       const existingUser = await Signup.findOne({ _id: token._id }).populate({
@@ -60,10 +67,7 @@ export const authOptions: NextAuthOptions = {
             path: 'canaccessprofilemenus',
         },
     })
-      console.clear()
-      console.log('token',existingUser)
-
-      let newSession = { expires: session.expires, user: session.user, userData: token,existingUser }
+      let newSession = {strategy: 'jwt', maxAge:60, expires: session.expires, user: session.user, userData: token,existingUser }
       return newSession
     },
     async signIn({ user, account, profile, email }) {

@@ -1,5 +1,6 @@
 export const apis = {
     //user apis
+    // baseUrl: 'https://gitgurus.com/api/',
     baseUrl: 'http://localhost:3000/api/',
 
     // menus

@@ -25,21 +25,16 @@ import { useSession, signOut } from "next-auth/react"
 function Navadmin(props) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const [isOpen, setIsOpen] = useState(false);
-    const [dialogue, setDialogue] = useState(false)
     const [loginDialogue, setloginDialogue] = useState(false)
     const [uploadpreviousDialog, setUploadpreviousDialog] = useState(false)
-
     const [profileMenus, setProfileMenus] = useState([])
     const session = useSession()
-   
+
     useEffect(() => {
         if (session && session.data) {
             setProfileMenus(session.data.existingUser.roles[0].canaccessprofilemenus)
         }
     }, [session])
-
-
 
 
     const handleOpenNavMenu = (event) => {
@@ -67,16 +62,13 @@ function Navadmin(props) {
         <>
 
             <Loginmodel loginDialogue={loginDialogue} setloginDialogue={setloginDialogue} />
-            <Uploadpreviouspapers uploadpreviousDialog={uploadpreviousDialog} setUploadpreviousDialog={setUploadpreviousDialog}/>
+            <Uploadpreviouspapers uploadpreviousDialog={uploadpreviousDialog} setUploadpreviousDialog={setUploadpreviousDialog} />
             <AppBar style={{ paddingRight: '0px', backgroundColor: 'var(--primary)' }} position="sticky">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                         <Typography
                             variant="h6"
                             noWrap
-                            component="a"
-                            href="#app-bar-with-responsive-menu"
                             sx={{
                                 mr: 2,
                                 display: { xs: 'none', md: 'flex' },
@@ -87,7 +79,8 @@ function Navadmin(props) {
                                 textDecoration: 'none',
                             }}
                         >
-                            LOGO
+                          <img src='/gitguruslogo.png' style={{ height: '60px', background: 'transparent' }} alt='logo' />
+
                         </Typography>
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -120,24 +113,21 @@ function Navadmin(props) {
                                 }}
                             >
                                 <Link className={styles.menuLinks} href='/'>Home</Link>
-                            <Typography name="University"
-                                className={styles.menuLinks}
-                                onClick={(e) => navBarLinksonClick(e)} >
-                                University
-                            </Typography>
-                            <Typography name="State" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >State</Typography>
-                            <Typography name="City" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >City</Typography>
-                            <Typography name="Course" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >Course</Typography>
-                            <Typography name="Subject" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >Subject</Typography>
-                            <Typography name="Question Paper" onClick={(e) => setUploadpreviousDialog(true)} className={styles.menuLinks} >Upload Question Paper</Typography>
+                                <Typography name="University"
+                                    className={styles.menuLinks}
+                                    onClick={(e) => navBarLinksonClick(e)} >
+                                    University
+                                </Typography>
+                                <Typography name="State" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >State</Typography>
+                                <Typography name="City" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >City</Typography>
+                                <Typography name="Course" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >Course</Typography>
+                                <Typography name="Subject" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >Subject</Typography>
+                                <Typography name="Question Paper" onClick={(e) => setUploadpreviousDialog(true)} className={styles.menuLinks} >Upload Question Paper</Typography>
                             </Menu>
                         </Box>
-                        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                         <Typography
                             variant="h5"
                             noWrap
-                            component="a"
-                            href="#app-bar-with-responsive-menu"
                             sx={{
                                 mr: 2,
                                 display: { xs: 'flex', md: 'none' },
@@ -149,8 +139,11 @@ function Navadmin(props) {
                                 textDecoration: 'none',
                             }}
                         >
-                            LOGO
+                          <img src='/gitguruslogo.png' style={{ height: '60px', background: 'transparent' }} alt='logo' />
+
                         </Typography>
+
+
                         <Box className={styles.adminLinks} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
                             <Link className={styles.navLinks} href='/'>Home</Link>

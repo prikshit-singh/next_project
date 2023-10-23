@@ -6,7 +6,7 @@ import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
 import styles from './style.module.css'
-
+import Componentloader from '../../../loader/Componentloader.js';
 
 
 
@@ -35,10 +35,10 @@ function Multiselectsubject(props) {
     const columnDefs =
         [
             {
-                field: 'Name',
-                headerName: 'Name',
+                field: 'title',
+                headerName: 'Title',
                 resizable: true,
-                filter: true,
+                filter: 'agTextColumnFilter',
                 cellRenderer: (data) => {
                     let name = data.data.title
                     return <>
@@ -85,7 +85,7 @@ console.log(university)
                     </AgGridReact>
                 </div>
 
-                : null
+                : <Componentloader/>
             }
         </>
     );

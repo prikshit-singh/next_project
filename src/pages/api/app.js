@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import  {connectDB}  from '../api/users/dbconfig/dbconfig'
+import { connectDB } from '../api/users/dbconfig/dbconfig'
 import Blog from './models/blog';
 
 // const router = express.Router();
@@ -8,20 +8,20 @@ export default async function handler(req, res) {
   try {
     // const connection = await connect()
     if (req.method !== 'POST') {
-      res.status(200).send({CODE:405, message: 'Only POST requests allowed' })
+      res.status(200).send({ CODE: 405, message: 'Only POST requests allowed' })
       return
     }
 
     await connectDB()
-    const blog =await new Blog({
+    const blog = await new Blog({
       title: 'prikshit',
       slug: req.body.data,
       content: req.body.data
     });
     const result = await blog.save()
-    return res.status(200).json({CODE:200, name: req.body.data })
+    return res.status(200).json({ CODE: 200, name: req.body.data })
   } catch (error) {
-    return res.status(200).json({CODE:400, error: error })
+    return res.status(200).json({ CODE: 400, error: error })
 
   }
 

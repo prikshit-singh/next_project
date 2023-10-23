@@ -9,12 +9,13 @@ export default function Scrollbar(props) {
     <>
       <div className={styles.headersub}>
         <Typography sx={{
-          mr: 1,
-          display: { md: 'flex', },
+          mr: 10,
+          // display: { md: 'flex', },
           color: 'var(--primary)',
           fontFamily: 'var(--font-bold)',
-          fontWeight: 700,
-          fontSize: '25px',
+          fontWeight: {sm:100,md:700},
+          fontSize: {sm:'20px',md:'25px'},
+          marginLeft:'20px',
           letterSpacing: '.1rem',
           textDecoration: 'none',
         }}>
@@ -32,16 +33,18 @@ export default function Scrollbar(props) {
           {props.university ? props.university.map((data,index) => {
             return (
               <div key={index} className={styles.topsectioninner}>
-                <div className={styles.imagesection}>
-                  <img src={data.universitylogo} alt={data.title.toUpperCase()} />
-                </div>
+                {/* <div className={styles.imagesection}> */}
+               
+                  <img className={styles.imagesection} src={data.universitylogo} alt={data.title.toUpperCase()} />
+                  
+                {/* </div> */}
                 <Typography sx={{
                   mr: 1,
                   display: { md: 'flex' },
                   fontFamily: 'var(--font-regular)',
                   fontWeight: 700,
                   color: 'var(--primary)',
-                  fontSize: '18px',
+                  fontSize: {sm:'14px',md:'18px'},
                   textDecoration: 'none',
                 }}>
                   {data.title.toUpperCase()}

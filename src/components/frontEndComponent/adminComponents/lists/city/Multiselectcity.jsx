@@ -5,6 +5,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
+import Componentloader from '../../../loader/Componentloader.js';
 import styles from './style.module.css'
 
 
@@ -96,7 +97,7 @@ function Multiselectcity(props) {
                     </AgGridReact>
                 </div>
 
-                : null
+                : <Componentloader />
             }
         </>
     );

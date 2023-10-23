@@ -1,11 +1,11 @@
-.loaderMainDiv{
-    background-color: #01033a1f;
-    position: absolute;
-   
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    z-index: 999;
+.loaderMainDiv {
+  background-color: #01033a1f;
+  position: absolute;
+
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
 }
 
 .loader {
@@ -26,9 +26,35 @@
   left: 0;
   right: 0;
   animation: spin 2s linear infinite;
+}
+
+.permloading {
+  position: absolute;
+  left: 48%;
+  top: 40%;
+}
+
+.componentloader {
+  position: absolute;
+  left: 40%;
+  top: 40%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+
+  100% {
+    transform: rotate(360deg);
   }
+
+}
+
+@media only screen and (max-width: 480px) {
+  .permloading {
+    position: absolute;
+    left: 40%;
+    top: 30%;
+  }
+}

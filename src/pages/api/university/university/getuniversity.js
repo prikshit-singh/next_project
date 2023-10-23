@@ -12,7 +12,6 @@ export default async function handler(req, res) {
         await State.find({})
         await City.find({})
         const university = await University.find({}).populate('state').populate('city')
-        console.log(university)
         if (university) {
             res.status(200).send({ CODE: 200, result: university });
         } else {

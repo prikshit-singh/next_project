@@ -106,7 +106,12 @@
     margin-top: 20px;
     position: relative;
 }
-.banner{width: 100%;}
+.banner{
+    max-height: 500px !important;
+    width: 100%;
+    margin-top: 5px;
+    box-shadow: 5px 5px 10px var(--borderColor);
+  }
 
 @media (min-width: 320px) and (max-width: 680px) {
    
@@ -147,9 +152,5 @@
   
   }
 
-  .banner{
-    height: 500px !important;
-    margin-top: 5px;
-    box-shadow: 5px 5px 10px var(--borderColor);
-  }
+  
  
