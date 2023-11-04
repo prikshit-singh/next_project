@@ -60,21 +60,19 @@ function MultiSelectUniversity(props) {
                     </>
                 },
             },
-            
+
             {
-                field: 'Name',
-                headerName: 'Name',
+                field: 'title',
+                headerName: 'Title',
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.title
-                    return <>
-                        <span> {name} </span>
-                    </>
+                    let name = data.data.title.toUpperCase()
+                    return <span style={{color:'red',fontFamily:'var(--font-regular)'}}> {name} </span>
                 },
             },
             {
-                field: 'City',
+                field: 'city.title',
                 headerName: 'City',
                 resizable: true,
                 filter: true,
@@ -108,7 +106,7 @@ function MultiSelectUniversity(props) {
     return (
 
         <>
-             <Updateuniversitydialogue open={open} setOpen={setOpen} data={updataData} getAllUniversity={getAllUniversity}/>
+            <Updateuniversitydialogue open={open} setOpen={setOpen} data={updataData} getAllUniversity={getAllUniversity} />
             {(university !== undefined && university.length > 0) ?
                 <div className="ag-theme-alpine" style={{ height: 520, width: '100%' }}>
                     <AgGridReact
