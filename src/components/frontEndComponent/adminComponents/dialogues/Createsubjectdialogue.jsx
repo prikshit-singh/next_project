@@ -30,7 +30,7 @@ const VisuallyHiddenInput = styled('input')({
   left: 0,
   whiteSpace: 'nowrap',
   width: 1,
-  
+
 });
 
 const style = {
@@ -44,6 +44,8 @@ const style = {
   border: '2px solid transparent',
   borderRadius: '20px',
   boxShadow: 24,
+  maxHeight: 700,
+  overflow: 'auto',
   p: 4,
   '@media (max-width: 600px)': {
     top: '50%',
@@ -73,50 +75,50 @@ export default function Createsubjectdialogue(props) {
 
 
   const handleClose = () => props.setOpen(false);
- 
+
   const [title, setTitle] = useState('');
- 
+
 
   const session = useSession()
 
- 
 
- 
+
+
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
- 
+
 
   const handleSubmit = async () => {
     // Handle form submission here
     if (title == '') {
       toast('Please Enter Title', { hideProgressBar: false, autoClose: 2000, type: 'error' })
       return 0;
-  }
-  
-    const data = {title}
-    
+    }
+
+    const data = { title }
+
     try {
 
-        const res = await axios.post(`${apis.baseUrl}${apis.createSubject}`, data, {
-          headers: {
-            'token': session.data ? session.data.userData.token : '',
+      const res = await axios.post(`${apis.baseUrl}${apis.createSubject}`, data, {
+        headers: {
+          'token': session.data ? session.data.userData.token : '',
         }
-        })
-        if (res.data.CODE === 200) {
-            toast('Subject created successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
-        } else {
-            setLoader(false)
+      })
+      if (res.data.CODE === 200) {
+        toast('Subject created successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
+      } else {
+        // setLoader(false)
 
-            toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        }
+        toast(res.data.message, { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      }
     } catch (error) {
-        // setSubmitting(false);
-        console.error('An error occurred while uploading the file:', error);
+      // setSubmitting(false);
+      console.error('An error occurred while uploading the file:', error);
     }
-};
+  };
   return (
     <>
       <Modal
@@ -132,7 +134,7 @@ export default function Createsubjectdialogue(props) {
               color: 'var(--primary)',
             }} id="parent-modal-title">Create University</h2>
             <DoneIcon
-            onClick={handleSubmit}
+              onClick={handleSubmit}
               style={{
                 border: ' 2px solid var(--primary)',
                 borderRadius: '50%',
@@ -145,7 +147,7 @@ export default function Createsubjectdialogue(props) {
 
             />
           </div>
-          
+
 
           <WhiteBorderTextField fullWidth >
             <TextField type="text"

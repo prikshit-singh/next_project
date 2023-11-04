@@ -51,7 +51,6 @@ function Navadmin(props) {
         setAnchorElUser(null);
     };
     const navBarLinksonClick = (e) => {
-        console.log(e.target.name)
         props.setSubnavName(e.target.getAttribute('name'))
     }
 

@@ -25,7 +25,7 @@ import styles from "../../styles/uploadpdf.module.css";
 import { toast } from 'react-toastify';
 import Loader from "../Loader";
 import { apis } from '../../../apis';
-
+import Skeleton from '@mui/material/Skeleton';
 
 
 import {
@@ -36,7 +36,7 @@ import {
 
 const style = {
     display: 'flex',
-    flexDirection: {xs:'column',sm:'column',md:'row'},
+    flexDirection: { xs: 'column', sm: 'column', md: 'row' },
     bgcolor: 'transparent',
     border: '2px solid transparent',
     boxShadow: 1,
@@ -68,7 +68,7 @@ const Searchquestionpaper = () => {
     const [isDisabledSubject, setisDisabledSubject] = useState(true);
     const [isDisabledYear, setisDisabledYear] = useState(true);
     const [file, setFile] = useState(null);
-
+    const [dummyOption, setDunnyOption] = useState([1, 2, 3, 4, 5])
 
     const [university, setUniversity] = useState([]);
     const [course, setCourse] = useState([]);
@@ -96,6 +96,7 @@ const Searchquestionpaper = () => {
     }, [])
 
     const getQuestionPaperUploadDetails = async () => {
+        setLoader(true)
         const menus = await axios.get(`${apis.baseUrl}${apis.getquestionpaperdetails}`, {
             headers: {
                 'token': session.data ? session.data.userData.token : '',
@@ -103,6 +104,7 @@ const Searchquestionpaper = () => {
         })
         if (menus.data && menus.data.CODE == 200) {
             setUniversity(menus.data.result)
+            setLoader(false)
         }
     }
 
@@ -206,22 +208,21 @@ const Searchquestionpaper = () => {
 
 
     };
-
     return (
         <>
 
-          <Typography sx={{
-            marginBottom:{xs:'-25px',sm:'-25px',md:'-50px'},
-            marginLeft:{xs:'42px',sm:'42px',md:'42px'},
-            marginTop:{xs:'20px',sm:'20px',md:'20px'},
-            fontSize:{xs:'14px',sm:'20px',md:'20px'},
-            fontWeight:'700',
-            fontFamily:'var(--font-Bold)',
-            color:"var(--primary)"
-          }}>Search QuestionPapers</Typography>
+            <Typography sx={{
+                marginBottom: { xs: '-25px', sm: '-25px', md: '-50px' },
+                marginLeft: { xs: '42px', sm: '42px', md: '42px' },
+                marginTop: { xs: '20px', sm: '20px', md: '20px' },
+                fontSize: { xs: '14px', sm: '20px', md: '20px' },
+                fontWeight: '700',
+                fontFamily: 'var(--font-Bold)',
+                color: "var(--primary)"
+            }}>Search QuestionPapers</Typography>
 
             <Box sx={style}>
-                {loader ? <Loader /> : null}
+                {/* {loader ? <Loader /> : null} */}
                 <div className={styles.searchUniversityform}>
                     <div className={styles.searchUniversitySecondform}>
                         <WhiteBorderTextField fullWidth className={styles.FormControl}>
@@ -233,11 +234,20 @@ const Searchquestionpaper = () => {
                                 defaultValue='Select University'
                                 onChange={handleUniversityChange}
                             >
-                                {university.map((data) => (
+                                {university && university.length > 0 ? university.map((data) => (
                                     <MenuItem key={data._id} value={JSON.stringify(data)}>
                                         {data.title}
                                     </MenuItem>
-                                ))}
+                                )) :
+                                    dummyOption.map(data => {
+                                        return (
+                                            <MenuItem key={data}>
+                                                <Skeleton variant="rectangular" height={30} />
+                                            </MenuItem>
+                                        )
+
+                                    })
+                                }
 
                             </Select>
                         </WhiteBorderTextField>

@@ -46,7 +46,6 @@ const Subnavadmin = (props) => {
             // Code to execute if none of the cases match expression
         }
     };
-    console.log('propsprops', props)
 
     return (
         <>

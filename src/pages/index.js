@@ -10,8 +10,21 @@ import Searchquestionpaper from '../components/multiLeveldropdown/Searchquestion
 import { useSession } from 'next-auth/react'
 function Home(props) {
   const [loader, setLoader] = useState(false)
+  const [university, setUniversity] = useState([])
+  useEffect(() => {
+    getAllUniversity()
+  }, [])
+
+  const getAllUniversity = async () => {
+    const University = await axios.get(`${apis.baseUrl}${apis.getAllUniversity}`)
+    if (University.data.CODE === 200) {
+
+      setUniversity(University.data.result)
+
+    }
+  }
+
 const session = useSession()
-console.log(session)
 
   return (
     <>
@@ -48,7 +61,7 @@ console.log(session)
         />
         <Searchquestionpaper/>
         <div className={styles.scrollBarDiv}>
-          <Scrollbar university={props.University} />
+          <Scrollbar university={university} />
         </div>
         
       </Layout>
@@ -57,45 +70,7 @@ console.log(session)
 }
 
 
-export const getServerSideProps = async (context) => {
-  try {
-    // const res = await axios.get(`${apis.baseUrl}getblogs`)
-    // const res1 = await axios.get(`${apis.baseUrl}pdfupload/getpreviousyearpaper`)
-    // const menus = await axios.get(`${apis.baseUrl}settings/menusettings/getmenus`)
-    const University = await axios.get(`${apis.baseUrl}${apis.getAllUniversity}`)
-    if (University.data.CODE === 200) {
-      return {
-        props: {
-          // res: res.data,
-          // res1: res1.data,
-          // menus: menus.data,
-          University: University.data.result
 
-        }
-      };
-    }
-
-  } catch (error) {
-    console.log(error)
-    return {
-      props: {}
-    };
-  }
-
-}
 export default Home;
 
 
-{/* <div className={styles.homeComponentLayout}>
-        <div className={styles.homeRightContainer}>
-          <Blog props={blogs} />
-
-
-        </div>
-        <div className={styles.homeLeftContainer}>
-          Trending
-        </div>
-      </div> */}
-
-{/* <CategoryNav fill="green" style={{ background: 'rgb(233, 231, 231)' }} />
-      <Catagorybanner /> */}

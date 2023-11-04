@@ -44,6 +44,8 @@ const style = {
   border: '2px solid transparent',
   borderRadius: '20px',
   boxShadow: 24,
+  maxHeight:700,
+  overflow:'auto',
   p: 4,
   '@media (max-width: 600px)': {
     top: '50%',
@@ -118,10 +120,8 @@ export default function Createstatedialogue(props) {
         })
         if (res.data.CODE === 200) {
             toast('State created successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
-        } else {
-            setLoader(false)
-
-            toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+        }  else {
+          toast(res.data.message, { hideProgressBar: false, autoClose: 2000, type: 'error' })
         }
     } catch (error) {
         // setSubmitting(false);

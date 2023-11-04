@@ -54,9 +54,7 @@ const style = {
 
 
 const WhiteBorderTextField = styled(FormControl)`
-    & .css-1u3bzj6-MuiFormControl-root-MuiTextField-root{
-      margin-top: 20px
-    }
+    
     & label.Mui-focused {
       color: var(--primary);
     }
@@ -119,7 +117,7 @@ function Loginmodel(props) {
                 }} id="parent-modal-title">Login</h2>
 
               </div>
-              <WhiteBorderTextField fullWidth >
+              <WhiteBorderTextField fullWidth className={styles.FormControl}>
                 <TextField type="text"
                   id="title"
                   name="title"
@@ -132,7 +130,7 @@ function Loginmodel(props) {
 
                 />
               </WhiteBorderTextField>
-              <WhiteBorderTextField fullWidth >
+              <WhiteBorderTextField fullWidth className={styles.FormControl}>
                 <TextField type="text"
                   id="title"
                   name="title"
@@ -145,8 +143,9 @@ function Loginmodel(props) {
 
                 />
               </WhiteBorderTextField>
-              <Button variant="contained" className={styles.button} type="button" onClick={() => handleLogin()}>Login</Button>
-              
+              <WhiteBorderTextField fullWidth className={styles.FormControlBtn}>
+              <Button style={{backgroundColor:'var(--primary)'}}  variant="contained" className={styles.button} type="button" onClick={() => handleLogin()}>Login</Button>
+              </WhiteBorderTextField>
                 <div style={{display:'flex',alignItems:'center', justifyContent:'space-between',marginTop:'10px'}}><hr style={{width:'45%'}}/>OR<hr style={{width:'45%'}}/></div>
               <Layout>
                   <Login  />

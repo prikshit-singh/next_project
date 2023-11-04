@@ -10,7 +10,7 @@ import { connectDB } from '../../../api/users/dbconfig/dbconfig'
 export default async function handler(req, res) {
     try {
         await connectDB()
-            const city = await City.find({}).populate('state')
+            const city = await City.find({}).populate('state').sort({ title: 1 })
             if (city) {
                 res.status(200).send({ CODE: 200, result:city });
             } else {

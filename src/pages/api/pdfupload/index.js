@@ -119,14 +119,16 @@ export default async function handler(req, res) {
 
 
                 // Set the upload directory
-
+                const regex = /[^a-zA-Z0-9-.]+/g;
+  
+                // Use the replace method to replace all matched characters with hyphens
                 form.uploadDir = path.join(process.cwd(), 'public/previousyearpaperspdf');
                 // Parse the incoming form data
                 form.on('fileBegin', function (name, file) {
                     // Modify the filename as per your requirements
                     // console.log(file)
                     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-                    const customFileName = `${file.originalFilename}`;
+                    const customFileName = `${file.originalFilename.replace(regex,"-")}`;
                     file.newFilename = customFileName
                     file.filepath = path.join(form.uploadDir, customFileName);
                 });
@@ -137,36 +139,59 @@ export default async function handler(req, res) {
                         return res.status(500).json({ error: 'File upload failed.' });
 
                     }
-                   
+
+
+
+                    const paperExist = await Papers.find(
+                        {
+                            university: fields.university[0],
+                            course: fields.course[0],
+                            subject:fields.subject[0],
+                            semester: fields.semester[0],
+                            year: fields.year[0],
+                        }
+                        )
+
+                        console.log('paperExist',paperExist)
+                        if(paperExist.length>0){
+                            return res.status(200).json({ CODE: 409, message: 'Paper Already exist' })
+                        }
                     const oldPath = files.pdf[0].filepath;
+
                     // // console.log(1,files.pdf[0].path.split('/')[0].split('//'))
-                    const destinationDirPath = `public/previousyearpaperspdf/${fields.university[0]}/${fields.course[0]}/${fields.year[0]}/${fields.semester[0]}/${fields.subject[0]}/`
+                    let universityTitleName = fields.universitytitle[0].replaceAll(' ','-')
+                    let courseTitleName = fields.coursetitle[0].replaceAll(' ','-')
+                    let subjectTitleName = fields.subjecttitle[0].replaceAll(' ','-')
+                    const destinationDirPath = `public/previousyearpaperspdf/${universityTitleName}/${courseTitleName}/${fields.year[0]}/${fields.semester[0]}/${subjectTitleName}/`
                     if (!fs.existsSync(destinationDirPath)) {
                         fs.mkdirSync(destinationDirPath, { recursive: true });
                     }
                     const destinationFilePath = path.join(destinationDirPath, path.basename(oldPath))
                     fs.renameSync(oldPath, destinationFilePath);
-                    const baseUrl = `${process.env.IMAGE_DOMANE}/previousyearpaperspdf/${fields.university[0]}/${fields.course[0]}/${fields.year[0]}/${fields.semester[0]}/${fields.subject[0]}/`
-                    const pdfPath = await files.pdf[0].originalFilename
+                    const baseUrl = `${process.env.IMAGE_DOMANE}/previousyearpaperspdf/${universityTitleName}/${courseTitleName}/${fields.year[0]}/${fields.semester[0]}/${subjectTitleName}/`
+                    const pdfPath = await files.pdf[0].originalFilename.replace(regex,"-")
                     const pdfPathContent = baseUrl + pdfPath
                     const user = await varifyuser(fields.token[0])
-                    if (user) {
+                    if (user.CODE === 200) {
                         var userData = await Signup.find({ email: user.email })
+                        const paper = await new Papers({
+                            university: fields.university[0],
+                            college: fields.college[0],
+                            content: pdfPathContent,
+                            course: fields.course[0],
+                            subject:fields.subject[0],
+                            semester: fields.semester[0],
+                            year: fields.year[0],
+                            uploadby: userData[0]._id,
+                            isvarified: 'false',
+                        });
+                        const result = await paper.save()
+                        return res.status(200).json({ CODE: 200, result: result })
+                    }else{
+                        res.status(200).send({CODE:503, message: 'Please Login First' })
                     }
-                    const paper = await new Papers({
-                        university: fields.university[0],
-                        college: fields.college[0],
-                        content: pdfPathContent,
-                        course: fields.course[0],
-                        subject:fields.subject[0],
-                        semester: fields.semester[0],
-                        year: fields.year[0],
-                        uploadby: userData[0]._id,
-                        isvarified: 'false',
-                    });
-                    const result = await paper.save()
-                    return res.status(200).json({ CODE: 200, result: result })
-                    // res.status(200).send({ msg: 'file stored successfully' })
+                    
+                    // 
                 });
             }
         });

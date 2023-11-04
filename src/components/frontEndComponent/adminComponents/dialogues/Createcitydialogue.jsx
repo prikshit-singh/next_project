@@ -20,7 +20,11 @@ import DoneIcon from '@mui/icons-material/Done';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { toast } from 'react-toastify';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
+import Autocomplete from '@mui/material/Autocomplete';
+import { lighten, darken } from '@mui/system';
 
 const style = {
   // display:'flex',
@@ -29,6 +33,8 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '600',
+  maxHeight:700,
+  overflow:'auto',
   bgcolor: 'background.paper',
   border: '2px solid transparent',
   borderRadius: '20px',
@@ -54,6 +60,21 @@ const WhiteBorderTextField = styled(FormControl)`
 `;
 
 
+const GroupHeader = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  top: '-8px',
+  padding: '4px 10px',
+  color: theme.palette.primary.main,
+  backgroundColor:
+    theme.palette.mode === 'light'
+      ? lighten(theme.palette.primary.light, 0.85)
+      : darken(theme.palette.primary.main, 0.8),
+}));
+
+const GroupItems = styled('ul')({
+  padding: 0,
+  maxHeight: '200px'
+});
 
 
 
@@ -95,8 +116,8 @@ export default function Createcitydialogue(props) {
     setTitle(e.target.value);
   };
 
-  const handleStateChange = (e) => {
-    setState(e.target.value);
+  const handleStateChange = (e,selected) => {
+    setState(selected);
   };
 
 
@@ -113,7 +134,7 @@ export default function Createcitydialogue(props) {
     }
 
 
-    const data = { title, state }
+    const data = { title, state:state._id }
 
     try {
 
@@ -125,9 +146,7 @@ export default function Createcitydialogue(props) {
       if (res.data.CODE === 200) {
         toast('City created successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
       } else {
-        setLoader(false)
-
-        toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+        toast(res.data.message, { hideProgressBar: false, autoClose: 2000, type: 'error' })
       }
     } catch (error) {
       // setSubmitting(false);
@@ -177,21 +196,22 @@ export default function Createcitydialogue(props) {
             />
           </WhiteBorderTextField>
           <WhiteBorderTextField fullWidth className={styles.FormControl}>
-            <InputLabel id="demo-simple-select-label">State</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="State"
-              value={state}
-              onChange={handleStateChange}
-            >
-              {stateOption.map((data) => (
-                <MenuItem key={data._id} value={data._id}>
-                  {data.title}
-                </MenuItem>
-              ))}
 
-            </Select>
+            <Autocomplete
+              id="grouped-demo"
+              options={stateOption.sort((a, b) => -b.title.localeCompare(a.title))}
+              groupBy={(option) => option.firstLetter}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => <TextField value={state} {...params} label="Select State" />}
+              onChange={handleStateChange}
+              renderGroup={(params) => (
+                <li key={params.key}>
+                  <GroupHeader>{params.group}</GroupHeader>
+                  <GroupItems>{params.children}</GroupItems>
+                </li>
+              )}
+            />
+           
           </WhiteBorderTextField>
 
         </Box>

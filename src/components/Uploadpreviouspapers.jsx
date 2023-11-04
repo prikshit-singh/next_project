@@ -4,6 +4,7 @@ import { Box } from '@mui/material'
 
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
+import { signOut } from 'next-auth/react';
 import { useSession } from "next-auth/react"
 import { useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -25,7 +26,7 @@ import { toast } from 'react-toastify';
 import Loader from "./Loader";
 import { apis } from '../../apis';
 import PermLoader from '../components/frontEndComponent/loader/PermLoader'
-
+import Componentloader from './frontEndComponent/loader/Componentloader';
 
 import {
     Icon,
@@ -128,7 +129,11 @@ function Uploadpreviouspapers(props) {
     };
     const handleSubmit = async () => {
         // Handle form submission here
-
+        if(loader){
+            return 0
+        }
+        setLoader(true)
+       
         if (selectedUniversity == '') {
             toast('Please select university', { hideProgressBar: false, autoClose: 2000, type: 'error' })
             return 0;
@@ -154,34 +159,53 @@ function Uploadpreviouspapers(props) {
             toast('Please select pdf', { hideProgressBar: false, autoClose: 2000, type: 'error' })
             return 0;
         }
-
+       
         setLoader(true)
+
+        const universityDetails = await university.filter((data)=> data._id === selectedUniversity)
+        const courseDetails =await  course.filter((data)=> data._id === selectedCourse)
+        const subjectDetails =await  subject.filter((data)=> data._id === selectedSubject)
+       
         const formData = new FormData();
         formData.append('pdf', file);
-        formData.append('university', selectedUniversity);
-        formData.append('college', college);
-        formData.append('course', selectedCourse);
+        formData.append('university', universityDetails[0]._id);
+        formData.append('universitytitle', universityDetails[0].title.toLowerCase());
+        formData.append('college', college.toLowerCase());
+        formData.append('course', courseDetails[0]._id);
+        formData.append('coursetitle', courseDetails[0].title.toLowerCase());
         formData.append('year', selectedYear);
         formData.append('semester', semester);
         formData.append('token', session.data.userData.token);
-        formData.append('subject', selectedSubject);
+        formData.append('subject', subjectDetails[0]._id);
+        formData.append('subjecttitle', subjectDetails[0].title.toLowerCase());
+
+       
         try {
 
-            const res = await axios.post('/api/pdfupload', formData, {
+            const res = await axios.post(`${apis.baseUrl}${apis.uoloadQuestionPapers}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             })
+
+            if(res.data.CODE === 409){
+                setLoader(false)
+                toast(res.data.message, { hideProgressBar: false, autoClose: 2000, type: 'warning' })
+                return 0;
+            }
+
             if (res.data.CODE === 200) {
                 setLoader(false)
 
                 toast('Uploaded successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
-            } else {
-                setLoader(false)
-
-                toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+            } else if(res.data.CODE === 503) {
+                toast('please login first', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+                signOut()
+            }else{
+                toast('something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' }) 
             }
         } catch (error) {
+            apiRequestInProgress = false
             setLoader(false)
             console.error('An error occurred while uploading the file:', error);
         }
@@ -192,7 +216,7 @@ function Uploadpreviouspapers(props) {
     const handleUniversityChange = (e) => {
         if (e.target.value) {
             const dataValue = JSON.parse(e.target.value)
-            setSelectedUniversity(dataValue.universitycode)
+            setSelectedUniversity(dataValue._id)
             setCourse(dataValue.course)
             setSelectedCourse('Select Course')
             setIsDisabledCourse(false)
@@ -224,6 +248,7 @@ function Uploadpreviouspapers(props) {
 
     return (
         <>
+        {loader ? <Componentloader/> : null}
 
             <Modal
                 open={props.uploadpreviousDialog}
@@ -291,7 +316,7 @@ function Uploadpreviouspapers(props) {
 
                                             const dataValue = JSON.parse(e.target.value)
                                             setisDisabledSemester(false)
-                                            setSelectedCourse(dataValue.coursecode)
+                                            setSelectedCourse(dataValue._id)
                                             setSubject(dataValue.subject)
                                             setisDisabledSubject(false)
                                             setSelectedSubject('Select Subject')
@@ -377,7 +402,7 @@ function Uploadpreviouspapers(props) {
                                     name="Subject" id="Subject" defaultValue='Select Subject' label='Subject' onChange={(e) => {
                                         if (e.target.value !== 'Select Subject') {
                                             const dataValue = JSON.parse(e.target.value)
-                                            setSelectedSubject(dataValue.title)
+                                            setSelectedSubject(dataValue._id)
                                             setSelectedYear('Select Year');
                                             setisDisabledYear(false)
                                         } else {
@@ -416,8 +441,9 @@ function Uploadpreviouspapers(props) {
 
                                 </Select>
                             </WhiteBorderTextField>
-                            <WhiteBorderTextField fullWidth >
-                                <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
+
+                            <WhiteBorderTextField fullWidth className={styles.FormControlBtn}>
+                                <Button style={{backgroundColor:'var(--primary)'}} component="label" variant="contained" startIcon={<CloudUploadIcon />}>
                                     {file ? 'PDF Selected' : "Select PDF"}
                                     <VisuallyHiddenInput type="file" accept=".pdf" onChange={handleFileChange} />
                                 </Button>

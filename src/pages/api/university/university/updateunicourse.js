@@ -11,16 +11,7 @@ export default async function handler(req, res) {
       let userData = await varifyuser(token);
 
       if (userData) {
-        // Convert the course ID from string to ObjectId
-        console.log(req.body.courses)
         
-        // Find the university by its ID
-        let findUniversity = await University.findById(req.body.universityId);
-
-        if (!findUniversity) {
-          return res.status(404).send({ CODE: 301, msg: 'University not found' });
-        }
-
         // Use $push with the converted ObjectId
         const updatedUniversity = await University.findOneAndUpdate(
           { _id: req.body.universityId },

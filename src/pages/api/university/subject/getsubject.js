@@ -6,7 +6,7 @@ import { connectDB } from '../../users/dbconfig/dbconfig.js'
 export default async function handler(req, res) {
     try {
         await connectDB()
-            const subject = await Subject.find({}).populate('createdby')
+            const subject = await Subject.find({}).populate('createdby').sort({ title: 1 })
             if (subject) {
                 res.status(200).send({ CODE: 200, result:subject });
             } else {

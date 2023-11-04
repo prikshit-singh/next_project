@@ -44,14 +44,14 @@ export const authOptions: NextAuthOptions = {
       console.log('user',user,token)
       if (user) {
         const token2 = await Jwt.sign({ email: user.email, _id: user.id }, 'this key is private',{
-          expiresIn: '60s', // Set the token to expire in 60 seconds
+          expiresIn: '30d', // Set the token to expire in 60 seconds
         })
         console.log('token2',token2)
         token.id = user.id;
         token.name = user.name;
         token.token = token2
         token._id = user.id
-        token.exp = '60'
+        token.exp = '30d'
        
       }
         return Promise.resolve(token);

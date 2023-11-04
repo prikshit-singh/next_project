@@ -20,6 +20,17 @@ import DoneIcon from '@mui/icons-material/Done';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { toast } from 'react-toastify';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { Paper } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
+
+import { lighten, darken } from '@mui/system';
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+// Define a CSS class for setting the max height
+
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -30,7 +41,7 @@ const VisuallyHiddenInput = styled('input')({
   left: 0,
   whiteSpace: 'nowrap',
   width: 1,
-  
+
 });
 
 const style = {
@@ -44,7 +55,9 @@ const style = {
   border: '2px solid transparent',
   borderRadius: '20px',
   boxShadow: 24,
-  
+  maxHeight: 700,
+  overflow: 'auto',
+
   p: 4,
   '@media (max-width: 600px)': {
     top: '50%',
@@ -72,14 +85,13 @@ const WhiteBorderTextField = styled(FormControl)`
 
 export default function Createcoursedialogue(props) {
 
-
   const handleClose = () => props.setOpen(false);
- 
+
 
   const [title, setTitle] = useState('');
   const [coursecode, setCourseCode] = useState('');
   const [duration, setDuration] = useState('');
-  const [allDuration, setAllDuration] = useState([1,2,3,4]);
+  const [allDuration, setAllDuration] = useState([1, 2, 3, 4]);
   const [subject, setSubject] = useState([]);
   const [Allsubject, setAllSubject] = useState([]);
 
@@ -101,12 +113,12 @@ export default function Createcoursedialogue(props) {
     })
     if (subjects.data && subjects.data.CODE == 200) {
       setAllSubject(subjects.data.result)
-  }
+    }
 
   }
 
   // Handle input field changes
-  
+
 
 
   const handleTitleChange = (e) => {
@@ -121,51 +133,51 @@ export default function Createcoursedialogue(props) {
     setDuration(e.target.value);
   };
 
-  const handlesubjectChange = (e) => {
-    setSubject(e.target.value);
+  const handlesubjectChange = (e,selected) => {
+    setSubject(selected);
 
   };
 
- const handleSubmit = async () => {
+  const handleSubmit = async () => {
     // Handle form submission here
     if (title == '') {
-        toast('Please Enter Title', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
+      toast('Please Enter Title', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
     }
     if (coursecode == '') {
-        toast('Please select courseCode', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
+      toast('Please select courseCode', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
     }
     if (duration == '') {
-        toast('Please enter duration', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
+      toast('Please enter duration', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
     }
     if (subject == '') {
-        toast('Please select subject', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
+      toast('Please select subject', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
     }
-    
-    const data = {title,coursecode,subject,duration}
-    
+    const newCourse = subject.map(data => data._id)
+    const data = { title, coursecode, subject:newCourse, duration }
+
     try {
 
-        const res = await axios.post(`${apis.baseUrl}${apis.createCourse}`, data, {
-          headers: {
-            'token': session.data ? session.data.userData.token : '',
+      const res = await axios.post(`${apis.baseUrl}${apis.createCourse}`, data, {
+        headers: {
+          'token': session.data ? session.data.userData.token : '',
         }
-        })
-        if (res.data.CODE === 200) {
-            toast('Course created successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
-        } else {
-            setLoader(false)
-
-            toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        }
+      })
+      if (res.data.CODE === 200) {
+        toast('Course created successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
+      } else {
+        toast(res.data.message, { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      }
     } catch (error) {
-        // setSubmitting(false);
-        console.error('An error occurred while uploading the file:', error);
+      // setSubmitting(false);
+      console.error('An error occurred while uploading the file:', error);
     }
-};
+  };
+
+  
 
   return (
     <>
@@ -182,7 +194,7 @@ export default function Createcoursedialogue(props) {
               color: 'var(--primary)',
             }} id="parent-modal-title">Create Course</h2>
             <DoneIcon
-            onClick={handleSubmit}
+              onClick={handleSubmit}
               style={{
                 border: ' 2px solid var(--primary)',
                 borderRadius: '50%',
@@ -195,7 +207,7 @@ export default function Createcoursedialogue(props) {
 
             />
           </div>
-          
+
 
           <WhiteBorderTextField fullWidth >
             <TextField type="text"
@@ -207,6 +219,34 @@ export default function Createcoursedialogue(props) {
               variant="outlined"
 
             />
+          </WhiteBorderTextField>
+
+          <WhiteBorderTextField fullWidth className={styles.FormControl}>
+          
+            <Autocomplete
+              multiple
+              id="checkboxes-tags-demo"
+              options={Allsubject}
+              disableCloseOnSelect
+              getOptionLabel={(option) => option.title}
+              renderOption={(props, option, { selected }) => (
+                <li key={option._id} {...props}>
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 0 }}
+                    checked={selected}
+                  />
+                  {option.title}
+                </li>
+              )}
+              onChange={handlesubjectChange}
+              renderInput={(params) => (
+                <TextField value={subject} {...params} label="Subjects" placeholder="Subjects" />
+              )}
+             
+            />
+
           </WhiteBorderTextField>
 
           <WhiteBorderTextField fullWidth className={styles.FormControl}>
@@ -223,31 +263,7 @@ export default function Createcoursedialogue(props) {
 
 
 
-          <WhiteBorderTextField fullWidth className={styles.FormControl}>
-            <InputLabel id="demo-multiple-checkbox-label">Subjects</InputLabel>
-            <Select
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
-              multiple
-              value={subject}
-              onChange={handlesubjectChange}
-              input={<OutlinedInput label="subject" />}
-              renderValue={(selected) =>
-                selected
-                  .map((id) =>
-                  Allsubject.find((subject) => subject._id === id).title
-                  )
-                  .join(', ')
-              }
-            >
-              {Allsubject.map((data) => (
-                <MenuItem key={data._id} value={data._id}>
-                  <Checkbox checked={subject.indexOf(data._id) > -1} />
-                  <ListItemText primary={data.title} />
-                </MenuItem>
-              ))}
-            </Select>
-          </WhiteBorderTextField>
+          
 
 
 
@@ -268,7 +284,7 @@ export default function Createcoursedialogue(props) {
 
             </Select>
           </WhiteBorderTextField>
-          
+
 
         </Box>
       </Modal>
