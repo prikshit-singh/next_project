@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         // await State.find({})
         // await City.find({})
         // await Course.find({})
-        const university = await University.find({}).populate('state').populate('city').populate('course').sort({ title: 1 })
+        const university = await University.find({}).populate('state').populate('city').populate('course').sort({ title: 1 }).populate('createdby')
         if (university) {
             res.status(200).send({ CODE: 200, result: university });
         } else {
