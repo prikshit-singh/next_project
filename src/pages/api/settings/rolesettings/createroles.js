@@ -10,6 +10,7 @@ export default async function handler(req, res) {
     try {
         await connectDB()
         let cookies =  req.headers.token
+        console.log('cookies',cookies)
         if (cookies) {
             let userData = await varifyuser(cookies)
             if (userData) {
@@ -22,7 +23,10 @@ export default async function handler(req, res) {
                 });
                 const result = await Roles1.save({ new: true })
                 return res.status(200).json({ CODE: 200, result: result })
-            }}else{
+            }else{
+                return res.status(200).json({ CODE: 503, result: 'Log In First' })
+            }
+        }else{
              return res.status(200).json({ CODE: 503, result: 'Log In First' })
             }
     } catch (error) {

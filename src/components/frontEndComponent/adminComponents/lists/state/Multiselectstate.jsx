@@ -6,22 +6,23 @@ import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
 import styles from './style.module.css'
-
-
-
+import Updatestatedialogue from '../../dialogues/updateModels/Updatestatedialogue.jsx';
+import Componentloader from '../../../loader/Componentloader.js';
+import { BiSolidEdit } from 'react-icons/bi';
 
 
 function Multiselectstate(props) {
-   
+    const [open, setOpen] = useState(false)
+    const [updataData, setUpdateData] = useState(null)
     const [university, setUniversity] = useState([])
     const session = useSession()
     useEffect(() => {
         if (session.data) {
-            getAllUser()
+            getAllStates()
         }
     }, [])
 
-    const getAllUser = async () => {
+    const getAllStates = async () => {
         const menus = await axios.get(`${apis.baseUrl}${apis.getAllState}`, {
             headers: {
                 'token': session.data ? session.data.userData.token : '',
@@ -36,19 +37,42 @@ function Multiselectstate(props) {
         [
             {
                 field: 'Name',
-                headerName: 'Name',
-                resizable: true,
-                filter: true,
+                headerName: 'Edit',
+                resizable: false,
+                width: '60px',
                 cellRenderer: (data) => {
                     let name = data.data.title
                     return <>
-                        <p > {name}</p>
+                        <BiSolidEdit
+                            onClick={() => {
+                                setOpen(true)
+                                setUpdateData(data.data)
+                            }
+                            }
+                            style={{
+                                color: 'var(--primary)',
+                                fontSize: '15px',
+                                cursor: 'pointer'
+                            }}
+                        />
                     </>
+                },
+            },
+            {
+                field: 'title',
+                headerName: 'Title',
+                resizable: true,
+                
+                filter: 'agTextColumnFilter',
+                
+                cellRenderer: (data) => {
+                    let name = data.data.title.toLowerCase()
+                    return name
                 },
             },
             
             {
-                field: 'Statecode',
+                field: 'statecode',
                 headerName: 'Statecode',
 
                 resizable: true,
@@ -70,9 +94,9 @@ function Multiselectstate(props) {
     return (
 
         <>
-
+<Updatestatedialogue open={open} setOpen={setOpen} data={updataData} afterUpdate={getAllStates}/>
             {(university !== undefined && university.length > 0) ?
-                <div className="ag-theme-alpine" style={{ height: 500, width: '100%' }}>
+                <div className="ag-theme-alpine" style={{ height: 520, width: '100%' }}>
                     <AgGridReact
                         rowData={university}
                         columnDefs={columnDefs}
@@ -81,11 +105,12 @@ function Multiselectstate(props) {
                         paginationPageSize='10'
                         editType="fullRow"
                         animateRows={true}
+                        filter={true}
                     >
                     </AgGridReact>
                 </div>
 
-                : null
+                : <Componentloader/>
             }
         </>
     );

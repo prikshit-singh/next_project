@@ -11,6 +11,9 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    
+      domains: ['imagesfolder.gitgurus.com'],
+  
     remotePatterns: [
         {
             protocol: 'https',

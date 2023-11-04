@@ -6,22 +6,25 @@ import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
 import styles from './style.module.css'
-
+import Updatecoursedialogue from '../../dialogues/updateModels/Updatecoursedialogue.jsx';
+import Componentloader from '../../../loader/Componentloader.js';
+import { BiSolidEdit } from 'react-icons/bi';
 
 
 
 
 function Multiselectcourse(props) {
-   
+    const [open, setOpen] = useState(false)
+    const [updataData, setUpdateData] = useState(null)
     const [university, setUniversity] = useState([])
     const session = useSession()
     useEffect(() => {
         if (session.data) {
-            getAllUser()
+            getAllCourse()
         }
     }, [])
 
-    const getAllUser = async () => {
+    const getAllCourse = async () => {
         const menus = await axios.get(`${apis.baseUrl}${apis.getAllCourse}`, {
             headers: {
                 'token': session.data ? session.data.userData.token : '',
@@ -34,6 +37,30 @@ function Multiselectcourse(props) {
     }
     const columnDefs =
         [
+
+            {
+                field: 'Name',
+                headerName: 'Edit',
+                resizable: false,
+                width: '60px',
+                cellRenderer: (data) => {
+                    let name = data.data.title
+                    return <>
+                        <BiSolidEdit
+                            onClick={() => {
+                                setOpen(true)
+                                setUpdateData(data.data)
+                            }
+                            }
+                            style={{
+                                color: 'var(--primary)',
+                                fontSize: '15px',
+                                cursor: 'pointer'
+                            }}
+                        />
+                    </>
+                },
+            },
             {
                 field: 'Name',
                 headerName: 'Name',
@@ -84,7 +111,7 @@ function Multiselectcourse(props) {
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.createdby.email
+                    let name = data.data.createdby.email 
                     return <>
                         <p > {name}</p>
 
@@ -100,9 +127,9 @@ function Multiselectcourse(props) {
     return (
 
         <>
-
+<Updatecoursedialogue open={open} setOpen={setOpen} data={updataData} afterUpdate={getAllCourse}/>
             {(university !== undefined && university.length > 0) ?
-                <div className="ag-theme-alpine" style={{ height: 500, width: '100%' }}>
+                <div className="ag-theme-alpine" style={{ height: 520, width: '100%' }}>
                     <AgGridReact
                         rowData={university}
                         columnDefs={columnDefs}
@@ -115,7 +142,7 @@ function Multiselectcourse(props) {
                     </AgGridReact>
                 </div>
 
-                : null
+                : <Componentloader />
             }
         </>
     );

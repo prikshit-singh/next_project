@@ -35,9 +35,6 @@ const Subnavadmin = (props) => {
             case 'Course':
                 setcourseDialogueOpen(true)
                 break;
-            case 'State':
-                setstateDialogueOpen(true)
-                break;
             case 'City':
                 setcityDialogueOpen(true)
                 break;
@@ -49,7 +46,6 @@ const Subnavadmin = (props) => {
             // Code to execute if none of the cases match expression
         }
     };
-    console.log('propsprops', props)
 
     return (
         <>

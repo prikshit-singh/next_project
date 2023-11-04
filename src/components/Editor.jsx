@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { updateEditorContent } from "../../slices/editorSlice";
 import Head from 'next/head'

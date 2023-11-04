@@ -53,15 +53,28 @@
 
 body{
     background-color: rgba(236, 236, 236, 0.464);
-
+    /* overflow-y: hidden !important; */
 }
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+   
+  }
+.contentBody{
+    min-height: 93vh;
+    /* margin-bottom: 80px; */
+}  
 
 
-
-.css-sghohy-MuiButtonBase-root-MuiButton-root{
+/* .css-sghohy-MuiButtonBase-root-MuiButton-root{
     margin-top : 20px !important;
     background-color: #861f41 !important;
-}
+} */
+
+
+
+
 
 
 

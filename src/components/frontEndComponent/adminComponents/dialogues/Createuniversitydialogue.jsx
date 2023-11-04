@@ -18,6 +18,15 @@ import TextField from '@mui/material/TextField';
 import styles from "../../../../styles/uploadpdf.module.css";
 import DoneIcon from '@mui/icons-material/Done';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+
+import Autocomplete from '@mui/material/Autocomplete';
+import { lighten, darken } from '@mui/system';
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
 import { styled } from '@mui/material/styles';
 import { toast } from 'react-toastify';
 const VisuallyHiddenInput = styled('input')({
@@ -30,7 +39,7 @@ const VisuallyHiddenInput = styled('input')({
   left: 0,
   whiteSpace: 'nowrap',
   width: 1,
-  
+
 });
 
 const style = {
@@ -44,7 +53,14 @@ const style = {
   border: '2px solid transparent',
   borderRadius: '20px',
   boxShadow: 24,
+  maxHeight:700,
+  overflow:'auto',
   p: 4,
+  '@media (max-width: 600px)': {
+    top: '50%',
+    left: '50%',
+    width: '100%',
+  },
 };
 
 
@@ -60,7 +76,21 @@ const WhiteBorderTextField = styled(FormControl)`
 `;
 
 
+const GroupHeader = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  top: '-8px',
+  padding: '4px 10px',
+  color: theme.palette.primary.main,
+  backgroundColor:
+    theme.palette.mode === 'light'
+      ? lighten(theme.palette.primary.light, 0.85)
+      : darken(theme.palette.primary.main, 0.8),
+}));
 
+const GroupItems = styled('ul')({
+  padding: 0,
+  maxHeight: '200px'
+});
 
 
 
@@ -106,7 +136,7 @@ export default function Createuniversitydialogue(props) {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
-};
+  };
 
 
   const handleTitleChange = (e) => {
@@ -117,75 +147,76 @@ export default function Createuniversitydialogue(props) {
     setUniversityCode(e.target.value);
   };
 
-  const handleStateChange = (e) => {
-    setState(e.target.value);
+  const handleStateChange = (e, selected) => {
+    setState(selected);
   };
 
-  const handleCityChange = (e) => {
-    setCity(e.target.value);
+  const handleCityChange = (e, selected) => {
+
+    setCity(selected);
   };
-  const handleCourseChange = (e) => {
-    setCourse(e.target.value);
+  const handleCourseChange = (e, newValue) => {
+    setCourse(newValue);
 
   };
 
- const handleSubmit = async () => {
+  const handleSubmit = async () => {
     // Handle form submission here
-    console.log(title, universityCode, state, city, course, file)
     if (title == '') {
-        toast('Please Enter Title', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
+      toast('Please Enter Title', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
     }
     if (universityCode == '') {
-        toast('Please select course', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
+      toast('Please select course', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
     }
-    if (state == '') {
-        toast('Please enter subject', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
-    }
-    if (city == '') {
-        toast('Please select year', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
-    }
-    if (course == '') {
+    if (course.length <= 0) {
       toast('Please select year', { hideProgressBar: false, autoClose: 2000, type: 'error' })
       return 0;
-  }
+    }
+    if (city == '') {
+      toast('Please select year', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
+    }
+    if (state == '') {
+      toast('Please enter state', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
+    }
     if (file == null) {
-        toast('Select University Logo', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        return 0;
+      toast('Select University Logo', { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      return 0;
     }
     console.log(title, universityCode, state, city, course, file)
+
+    const newCourse = course.map(data => data._id)
+
 
     const formData = new FormData();
     formData.append('title', title);
     formData.append('universitycode', universityCode);
-    formData.append('course', course);
-    formData.append('state', state);
-    formData.append('city', city);
+    formData.append('course', newCourse);
+    formData.append('state', state._id);
+    formData.append('city', city._id);
     formData.append('universitylogo', file);
 
     formData.append('token', session.data.userData.token);
     try {
 
-        const res = await axios.post(`${apis.baseUrl}${apis.createUniversity}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        })
-        if (res.data.CODE === 200) {
-            toast('Uploaded successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
-        } else {
-            setLoader(false)
-
-            toast('Something went wrong', { hideProgressBar: false, autoClose: 2000, type: 'error' })
-        }
+      const res = await axios.post(`${apis.baseUrl}${apis.createUniversity}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      if (res.data.CODE === 200) {
+        toast('Uploaded successfully', { hideProgressBar: false, autoClose: 2000, type: 'success' })
+      } else {
+        toast(res.data.message, { hideProgressBar: false, autoClose: 2000, type: 'error' })
+      }
     } catch (error) {
-        // setSubmitting(false);
-        console.error('An error occurred while uploading the file:', error);
+      console.error('An error occurred while uploading the file:', error);
     }
-};
+  };
+
 
   return (
     <>
@@ -202,7 +233,7 @@ export default function Createuniversitydialogue(props) {
               color: 'var(--primary)',
             }} id="parent-modal-title">Create University</h2>
             <DoneIcon
-            onClick={handleSubmit}
+              onClick={handleSubmit}
               style={{
                 border: ' 2px solid var(--primary)',
                 borderRadius: '50%',
@@ -215,7 +246,7 @@ export default function Createuniversitydialogue(props) {
 
             />
           </div>
-          
+
 
           <WhiteBorderTextField fullWidth >
             <TextField type="text"
@@ -244,74 +275,81 @@ export default function Createuniversitydialogue(props) {
 
 
           <WhiteBorderTextField fullWidth className={styles.FormControl}>
-            <InputLabel id="demo-multiple-checkbox-label">Course</InputLabel>
-            <Select
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
+
+
+            <Autocomplete
               multiple
-              value={course}
+              id="checkboxes-tags-demo"
+              options={courseOption}
+              disableCloseOnSelect
+              getOptionLabel={(option) => option.title}
+              renderOption={(props, option, { selected }) => (
+                <li key={option._id} {...props}>
+                  <Checkbox
+                  key={option._id+1}
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 0,maxHeight:'40px' }}
+                    checked={selected}
+                  />
+                  {option.title}
+                </li>
+              )}
+              
               onChange={handleCourseChange}
-              input={<OutlinedInput label="Course" />}
-              renderValue={(selected) =>
-                selected
-                  .map((id) =>
-                    courseOption.find((course) => course._id === id).title
-                  )
-                  .join(', ')
-              }
-            >
-              {courseOption.map((data) => (
-                <MenuItem key={data._id} value={data._id}>
-                  <Checkbox checked={course.indexOf(data._id) > -1} />
-                  <ListItemText primary={data.title} />
-                </MenuItem>
-              ))}
-            </Select>
+              renderInput={(params) => (
+                <TextField 
+                value={course} {...params} label="Courses" placeholder="Courses" />
+              )}
+            />
+
+
+
           </WhiteBorderTextField>
 
 
-          <WhiteBorderTextField fullWidth style={{marginTop:'20px !important'}} className={styles.FormControl}>
-            <InputLabel id="demo-simple-select-label">City</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="City"
-              value={city}
+          <WhiteBorderTextField fullWidth style={{ marginTop: '20px !important' }} className={styles.FormControl}>
+            <Autocomplete
+              id="grouped-demo"
+              options={cityOption.sort((a, b) => -b.title.localeCompare(a.title))}
+              groupBy={(option) => option.firstLetter}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => <TextField value={city} {...params} label="Select City" />}
               onChange={handleCityChange}
-            >
-              {cityOption.map((data) => (
-                <MenuItem key={data._id} value={data._id}>
-                  {data.title}
-                </MenuItem>
-              ))}
-
-            </Select>
+              renderGroup={(params) => (
+                <li key={params.key}>
+                  <GroupHeader >{params.group}</GroupHeader>
+                  <GroupItems >{params.children}</GroupItems>
+                </li>
+              )}
+            />
           </WhiteBorderTextField>
-
-
-
-
-
-          <WhiteBorderTextField fullWidth className={styles.FormControl}>
-            <InputLabel id="demo-simple-select-label">State</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="State"
-              value={state}
+          <WhiteBorderTextField fullWidth style={{ marginTop: '20px !important' }} className={styles.FormControl}>
+            <Autocomplete
+              id="grouped-demo"
+              options={stateOption.sort((a, b) => -b.title.localeCompare(a.title))}
+              groupBy={(option) => option.firstLetter}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => <TextField value={state} {...params} label="Select State" />}
               onChange={handleStateChange}
-            >
-              {stateOption.map((data) => (
-                <MenuItem key={data._id} value={data._id}>
-                  {data.title}
-                </MenuItem>
-              ))}
-
-            </Select>
+              renderGroup={(params) => (
+                <li key={params.key}>
+                  <GroupHeader>{params.group}</GroupHeader>
+                  <GroupItems>{params.children}</GroupItems>
+                </li>
+              )}
+            />
           </WhiteBorderTextField>
-          <WhiteBorderTextField fullWidth >
-            <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
-            {file?'Image Selected':"Select University Logo"}
+
+
+
+
+
+
+
+          <WhiteBorderTextField fullWidth className={styles.FormControlBtn}>
+            <Button  style={{backgroundColor:'var(--primary)'}} component="label" variant="contained"  startIcon={<CloudUploadIcon />}>
+              {file ? 'Image Selected' : "Select University Logo"}
               <VisuallyHiddenInput type="file" onChange={handleFileChange} />
             </Button>
           </WhiteBorderTextField>

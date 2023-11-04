@@ -2,7 +2,6 @@ import Jwt from 'jsonwebtoken';
 import Signup from '../../pages/api/models/signup';
 import  {connectDB}  from '../../pages/api/users/dbconfig/dbconfig'
 
-
 export default async function handler (token){
     
     await connectDB()

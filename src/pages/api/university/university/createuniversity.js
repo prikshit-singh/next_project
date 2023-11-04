@@ -8,6 +8,7 @@ import University from '../../models/universitymodels/university.js';
 import path from 'path';
 import fs from 'fs'
 import { IncomingForm } from 'formidable';
+import { json } from 'body-parser';
 
 export const config = {
     api: {
@@ -29,17 +30,14 @@ export default async function handler(req, res) {
                     } else {
                         console.log("New Directory created successfully !!");
 
-                        // const session = await getSession(req);
-                        // console.log('verifyTokan', session)
+                       
                         const form = new IncomingForm();
                         // Set the upload directory
                         form.uploadDir = path.join(process.cwd(), 'public/previousyearpaperspdf');
                         // Parse the incoming form data
                         form.on('fileBegin', function (name, file) {
                             // Modify the filename as per your requirements
-                            // console.log(file)
-                            // const fileName = Date.now() + '_' + file.newFilename + '.pdf'
-                            // file.originalFilename = fileName
+                           
                             file.path = path.join(form.uploadDir, file.originalFilename);
                         });
 
@@ -49,47 +47,7 @@ export default async function handler(req, res) {
                                 console.error(err);
 
                             }
-                            // console.log(fields)
-                            // Move the uploaded file to the desired location
-
-
-                            // const oldPath = files.image[0].filepath;
-                            // console.log(1,files.image[0].path.split('/')[0].split('//'))
-                            // const newPath = files.image[0].path
-                            // fs.renameSync(oldPath, newPath);
-                            // const baseUrl = `${process.env.IMAGE_DOMANE}/images/`
-                            // const imagePath = await files.image[0].originalFilename
-
-                            // const imageContent = baseUrl + imagePath
-                            // let fileNameTime = Date.now()
-                            // fs.writeFileSync(`public/files/${fileNameTime}.txt`, fields.content[0]);
-
-
-
-                            // const user = await varifyuser(fields.token[0])
-
-
-
-
-                            // if (user) {
-                            //     var userData = await Signup.find({ email: user.email })
-                            // }
-                            // const blog = await new Blog({
-                            //     title: fields.title[0],
-                            //     subtitle: fields.subtitle[0],
-                            //     slug: fields.slug[0],
-                            //     keywords: fields.keywords[0],
-                            //     content: `${process.env.IMAGE_DOMANE}/files/${fileNameTime}.txt`,
-                            //     image: imageContent,
-                            //     date: fields.date[0],
-                            //     writtenby: userData[0]._id,
-                            //     LikedBy: [],
-                            //     isvarified: 'false',
-                            //     description: '',
-                            //     Comments: [],
-                            // });
-                            // const result = await blog.save()
-                            // console.log(result)
+                           
                             return res.status(200).json({ CODE: 200, msg: 'ok' })
                             // res.status(200).send({ msg: 'file stored successfully' })
                         });
@@ -117,7 +75,6 @@ export default async function handler(req, res) {
                   fs.mkdirSync(uploadDirectory, { recursive: true });
                 }
 
-                console.log(2)
 
                 // Parse the incoming form data
                 form.on('fileBegin', function (name, file) {
@@ -136,12 +93,10 @@ export default async function handler(req, res) {
                         return res.status(500).json({ error: 'File upload failed.' });
 
                     }
-                   console.log('files',files)
                     const oldPath = files.universitylogo[0].filepath;
-                    console.log(oldPath)
                     // // console.log(1,files.pdf[0].path.split('/')[0].split('//'))
                     const destinationDirPath = `public/universitylogo/${fields.universitycode[0]}/`
-                    console.log('destinationDirPath',destinationDirPath)
+
                     if (!fs.existsSync(destinationDirPath)) {
                         fs.mkdirSync(destinationDirPath, { recursive: true });
                     }
@@ -151,27 +106,33 @@ export default async function handler(req, res) {
                     const pdfPath = await files.universitylogo[0].originalFilename
                     const pdfPathContent = baseUrl + pdfPath
                     const user = await varifyuser(fields.token[0])
-                console.log(fields.course[0])
+
                     if (user) {
+                        const existingSubject = await University.findOne({ title: fields.title[0].toLowerCase() });
+        
+                        if (existingSubject) {
+                          return res.status(200).json({ CODE: 409, message: 'Title already exists' });
+                        }
                         const University1 = await new University({
                             title: fields.title[0].toLowerCase(),
                             universitycode:fields.universitycode[0].toLowerCase(),
                             state:fields.state[0],
                             city:fields.city[0],
                             universitylogo:pdfPathContent,
-                            course:fields.course[0],
+                            course:fields.course[0].split(','),
                             createdby: user._id
                         });
                         const result = await University1.save()
                         return res.status(200).json({ CODE: 200, result: result })
+                    }else{
+                        return res.status(200).json({ CODE: 503, message: 'Login First' });
                     }
-                    // res.status(200).send({ msg: 'file stored successfully' })
                 });
             }
         });
     } catch (error) {
         console.log(111,error)
-        return res.status(200).json({ CODE: 400, error })
+        return res.status(200).json({ CODE: 400, error ,message:'Something went wrong'})
 
     }
    

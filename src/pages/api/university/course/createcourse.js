@@ -16,6 +16,11 @@ export default async function handler(req, res) {
         if (cookies) {
             let userData = await varifyuser(cookies)
             if (userData) {
+                const existingSubject = await Course.findOne({ title: req.body.title.toLowerCase() });
+        
+                if (existingSubject) {
+                  return res.status(200).json({ CODE: 409, message: 'Title already exists' });
+                }
                 const Course1 = await new Course({
                     title: req.body.title.toLowerCase(),
                     coursecode:req.body.coursecode.toLowerCase(),
@@ -26,11 +31,11 @@ export default async function handler(req, res) {
                 const result = await Course1.save()
                 return res.status(200).json({ CODE: 200, result: result })
             }}else{
-             return res.status(200).json({ CODE: 503, result: 'Log In First' })
+             return res.status(200).json({ CODE: 503, message: 'Log In First' })
             }
     } catch (error) {
         console.log(error)
-        return res.status(200).json({ CODE: 400, message: error })
+        return res.status(200).json({ CODE: 400, message: 'Something went wrong' })
 
     }
 

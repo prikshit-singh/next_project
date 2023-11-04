@@ -16,6 +16,15 @@ export default async function handler(req, res) {
         if (cookies) {
             let userData = await varifyuser(cookies)
             if (userData) {
+                const titleToInsert = req.body.title.toLowerCase();
+
+                // Check if a document with the same title already exists
+                const existingSubject = await Subject.findOne({ title: titleToInsert });
+        
+                if (existingSubject) {
+                  return res.status(200).json({ CODE: 409, message: 'Title already exists' });
+                }
+
                 const Subject1 = await new Subject({
                     title: req.body.title.toLowerCase(),
                     createdby: userData._id
@@ -23,11 +32,11 @@ export default async function handler(req, res) {
                 const result = await Subject1.save()
                 return res.status(200).json({ CODE: 200, result: result })
             }}else{
-             return res.status(200).json({ CODE: 503, result: 'Log In First' })
+             return res.status(200).json({ CODE: 503, message: 'Log In First' })
             }
     } catch (error) {
         console.log(error)
-        return res.status(200).json({ CODE: 400, message: error })
+        return res.status(200).json({ CODE: 400, message: 'Something went srong' })
 
     }
 

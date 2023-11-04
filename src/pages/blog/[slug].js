@@ -4,19 +4,12 @@ import { updateBlogData } from '../../../slices/blog/blog';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from "next/router";
 import Head from 'next/head'
-import Layout from "../../layouts/mainLayout";
-import Navbar from '../../components/frontEndComponent/navabrs/Navbar';
-import Image from 'next/image';
-import dynamic from 'next/dynamic'
-import { ThumbUp } from '@mui/icons-material';
-import imag from '../../../public/react.jpg'
-import { UilThumbsUp, UilComments, UilShare, UilBookmarkFull } from '@iconscout/react-unicons'
+import Layout from "../../layouts/Layout";
+
 import { toast } from 'react-toastify';
 import { Button, Icon, Label, Header, Segment, Item } from 'semantic-ui-react'
 import axios from "axios";
-import Cookies from "js-cookie";
 
-import Loader from '../../components/Loader'
 import Writecomment from "../../components/Writecomment";
 import CategoryNav from '../../components/CategoryNav';
 import { Modal, Box } from '@mui/material'
@@ -110,6 +103,7 @@ function Page(props) {
   return (
     <>
       {/* {loader ? <Loader /> : null} */}
+      <Layout>
       <Head>
         <title>{props.res.blog.title}</title>
         <meta
@@ -132,7 +126,6 @@ function Page(props) {
       </Head>
 
       {/* <Navbar /> */}
-      <CategoryNav />
 
       <div>
         <Modal
@@ -208,6 +201,7 @@ function Page(props) {
 
         ></div>
       </div >
+      </Layout>
     </>
   );
 }

@@ -1,28 +1,41 @@
 export const apis = {
     //user apis
-    baseUrl :'http://localhost:3000/api/',
-    
+    // baseUrl: 'https://gitgurus.com/api/',
+    baseUrl: 'http://localhost:3000/api/',
 
-    getAllUniversity :'university/university/getuniversity',
-    getUniversityCreateDetails :'university/university/getuniversitycreatedetails',
-    createUniversity:'university/university/createuniversity',
+    // menus
 
 
-    getAllCity :'university/city/getcity',
+    getAllUniversity: 'university/university/getuniversity',
+    getUniversityCreateDetails: 'university/university/getuniversitycreatedetails',
+    createUniversity: 'university/university/createuniversity',
+    updateUniversity: 'university/university/updateuniversity',
+    getUniversityWithId: 'university/university/getuniversitywithid',
+
+    getAllCity: 'university/city/getcity',
+    createCity: 'university/city/createcity',
+    updateCity: 'university/city/updatecity',
+
+    getAllState: 'university/state/getstate',
+    createState: 'university/state/createstate',
+    updateState: 'university/state/updatestate',
 
 
-    getAllState :'university/state/getstate',
+    getAllCourse: 'university/course/getcourse',
+    createCourse: 'university/course/createcourse',
+    updateCourse: 'university/course/updatecourse',
+    getCourseWithId: 'university/course/getcoursewithid',
 
+    getAllSubject: 'university/subject/getsubject',
+    createSubject: 'university/subject/createsubject',
+    updateSubject: 'university/subject/updatesubject',
 
-    getAllCourse :'university/course/getcourse',
-
-
-    getAllSubject :'university/subject/getsubject',
-
-
-    getAllRoles :'settings/rolesettings/getroles',
+    getAllRoles: 'settings/rolesettings/getroles',
 
 
     //question paper details
-    getquestionpaperdetails:'university/questionpapers/getquestionpaperdetails'
+    getquestionpaperdetails: 'university/questionpapers/getquestionpaperdetails',
+    getsemesterwisequestionpaperdetails:'university/questionpapers/getsemesterwisequestionpaperdetails',
+    getquestionpaperswithsemesterandyear:'university/questionpapers/getquestionpaperswithsemesterandyear',
+    uoloadQuestionPapers: 'pdfupload'
 }

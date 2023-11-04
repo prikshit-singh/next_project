@@ -6,18 +6,16 @@ import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
 import styles from './style.module.css'
-
-const rowData = [
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxter", price: 72000 }
-];
-
+import Componentloader from '../../../loader/Componentloader.js';
+import { BiSolidEdit } from 'react-icons/bi';
+import Updateuniversitydialogue from '../../dialogues/updateModels/Updateuniversitydialogue.jsx';
 
 
 function MultiSelectUniversity(props) {
-   
+    const [open, setOpen] = useState(false)
+    const [updataData, setUpdateData] = useState(null)
     const [university, setUniversity] = useState([])
+
     const session = useSession()
     useEffect(() => {
         if (session.data) {
@@ -41,25 +39,47 @@ function MultiSelectUniversity(props) {
         [
             {
                 field: 'Name',
-                headerName: 'Name',
-                resizable: true,
-                filter: true,
+                headerName: 'Edit',
+                resizable: false,
+                width: '60px',
                 cellRenderer: (data) => {
                     let name = data.data.title
                     return <>
-                        <p > {name}</p>
+                        <BiSolidEdit
+                            onClick={() => {
+                                setOpen(true)
+                                setUpdateData(data.data)
+                            }
+                            }
+                            style={{
+                                color: 'var(--primary)',
+                                fontSize: '15px',
+                                cursor: 'pointer'
+                            }}
+                        />
                     </>
                 },
             },
+
             {
-                field: 'City',
+                field: 'title',
+                headerName: 'Title',
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    let name = data.data.title.toUpperCase()
+                    return <span style={{color:'red',fontFamily:'var(--font-regular)'}}> {name} </span>
+                },
+            },
+            {
+                field: 'city.title',
                 headerName: 'City',
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
                     let name = data.data.city.title
                     return <>
-                        <p > {name}</p>
+                        <span> {name}</span>
                     </>
                 },
             },
@@ -72,7 +92,7 @@ function MultiSelectUniversity(props) {
                 cellRenderer: (data) => {
                     let name = data.data.state.title
                     return <>
-                        <p > {name}</p>
+                        <span> {name}</span>
 
                     </>
                 },
@@ -86,9 +106,9 @@ function MultiSelectUniversity(props) {
     return (
 
         <>
-
+            <Updateuniversitydialogue open={open} setOpen={setOpen} data={updataData} getAllUniversity={getAllUniversity} />
             {(university !== undefined && university.length > 0) ?
-                <div className="ag-theme-alpine" style={{ height: 500, width: '100%' }}>
+                <div className="ag-theme-alpine" style={{ height: 520, width: '100%' }}>
                     <AgGridReact
                         rowData={university}
                         columnDefs={columnDefs}
@@ -101,7 +121,7 @@ function MultiSelectUniversity(props) {
                     </AgGridReact>
                 </div>
 
-                : null
+                : <Componentloader />
             }
         </>
     );

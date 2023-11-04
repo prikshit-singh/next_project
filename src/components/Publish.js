@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggolDialogue } from '../../slices/publisherDialogueSlice';
 import Files from 'react-files'
 import myImg from "../utils/img.png";
-import Loader from "./Loader";
+import PermLoader from '../components/frontEndComponent/loader/PermLoader'
 
 import { AccessAlarm, ThreeDRotation, Close } from '@mui/icons-material';
 import styles from "../styles/Publish.module.css";
@@ -72,7 +72,7 @@ function Publish(props) {
 
     return (
         <>
-            {loader ? <Loader /> : null}
+            {loader ? <PermLoader /> : null}
 
             <div className={styles.crossBtn}>
                 {/* <Close  /> */}
