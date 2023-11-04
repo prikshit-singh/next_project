@@ -84,7 +84,7 @@ function MultiSelectUniversity(props) {
                 },
             },
             {
-                field: 'State',
+                field: 'state.title',
                 headerName: 'State',
 
                 resizable: true,
@@ -102,7 +102,7 @@ function MultiSelectUniversity(props) {
         ];
 
 
-
+console.table(university)
     return (
 
         <>
@@ -111,6 +111,7 @@ function MultiSelectUniversity(props) {
                 <div className="ag-theme-alpine" style={{ height: 520, width: '100%' }}>
                     <AgGridReact
                         rowData={university}
+                        
                         columnDefs={columnDefs}
                         rowSelection='multiple'
                         pagination={true}
