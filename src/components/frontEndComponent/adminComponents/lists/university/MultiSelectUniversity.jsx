@@ -98,7 +98,7 @@ function MultiSelectUniversity(props) {
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.city.title.toUpperCase()
+                    let name = data.data.city.title
                     return <>
                         <span className={styles.listSpan} > {name}</span>
                     </>
@@ -112,7 +112,7 @@ function MultiSelectUniversity(props) {
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.state.title.toUpperCase()
+                    let name = data.data.state.title
                     return <>
                         <span className={styles.listSpan} > {name}</span>
 
