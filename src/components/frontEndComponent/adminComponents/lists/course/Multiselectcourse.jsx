@@ -5,7 +5,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
-import styles from './style.module.css'
+import styles from '../../../../../styles/admin/frontEndComponent/list/list.module.css'
 import Updatecoursedialogue from '../../dialogues/updateModels/Updatecoursedialogue.jsx';
 import Componentloader from '../../../loader/Componentloader.js';
 import { BiSolidEdit } from 'react-icons/bi';
@@ -62,20 +62,20 @@ function Multiselectcourse(props) {
                 },
             },
             {
-                field: 'Name',
+                field: 'title',
                 headerName: 'Name',
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
                     let name = data.data.title
                     return <>
-                        <p > {name}</p>
+                        <span  className={styles.listSpan}> {name}</span>
                     </>
                 },
             },
             
             {
-                field: 'Statecode',
+                field: 'coursecode',
                 headerName: 'Statecode',
 
                 resizable: true,
@@ -83,7 +83,7 @@ function Multiselectcourse(props) {
                 cellRenderer: (data) => {
                     let name = data.data.coursecode
                     return <>
-                        <p > {name}</p>
+                        <span  className={styles.listSpan}> {name}</span>
 
                     </>
                 },
@@ -91,7 +91,7 @@ function Multiselectcourse(props) {
             
 
             {
-                field: 'Duration',
+                field: 'duration',
                 headerName: 'Duration',
 
                 resizable: true,
@@ -99,21 +99,57 @@ function Multiselectcourse(props) {
                 cellRenderer: (data) => {
                     let name = data.data.duration
                     return <>
-                        <p > {name}</p>
+                        <span  className={styles.listSpan}> {name}</span>
 
                     </>
                 },
             },
             {
-                field: 'CreatedBy',
-                headerName: 'createdBy',
+                field: 'createdby.name',
+                headerName: 'CreatedByName',
+                filter: 'agTextColumnFilter',
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    let name = data.data.createdby.name
+                    return <>
+                        <span  className={styles.listSpan} > {name}</span>
+
+                    </>
+                },
+            },
+            {
+                field: 'createdby.email',
+                headerName: 'createdByEmail',
 
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
                     let name = data.data.createdby.email 
                     return <>
-                        <p > {name}</p>
+                        <span  className={styles.listSpan}> {name}</span>
+
+                    </>
+                },
+            },
+            {
+                field: 'createdby.name',
+                headerName: 'CreatedbyImg',
+
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    
+                    let name = data.data.createdby.userImage
+                    return <>
+                         <span ><img src= {name} 
+                            style={{
+                                height:"25px",
+                                width:"25px",
+                                borderRadius:"50%",
+                            }}
+                        /></span>
+
 
                     </>
                 },

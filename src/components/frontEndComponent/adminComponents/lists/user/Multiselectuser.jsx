@@ -5,7 +5,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
-import styles from './style.module.css'
+import styles from "../../../../../styles/admin/frontEndComponent/list/list.module.css"
 
 const rowData = [
     { make: "Toyota", model: "Celica", price: 35000 },
@@ -49,7 +49,7 @@ function MultiSelectUser(props) {
                     let name = data.data.title
                     console.log(data)
                     return <>
-                        <p > {name}</p>
+                        <span  className={styles.listSpan}> {name}</span>
                     </>
                 },
             },
@@ -62,7 +62,7 @@ function MultiSelectUser(props) {
                     let name = data.data.city.title
                     console.log(data)
                     return <>
-                        <p > {name}</p>
+                        <span className={styles.listSpan} > {name}</span>
                     </>
                 },
             },
@@ -76,7 +76,7 @@ function MultiSelectUser(props) {
                     let name = data.data.state.title
                     console.log(data)
                     return <>
-                        <p > {name}</p>
+                        <span  className={styles.listSpan}>{name}</span>
 
                     </>
                 },

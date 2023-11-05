@@ -1,0 +1,4 @@
+.listSpan{
+    font-family:var(--font-regular);
+    text-transform: capitalize;
+}

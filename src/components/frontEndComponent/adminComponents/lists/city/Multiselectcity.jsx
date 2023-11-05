@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react"
 import Componentloader from '../../../loader/Componentloader.js';
 import Updatecitydialogue from '../../dialogues/updateModels/Updatecitydialogue.jsx';
 import { BiSolidEdit } from 'react-icons/bi';
-import styles from './style.module.css'
+import styles from '../../../../../styles/admin/frontEndComponent/list/list.module.css'
 
 
 
@@ -64,31 +64,31 @@ function Multiselectcity(props) {
                 },
             },
             {
-                field: 'Name',
+                field: 'title',
                 headerName: 'Name',
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
                     let name = data.data.title
                     return <>
-                        <p > {name}</p>
+                        <span  className={styles.listSpan}> {name}</span>
                     </>
                 },
             },
             {
-                field: 'state',
+                field: 'state.title',
                 headerName: 'state',
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
                     let name = data.data.state.title
                     return <>
-                        <p > {name}</p>
+                        <span   className={styles.listSpan}> {name}</span>
                     </>
                 },
             },
             {
-                field: 'Statecode',
+                field: 'state.statecode',
                 headerName: 'Statecode',
 
                 resizable: true,
@@ -96,7 +96,57 @@ function Multiselectcity(props) {
                 cellRenderer: (data) => {
                     let name = data.data.state.statecode
                     return <>
-                        <p > {name}</p>
+                        <span  className={styles.listSpan}> {name}</span>
+
+                    </>
+                },
+            },
+            {
+                field: 'createdby.name',
+                headerName: 'CreatedByName',
+                filter: 'agTextColumnFilter',
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    let name = data.data.createdby.name
+                    return <>
+                        <span  className={styles.listSpan} > {name}</span>
+
+                    </>
+                },
+            },
+            {
+                field: 'createdby.email',
+                headerName: 'createdByEmail',
+
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    let name = data.data.createdby.email 
+                    return <>
+                        <span  className={styles.listSpan}> {name}</span>
+
+                    </>
+                },
+            },
+            {
+                field: 'createdby.name',
+                headerName: 'CreatedbyImg',
+
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    
+                    let name = data.data.createdby.userImage
+                    return <>
+                         <span ><img src= {name} 
+                            style={{
+                                height:"25px",
+                                width:"25px",
+                                borderRadius:"50%",
+                            }}
+                        /></span>
+
 
                     </>
                 },
@@ -105,7 +155,7 @@ function Multiselectcity(props) {
 
         ];
 
-
+       console.log(321,university)
 
     return (
 
