@@ -5,7 +5,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
-import styles from './style.module.css'
+import styles from "../../../../../styles/admin/frontEndComponent/list/list.module.css"
 import Componentloader from '../../../loader/Componentloader.js';
 import { BiSolidEdit } from 'react-icons/bi';
 import Updateuniversitydialogue from '../../dialogues/updateModels/Updateuniversitydialogue.jsx';
@@ -60,6 +60,27 @@ function MultiSelectUniversity(props) {
                     </>
                 },
             },
+            {
+                field: 'state.title',
+                headerName: 'logo',
+
+                resizable: false,
+                
+                width:"80px",
+                cellRenderer: (data) => {
+                    let name = data.data.universitylogo
+                    return <>
+                        <span ><img src= {name} 
+                            style={{
+                                height:"25px",
+                                width:"25px",
+                                borderRadius:"50%",
+                            }}
+                        /></span>
+
+                    </>
+                },
+            },
 
             {
                 field: 'title',
@@ -67,8 +88,8 @@ function MultiSelectUniversity(props) {
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.title.toUpperCase()
-                    return <span style={{fontFamily:'var(--font-regular)'}}> {name} </span>
+                    let name = data.data.title
+                    return <span className={styles.listSpan} >{name} </span>
                 },
             },
             {
@@ -79,10 +100,11 @@ function MultiSelectUniversity(props) {
                 cellRenderer: (data) => {
                     let name = data.data.city.title.toUpperCase()
                     return <>
-                        <span style={{fontFamily:'var(--font-regular)'}}> {name}</span>
+                        <span className={styles.listSpan} > {name}</span>
                     </>
                 },
             },
+          
             {
                 field: 'state.title',
                 headerName: 'State',
@@ -92,16 +114,71 @@ function MultiSelectUniversity(props) {
                 cellRenderer: (data) => {
                     let name = data.data.state.title.toUpperCase()
                     return <>
-                        <span style={{fontFamily:'var(--font-regular)'}}> {name}</span>
+                        <span className={styles.listSpan} > {name}</span>
+
+                    </>
+                },
+            },
+            {
+                field: 'course.length',
+                headerName: 'Courses',
+
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    
+                    let name = data.data.course.length
+                    return <>
+                        <span> {name}</span>
+
+                    </>
+                },
+            },
+            {
+                field: 'createdby.name',
+                headerName: 'Createdby',
+
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    
+                    let creatorName = data.data.createdby.name
+                    return <>
+                        <span className={styles.listSpan} > { creatorName}</span>
+
+                    </>
+                },
+            },
+      {
+                field: 'createdby.name',
+                headerName: 'CreatedbyImg',
+
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    
+                    let name = data.data.createdby.userImage
+                    return <>
+                         <span ><img src= {name} 
+                            style={{
+                                height:"25px",
+                                width:"25px",
+                                borderRadius:"50%",
+                            }}
+                        /></span>
+
+
                     </>
                 },
             },
 
 
+
+
         ];
 
 
-console.table(university)
+console.log(123,university)
     return (
 
         <>

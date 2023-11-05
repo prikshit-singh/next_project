@@ -5,7 +5,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
-import styles from './style.module.css'
+import styles from '../../../../../styles/admin/frontEndComponent/list/list.module.css'
 import Updatestatedialogue from '../../dialogues/updateModels/Updatestatedialogue.jsx';
 import Componentloader from '../../../loader/Componentloader.js';
 import { BiSolidEdit } from 'react-icons/bi';
@@ -67,7 +67,9 @@ function Multiselectstate(props) {
                 
                 cellRenderer: (data) => {
                     let name = data.data.title.toLowerCase()
-                    return name
+                    return <>
+                       <span  className={styles.listSpan}> {name}</span>
+                    </>
                 },
             },
             
@@ -80,7 +82,45 @@ function Multiselectstate(props) {
                 cellRenderer: (data) => {
                     let name = data.data.statecode
                     return <>
-                        <p > {name}</p>
+                        <span className={styles.listSpan}> {name}</span>
+
+                    </>
+                },
+            },
+            {
+                field: 'createdby.email',
+                headerName: 'createdBy',
+
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    let name = data.data.createdby ? data.data.createdby.email :""
+                    return <>
+                        <span  className={styles.listSpan}> {name}</span>
+
+                    </>
+                },
+            },
+
+          
+      {
+                field: 'createdby.name',
+                headerName: 'CreatedbyImg',
+
+                resizable: true,
+                filter: true,
+                cellRenderer: (data) => {
+                    
+                    let name = data.data.createdby ? data.data.createdby.userImage :""
+                    return <>
+                         <span ><img src= {name} 
+                            style={{
+                                height:"25px",
+                                width:"25px",
+                                borderRadius:"50%",
+                            }}
+                        /></span>
+
 
                     </>
                 },
@@ -89,7 +129,7 @@ function Multiselectstate(props) {
 
         ];
 
-
+  
 
     return (
 
