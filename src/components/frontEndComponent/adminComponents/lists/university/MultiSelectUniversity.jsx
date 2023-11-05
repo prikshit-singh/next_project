@@ -68,7 +68,7 @@ function MultiSelectUniversity(props) {
                 filter: true,
                 cellRenderer: (data) => {
                     let name = data.data.title.toUpperCase()
-                    return <span style={{color:'red',fontFamily:'var(--font-regular)'}}> {name} </span>
+                    return <span style={{fontFamily:'var(--font-regular)'}}> {name} </span>
                 },
             },
             {
@@ -77,9 +77,9 @@ function MultiSelectUniversity(props) {
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.city.title
+                    let name = data.data.city.title.toUpperCase()
                     return <>
-                        <span> {name}</span>
+                        <span style={{fontFamily:'var(--font-regular)'}}> {name}</span>
                     </>
                 },
             },
@@ -90,10 +90,9 @@ function MultiSelectUniversity(props) {
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.state.title
+                    let name = data.data.state.title.toUpperCase()
                     return <>
-                        <span> {name}</span>
-
+                        <span style={{fontFamily:'var(--font-regular)'}}> {name}</span>
                     </>
                 },
             },
