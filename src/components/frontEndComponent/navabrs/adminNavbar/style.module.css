@@ -65,3 +65,9 @@
     font-family: var(--font-bold);
     font-size: larger;
 }
+
+.MultiSelect{
+    margin-top: 20px;
+    width: 90%;
+    margin-left: 5%;
+}

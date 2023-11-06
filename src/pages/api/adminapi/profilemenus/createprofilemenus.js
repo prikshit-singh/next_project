@@ -1,10 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 // import { connectDB } from '@/pages/api/users/dbconfig/dbconfig.js'
-import { connectDB } from '../../../users/dbconfig/dbconfig.js'
-import Signup from '../../../models/signup.js';
-import varifyuser from '../../../../../components/backendmodules/varifyuser.js'
-import Profile_menu from '../../../models/settings/menues/profilemenu.js';
+import { connectDB } from '../../users/dbconfig/dbconfig.js'
+import Signup from '../../models/signup.js';
+import varifyuser from '../../../../components/backendmodules/varifyuser.js'
+import Profile_menu from '../../models/settings/menues/profilemenu.js';
 
 
 export default async function handler(req, res) {

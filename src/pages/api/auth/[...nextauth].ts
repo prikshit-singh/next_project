@@ -75,7 +75,7 @@ export const authOptions: NextAuthOptions = {
           },
           {
             path: 'canaccess',
-            populate:{path:'parentMenu'}
+            populate:{path:'parentmenu'}
           },
           {
             path: 'canaccessmenus',

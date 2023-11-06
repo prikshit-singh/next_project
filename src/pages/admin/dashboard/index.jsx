@@ -10,6 +10,7 @@ import Multiselectsubject from '../../../components/frontEndComponent/adminCompo
 import Multiselectpapers from '../../../components/frontEndComponent/adminComponents/lists/papers/Multiselectpapers';
 import Subnavadmin from '../../../components/frontEndComponent/navabrs/adminNavbar/Subnavadmin';
 import { useSession, signOut } from "next-auth/react"
+import Newnavadmin from '../../../components/frontEndComponent/navabrs/adminNavbar/Newnavadmin'
 import style from '../../../styles/admin/Dashboard.module.css'
 const Index = () => {
     const [subnavName, setSubnavName] = useState("University")
@@ -27,10 +28,12 @@ const Index = () => {
 
     return (
         <>
-            <Navadmin profileMenus={profileMenus} menus={menus} name={subnavName} setSubnavName={setSubnavName}  />
-            <Subnavadmin name={subnavName} state="state" />
+            {/* <Navadmin profileMenus={profileMenus} menus={menus} name={subnavName} setSubnavName={setSubnavName}  /> */}
+            <Newnavadmin  profileMenus={profileMenus} menus={menus} name={subnavName} setSubnavName={setSubnavName}  />
+            
+            {/* <Subnavadmin name={subnavName} state="state" /> */}
 
-            <div className={style.MultiSelect} >
+            {/* <div className={style.MultiSelect} >
             {subnavName === 'University' ?
                 <MultiSelectUniversity  />
              : null}
@@ -49,7 +52,7 @@ const Index = () => {
              {subnavName === 'Papers' ?
                 <Multiselectpapers  />
              : null}
-            </div>
+            </div> */}
         </>
     );
 };

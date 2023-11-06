@@ -25,7 +25,7 @@ function Multiselectpapers(props) {
 
     const getAllUniversity = async () => {
         setLoader(true)
-        const menus = await axios.get(`${apis.baseUrl}${apis.getAllPreviousYearPapers}`, {
+        const menus = await axios.get(`${apis.baseUrl}${apis.getAllPapers}`, {
             headers: {
                 'token': session.data ? session.data.userData.token : '',
             }
@@ -184,11 +184,9 @@ function Multiselectpapers(props) {
                 },
             },
             {
-                field: 'uploadby.name',
                 headerName: 'UploadbyImg',
 
                 resizable: true,
-                filter: true,
                 cellRenderer: (data) => {
 
                     let name = data.data.uploadby.userImage

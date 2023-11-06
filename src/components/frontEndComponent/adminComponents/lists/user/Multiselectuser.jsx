@@ -15,8 +15,8 @@ const rowData = [
 
 
 
-function MultiSelectUser(props) {
-   
+function Multiselectuser(props) {
+
     const [university, setUniversity] = useState([])
     const session = useSession()
     console.log(session)
@@ -27,7 +27,7 @@ function MultiSelectUser(props) {
     }, [])
 
     const getAllUser = async () => {
-        const menus = await axios.get(`${apis.baseUrl}${apis.getAllUniversity}`, {
+        const menus = await axios.get(`${apis.baseUrl}${apis.getAllUsers}`, {
             headers: {
                 'token': session.data ? session.data.userData.token : '',
             }
@@ -46,41 +46,41 @@ function MultiSelectUser(props) {
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
-                    let name = data.data.title
+                    let name = data.data.name
                     console.log(data)
                     return <>
-                        <span  className={styles.listSpan}> {name}</span>
+                        <span className={styles.listSpan}> {name}</span>
                     </>
                 },
             },
-            {
-                field: 'City',
-                headerName: 'City',
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
-                    let name = data.data.city.title
-                    console.log(data)
-                    return <>
-                        <span className={styles.listSpan} > {name}</span>
-                    </>
-                },
-            },
-            {
-                field: 'State',
-                headerName: 'State',
+            // {
+            //     field: 'City',
+            //     headerName: 'City',
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
+            //         let name = data.data.city.title
+            //         console.log(data)
+            //         return <>
+            //             <span className={styles.listSpan} > {name}</span>
+            //         </>
+            //     },
+            // },
+            // {
+            //     field: 'State',
+            //     headerName: 'State',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
-                    let name = data.data.state.title
-                    console.log(data)
-                    return <>
-                        <span  className={styles.listSpan}>{name}</span>
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
+            //         let name = data.data.state.title
+            //         console.log(data)
+            //         return <>
+            //             <span className={styles.listSpan}>{name}</span>
 
-                    </>
-                },
-            },
+            //         </>
+            //     },
+            // },
 
 
         ];
@@ -111,4 +111,4 @@ function MultiSelectUser(props) {
     );
 }
 
-export default MultiSelectUser;
+export default Multiselectuser;

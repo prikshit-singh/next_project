@@ -30,7 +30,7 @@ export const apis = {
     createSubject: 'university/subject/createsubject',
     updateSubject: 'university/subject/updatesubject',
 
-    getAllRoles: 'settings/rolesettings/getroles',
+    // getAllRoles: 'settings/rolesettings/getroles',
 
 
     //question paper details
@@ -38,5 +38,16 @@ export const apis = {
     getsemesterwisequestionpaperdetails:'university/questionpapers/getsemesterwisequestionpaperdetails',
     getquestionpaperswithsemesterandyear:'university/questionpapers/getquestionpaperswithsemesterandyear',
     uoloadQuestionPapers: 'pdfupload',
-    getAllPreviousYearPapers: 'pdfupload/getpreviousyearpaper'
+    getAllPreviousYearPapers: 'pdfupload/getpreviousyearpaper',
+
+
+
+    // admin apis 
+
+    getAllRoles: 'adminapi/roles/getallroles',
+    getAllMenus: 'adminapi/menus/getallmenus',
+    getAllProfileMenus: 'adminapi/profilemenus/getallprofilemenus',
+    getAllSettings: 'adminapi/settings/getallsettings',
+    getAllUsers: 'adminapi/users/getallusers',
+    getAllPapers:'adminapi/papers/getallpapers'
 }

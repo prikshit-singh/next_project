@@ -28,9 +28,11 @@
     font-family: 'Roboto-Bold';
     src: url(./fonts/Roboto-Bold.ttf);
 }
+
 :root {
     --primary: #861f41;
     --secondary:rgba(122, 27, 58, 0.764);
+    --drawerBackground:#861f41;
     --borderColor: #b4b4b337;
     /* navbar colors */
     --navlinksColor: gray;
