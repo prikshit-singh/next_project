@@ -143,66 +143,66 @@ function Multiselectpapers(props) {
                     </>
                 },
             },
-            {
-                field: 'isvarified',
-                headerName: 'Status',
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
-                    let name = data.data.isvarified
-                    if(name === 'false'){
-                        return <>
-                        <span style={{color:'red'}} className={styles.listSpan} >Pending</span>
-                    </>
-                    }else if(name === 'true'){
-                        return <>
-                        <span style={{color:'green'}} className={styles.listSpan} >Varified</span>
-                    </>
-                    }else if(name === 'rejected'){
-                        return <>
-                        <span style={{color:'red'}} className={styles.listSpan} > Rejected</span>
-                    </>
-                    }
+            // {
+            //     field: 'isvarified',
+            //     headerName: 'Status',
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
+            //         let name = data.data.isvarified
+            //         if(name === 'false'){
+            //             return <>
+            //             <span style={{color:'red'}} className={styles.listSpan} >Pending</span>
+            //         </>
+            //         }else if(name === 'true'){
+            //             return <>
+            //             <span style={{color:'green'}} className={styles.listSpan} >Varified</span>
+            //         </>
+            //         }else if(name === 'rejected'){
+            //             return <>
+            //             <span style={{color:'red'}} className={styles.listSpan} > Rejected</span>
+            //         </>
+            //         }
 
                     
-                },
-            },
+            //     },
+            // },
 
-            {
-                field: 'uploadby.email',
-                headerName: 'Uploadby',
+            // {
+            //     field: 'uploadby.email',
+            //     headerName: 'Uploadby',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
 
-                    let creatorName = data.data.uploadby.email
-                    return <>
-                        <span className={styles.listSpan} > {creatorName}</span>
+            //         let creatorName = data.data.uploadby.email
+            //         return <>
+            //             <span className={styles.listSpan} > {creatorName}</span>
 
-                    </>
-                },
-            },
-            {
-                headerName: 'UploadbyImg',
+            //         </>
+            //     },
+            // },
+            // {
+            //     headerName: 'UploadbyImg',
 
-                resizable: true,
-                cellRenderer: (data) => {
+            //     resizable: true,
+            //     cellRenderer: (data) => {
 
-                    let name = data.data.uploadby.userImage
-                    return <>
-                        <span ><img src={name}
-                            style={{
-                                height: "25px",
-                                width: "25px",
-                                borderRadius: "50%",
-                            }}
-                        /></span>
+            //         let name = data.data.uploadby.userImage
+            //         return <>
+            //             <span ><img src={name}
+            //                 style={{
+            //                     height: "25px",
+            //                     width: "25px",
+            //                     borderRadius: "50%",
+            //                 }}
+            //             /></span>
 
 
-                    </>
-                },
-            },
+            //         </>
+            //     },
+            // },
 
 
 

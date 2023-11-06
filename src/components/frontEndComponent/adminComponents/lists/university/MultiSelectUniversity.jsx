@@ -119,58 +119,58 @@ function MultiSelectUniversity(props) {
                     </>
                 },
             },
-            {
-                field: 'course.length',
-                headerName: 'Courses',
+            // {
+            //     field: 'course.length',
+            //     headerName: 'Courses',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
                     
-                    let name = data.data.course.length
-                    return <>
-                        <span> {name}</span>
+            //         let name = data.data.course.length
+            //         return <>
+            //             <span> {name}</span>
 
-                    </>
-                },
-            },
-            {
-                field: 'createdby.name',
-                headerName: 'Createdby',
+            //         </>
+            //     },
+            // },
+            // {
+            //     field: 'createdby.name',
+            //     headerName: 'Createdby',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
                     
-                    let creatorName = data.data.createdby.name
-                    return <>
-                        <span className={styles.listSpan} > { creatorName}</span>
+            //         let creatorName = data.data.createdby.name
+            //         return <>
+            //             <span className={styles.listSpan} > { creatorName}</span>
 
-                    </>
-                },
-            },
-      {
-                field: 'createdby.name',
-                headerName: 'CreatedbyImg',
+            //         </>
+            //     },
+            // },
+    //   {
+    //             field: 'createdby.name',
+    //             headerName: 'CreatedbyImg',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
+    //             resizable: true,
+    //             filter: true,
+    //             cellRenderer: (data) => {
                     
-                    let name = data.data.createdby.userImage
-                    return <>
-                         <span ><img src= {name} 
-                            style={{
-                                height:"25px",
-                                width:"25px",
-                                borderRadius:"50%",
-                            }}
-                        /></span>
+    //                 let name = data.data.createdby.userImage
+    //                 return <>
+    //                      <span ><img src= {name} 
+    //                         style={{
+    //                             height:"25px",
+    //                             width:"25px",
+    //                             borderRadius:"50%",
+    //                         }}
+    //                     /></span>
 
 
-                    </>
-                },
-            },
+    //                 </>
+    //             },
+    //         },
 
 
 

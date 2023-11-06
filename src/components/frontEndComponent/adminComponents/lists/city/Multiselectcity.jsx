@@ -101,56 +101,56 @@ function Multiselectcity(props) {
                     </>
                 },
             },
-            {
-                field: 'createdby.name',
-                headerName: 'CreatedByName',
-                filter: 'agTextColumnFilter',
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
-                    let name = data.data.createdby.name
-                    return <>
-                        <span  className={styles.listSpan} > {name}</span>
+            // {
+            //     field: 'createdby.name',
+            //     headerName: 'CreatedByName',
+            //     filter: 'agTextColumnFilter',
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
+            //         let name = data.data.createdby.name
+            //         return <>
+            //             <span  className={styles.listSpan} > {name}</span>
 
-                    </>
-                },
-            },
-            {
-                field: 'createdby.email',
-                headerName: 'createdByEmail',
+            //         </>
+            //     },
+            // },
+            // {
+            //     field: 'createdby.email',
+            //     headerName: 'createdByEmail',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
-                    let name = data.data.createdby.email 
-                    return <>
-                        <span  className={styles.listSpan}> {name}</span>
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
+            //         let name = data.data.createdby.email 
+            //         return <>
+            //             <span  className={styles.listSpan}> {name}</span>
 
-                    </>
-                },
-            },
-            {
-                field: 'createdby.name',
-                headerName: 'CreatedbyImg',
+            //         </>
+            //     },
+            // },
+            // {
+            //     field: 'createdby.name',
+            //     headerName: 'CreatedbyImg',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
                     
-                    let name = data.data.createdby.userImage
-                    return <>
-                         <span ><img src= {name} 
-                            style={{
-                                height:"25px",
-                                width:"25px",
-                                borderRadius:"50%",
-                            }}
-                        /></span>
+            //         let name = data.data.createdby.userImage
+            //         return <>
+            //              <span ><img src= {name} 
+            //                 style={{
+            //                     height:"25px",
+            //                     width:"25px",
+            //                     borderRadius:"50%",
+            //                 }}
+            //             /></span>
 
 
-                    </>
-                },
-            },
+            //         </>
+            //     },
+            // },
 
 
         ];
@@ -162,7 +162,7 @@ function Multiselectcity(props) {
         <>
             <Updatecitydialogue open={open} setOpen={setOpen} data={updataData} afterUpdate={getAllCity}/>
             {(university !== undefined && university.length > 0) ?
-                <div className="ag-theme-alpine" style={{ height: 520, width: '100%' }}>
+                <div className="ag-theme-alpine" style={{ height: 530, width: '100%' }}>
                     <AgGridReact
                         rowData={university}
                         columnDefs={columnDefs}

@@ -154,7 +154,7 @@ function Multiselectroles(props) {
         <>
             <Updatecoursedialogue open={open} setOpen={setOpen} data={updataData} afterUpdate={getAllCourse} />
             {(university !== undefined && university.length > 0) ?
-                <div className="ag-theme-alpine" style={{ height: 520, width: '100%' }}>
+                <div className="ag-theme-alpine" style={{ height: 530, width: '100%' }}>
                     <AgGridReact
                         rowData={university}
                         columnDefs={columnDefs}

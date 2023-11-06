@@ -71,58 +71,58 @@ function Multiselectsubject(props) {
                     </>
                 },
             },
-            {
-                field: 'createdby.name',
-                headerName: 'CreatedByName',
-                filter: 'agTextColumnFilter',
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
-                    let name = data.data.createdby.name
-                    return <>
-                        <span  className={styles.listSpan} > {name}</span>
+            // {
+            //     field: 'createdby.name',
+            //     headerName: 'CreatedByName',
+            //     filter: 'agTextColumnFilter',
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
+            //         let name = data.data.createdby.name
+            //         return <>
+            //             <span  className={styles.listSpan} > {name}</span>
 
-                    </>
-                },
-            },
+            //         </>
+            //     },
+            // },
 
-            {
-                field: 'createdby.email',
-                headerName: 'CreatedByEmail',
-                filter: 'agTextColumnFilter',
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
-                    let name = data.data.createdby.email
-                    return <>
-                        <span  className={styles.listSpan} > {name}</span>
+            // {
+            //     field: 'createdby.email',
+            //     headerName: 'CreatedByEmail',
+            //     filter: 'agTextColumnFilter',
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
+            //         let name = data.data.createdby.email
+            //         return <>
+            //             <span  className={styles.listSpan} > {name}</span>
 
-                    </>
-                },
-            },
+            //         </>
+            //     },
+            // },
            
-            {
-                field: 'createdby.name',
-                headerName: 'CreatedbyImg',
+            // {
+            //     field: 'createdby.name',
+            //     headerName: 'CreatedbyImg',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
                     
-                    let name = data.data.createdby.userImage
-                    return <>
-                         <span ><img src= {name} 
-                            style={{
-                                height:"25px",
-                                width:"25px",
-                                borderRadius:"50%",
-                            }}
-                        /></span>
+            //         let name = data.data.createdby.userImage
+            //         return <>
+            //              <span ><img src= {name} 
+            //                 style={{
+            //                     height:"25px",
+            //                     width:"25px",
+            //                     borderRadius:"50%",
+            //                 }}
+            //             /></span>
 
 
-                    </>
-                },
-            },
+            //         </>
+            //     },
+            // },
 
 
 

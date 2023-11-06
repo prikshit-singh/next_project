@@ -31,6 +31,7 @@ const signupSchema = new Schema({
     type: String,
   },
   roles:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Roles_collection' }],
+  settings:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Settings_collection' }],
   isvarify:{
     type:'String'
   },

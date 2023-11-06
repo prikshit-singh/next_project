@@ -117,6 +117,7 @@ export const authOptions: NextAuthOptions = {
             roles: userRole[0] ? userRole[0]._id : [],
             isvarify: 'true',
             isvarifiedWriter: '',
+            settings:[],
             bio: '',
             usermeta: [],
             date: Date.now(),

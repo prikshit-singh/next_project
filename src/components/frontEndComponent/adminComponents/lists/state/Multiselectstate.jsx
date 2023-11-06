@@ -87,44 +87,44 @@ function Multiselectstate(props) {
                     </>
                 },
             },
-            {
-                field: 'createdby.email',
-                headerName: 'createdBy',
+    //         {
+    //             field: 'createdby.email',
+    //             headerName: 'createdBy',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
-                    let name = data.data.createdby ? data.data.createdby.email :""
-                    return <>
-                        <span  className={styles.listSpan}> {name}</span>
+    //             resizable: true,
+    //             filter: true,
+    //             cellRenderer: (data) => {
+    //                 let name = data.data.createdby ? data.data.createdby.email :""
+    //                 return <>
+    //                     <span  className={styles.listSpan}> {name}</span>
 
-                    </>
-                },
-            },
+    //                 </>
+    //             },
+    //         },
 
           
-      {
-                field: 'createdby.name',
-                headerName: 'CreatedbyImg',
+    //   {
+    //             field: 'createdby.name',
+    //             headerName: 'CreatedbyImg',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
+    //             resizable: true,
+    //             filter: true,
+    //             cellRenderer: (data) => {
                     
-                    let name = data.data.createdby ? data.data.createdby.userImage :""
-                    return <>
-                         <span ><img src= {name} 
-                            style={{
-                                height:"25px",
-                                width:"25px",
-                                borderRadius:"50%",
-                            }}
-                        /></span>
+    //                 let name = data.data.createdby ? data.data.createdby.userImage :""
+    //                 return <>
+    //                      <span ><img src= {name} 
+    //                         style={{
+    //                             height:"25px",
+    //                             width:"25px",
+    //                             borderRadius:"50%",
+    //                         }}
+    //                     /></span>
 
 
-                    </>
-                },
-            },
+    //                 </>
+    //             },
+    //         },
 
 
         ];
