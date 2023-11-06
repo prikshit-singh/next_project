@@ -13,8 +13,6 @@ const previousYearPaperSchema = new Schema({
     subject: {  type: mongoose.Schema.Types.ObjectId, ref: 'Subject_collection' },
     uploadby: { type: mongoose.Schema.Types.ObjectId, ref: 'User_collection' },
     isvarified: { type: String },
-    
-   
 
 },{
     strict: false, // Set strict to false to allow changes to the schema

@@ -12,11 +12,9 @@ import {
   Icon,
   Input
 } from 'semantic-ui-react'
-import Login from "./Login";
-import { toast } from 'react-toastify';
+
 import styles from "../styles/Navbar.module.css";
-import { Search, Close } from "@mui/icons-material";
-import { Modal, Box } from '@mui/material'
+
 import Loginmodel from "./Loginmodel";
 import Uploadpreviouspapers from "./Uploadpreviouspapers";
 

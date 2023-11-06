@@ -22,7 +22,7 @@ import { toast } from 'react-toastify';
 
 import { useSession, signOut, getSession, signIn } from "next-auth/react"
 
-import Layout from "./authcomponents/layout";
+// import Layout from "./authcomponents/layout";
 import Login from './Login';
 import { useRouter } from "next/router";
 // import styles from "../styles/Navbar.module.css";
@@ -147,11 +147,10 @@ function Loginmodel(props) {
               <Button style={{backgroundColor:'var(--primary)'}}  variant="contained" className={styles.button} type="button" onClick={() => handleLogin()}>Login</Button>
               </WhiteBorderTextField>
                 <div style={{display:'flex',alignItems:'center', justifyContent:'space-between',marginTop:'10px'}}><hr style={{width:'45%'}}/>OR<hr style={{width:'45%'}}/></div>
-              <Layout>
+              {/* <Layout> */}
                   <Login  />
-              </Layout>
-              {/* </form> */}
-              {/* </div> */}
+              {/* </Layout> */}
+             
             </div>
           </Box>
         </Modal>

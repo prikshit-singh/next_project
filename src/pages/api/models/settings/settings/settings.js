@@ -7,7 +7,7 @@ const SettingsSchema = new Schema({
         type: String,
         required: true,
     },
-    
+    parentmenu:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Menu_collection' }],
     createdby: { type: mongoose.Schema.Types.ObjectId, ref: 'User_collection' },
 
 },{

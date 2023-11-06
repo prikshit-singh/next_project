@@ -6,6 +6,9 @@ import TwitterProvider from "next-auth/providers/twitter"
 import Auth0Provider from "next-auth/providers/auth0"
 import Roles from '../models/settings/roles/roles.js'
 import Profile_menu from '../models/settings/menues/profilemenu.js'
+import Menu from '../models/settings/menues/menu.js'
+import Admin_menu from '../models/settings/menues/adminmenu.js'
+import Settings from '../models/settings/settings/settings.js'
 import Signup from '../models/signup'
 import CredentialsProvider from "next-auth/providers/credentials"
 import { connectDB } from '../users/dbconfig/dbconfig'
@@ -41,33 +44,45 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      console.log('user',user,token)
+      console.log('user', user, token)
       if (user) {
-        const token2 = await Jwt.sign({ email: user.email, _id: user.id }, 'this key is private',{
+        const token2 = await Jwt.sign({ email: user.email, _id: user.id }, 'this key is private', {
           expiresIn: '30d', // Set the token to expire in 60 seconds
         })
-        console.log('token2',token2)
+        console.log('token2', token2)
         token.id = user.id;
         token.name = user.name;
         token.token = token2
         token._id = user.id
         token.exp = '30d'
-       
+
       }
-        return Promise.resolve(token);
+      return Promise.resolve(token);
     },
     async session({ session, token }) {
       // Send properties to the client, like an access_token from a provider.
-      
+
       await connectDB()
       await Profile_menu.find({})
+      await Menu.find({})
+      await Admin_menu.find({})
+      await Settings.find({})
       const existingUser = await Signup.findOne({ _id: token._id }).populate({
         path: 'roles',
-        populate: {
+        populate: [
+          {
             path: 'canaccessprofilemenus',
-        },
-    })
-      let newSession = {strategy: 'jwt', maxAge:60, expires: session.expires, user: session.user, userData: token,existingUser }
+          },
+          {
+            path: 'canaccess',
+            populate:{path:'parentMenu'}
+          },
+          {
+            path: 'canaccessmenus',
+          },
+        ],
+      })
+      let newSession = { strategy: 'jwt', expires: session.expires, user: session.user, userData: token, existingUser }
       return newSession
     },
     async signIn({ user, account, profile, email }) {
@@ -87,27 +102,27 @@ export const authOptions: NextAuthOptions = {
           const givenName = (profile as { given_name?: string }).given_name;
           const familyname = (profile as { family_name?: string }).family_name;
           const picture = (profile as { picture?: string }).picture;
-          let userRole = await Roles.find({title:'user'})
-          
-            const newUser = new Signup({
-              // Any other user data you want to save
-              name: givenName,
-              lastname: familyname,
-              userName: `${Date.now()}`,
-              userImage: picture,
-              profession: '',
-              phone: `${Date.now()}`,
-              email: profile.email,
-              password: 'gitgurus',
-              roles: userRole[0] ? userRole[0]._id:[],
-              isvarify: 'true',
-              isvarifiedWriter: '',
-              bio: '',
-              usermeta: [],
-              date: Date.now(),
-            });
-          
-         
+          let userRole = await Roles.find({ title: 'user' })
+
+          const newUser = new Signup({
+            // Any other user data you want to save
+            name: givenName,
+            lastname: familyname,
+            userName: `${Date.now()}`,
+            userImage: picture,
+            profession: '',
+            phone: `${Date.now()}`,
+            email: profile.email,
+            password: 'gitgurus',
+            roles: userRole[0] ? userRole[0]._id : [],
+            isvarify: 'true',
+            isvarifiedWriter: '',
+            bio: '',
+            usermeta: [],
+            date: Date.now(),
+          });
+
+
 
           user.id = newUser._id
           await newUser.save();

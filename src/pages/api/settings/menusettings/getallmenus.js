@@ -9,6 +9,14 @@ import Roles from '../../models/settings/roles/roles.js';
 export default async function handler(req, res) {
     try {
         await connectDB()
+        const menus = await Menu.find({})
+        if (menus) {
+            res.status(200).send({ CODE: 200, menus: menus });
+        } else {
+            res.status(200).send({ CODE: 405, menus: menus });
+        }
+
+        return 0;
         let token = req.headers.token
         if (token) {
             // token= token.split('token=')[1]

@@ -28,11 +28,13 @@ function Navadmin(props) {
     const [loginDialogue, setloginDialogue] = useState(false)
     const [uploadpreviousDialog, setUploadpreviousDialog] = useState(false)
     const [profileMenus, setProfileMenus] = useState([])
+    const [menus, setMenus] = useState([])
     const session = useSession()
 
     useEffect(() => {
         if (session && session.data) {
             setProfileMenus(session.data.existingUser.roles[0].canaccessprofilemenus)
+            setMenus(session.data.existingUser.roles[0].canaccessmenus)
         }
     }, [session])
 
@@ -56,7 +58,7 @@ function Navadmin(props) {
 
 
 
-
+    console.log('menus', props)
     return (
         <>
 
@@ -78,7 +80,7 @@ function Navadmin(props) {
                                 textDecoration: 'none',
                             }}
                         >
-                          <img src='/gitguruslogo.png' style={{ height: '60px', background: 'transparent' }} alt='logo' />
+                            <img src='/gitguruslogo.png' style={{ height: '60px', background: 'transparent' }} alt='logo' />
 
                         </Typography>
 
@@ -112,7 +114,15 @@ function Navadmin(props) {
                                 }}
                             >
                                 <Link className={styles.menuLinks} href='/'>Home</Link>
-                                <Typography name="University"
+                                {props.menus ? props.menus.map((data, index) => {
+                                    return <Typography key={data._id} name="University"
+                                        className={styles.menuLinks}
+                                        onClick={(e) => navBarLinksonClick(e)} >
+                                        {data.title}
+                                    </Typography>
+
+                                }) : null}
+                                {/* <Typography name="University"
                                     className={styles.menuLinks}
                                     onClick={(e) => navBarLinksonClick(e)} >
                                     University
@@ -121,7 +131,8 @@ function Navadmin(props) {
                                 <Typography name="City" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >City</Typography>
                                 <Typography name="Course" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >Course</Typography>
                                 <Typography name="Subject" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >Subject</Typography>
-                                <Typography name="Question Paper" onClick={(e) => setUploadpreviousDialog(true)} className={styles.menuLinks} >Upload Question Paper</Typography>
+                                <Typography name="Papers" onClick={(e) => navBarLinksonClick(e)} className={styles.menuLinks} >Papers</Typography>
+                                <Typography name="Question Paper" onClick={(e) => setUploadpreviousDialog(true)} className={styles.menuLinks} >Upload Question Paper</Typography> */}
                             </Menu>
                         </Box>
                         <Typography
@@ -138,7 +149,7 @@ function Navadmin(props) {
                                 textDecoration: 'none',
                             }}
                         >
-                          <img src='/gitguruslogo.png' style={{ height: '60px', background: 'transparent' }} alt='logo' />
+                            <img src='/gitguruslogo.png' style={{ height: '60px', background: 'transparent' }} alt='logo' />
 
                         </Typography>
 
@@ -146,7 +157,17 @@ function Navadmin(props) {
                         <Box className={styles.adminLinks} sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
                             <Link className={styles.navLinks} href='/'>Home</Link>
-                            <Typography name="University"
+
+                            {props.menus ? props.menus.map((data, index) => {
+                                console.log('data', data)
+                                return <Typography key={data._id} name={data.title}
+                                    className={styles.navLinks}
+                                    onClick={(e) => navBarLinksonClick(e)} >
+                                    {data.title}
+                                </Typography>
+
+                            }) : null}
+                            {/* <Typography name="University"
                                 className={styles.navLinks}
                                 onClick={(e) => navBarLinksonClick(e)} >
                                 University
@@ -155,7 +176,8 @@ function Navadmin(props) {
                             <Typography name="City" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >City</Typography>
                             <Typography name="Course" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >Course</Typography>
                             <Typography name="Subject" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >Subject</Typography>
-                            <Typography name="Subject" onClick={(e) => setUploadpreviousDialog(true)} className={styles.navLinks} >Upload Question Papers</Typography>
+                            <Typography name="Papers" onClick={(e) => navBarLinksonClick(e)} className={styles.navLinks} >Papers</Typography>
+                            <Typography name="Question Paper" onClick={(e) => setUploadpreviousDialog(true)} className={styles.navLinks} >Upload Question Papers</Typography> */}
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
@@ -189,9 +211,9 @@ function Navadmin(props) {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {session.data ?
+                                {props.profileMenus ?
 
-                                    profileMenus.map((setting) => (
+                                    props.profileMenus.map((setting) => (
                                         <MenuItem key={setting.title} onClick={handleCloseUserMenu}>
                                             <Typography textAlign="center">
                                                 <Link className={styles.profileUrl} href={setting.url}>{setting.title}</Link>

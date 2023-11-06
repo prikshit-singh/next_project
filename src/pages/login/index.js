@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Loader from '../../components/Loader'
-import Layout from "../../components/authcomponents/layout";
+// import Layout from "../../components/authcomponents/layout";
 // import Navbar from "../../components/Navbar";
 import { useRouter } from 'next/router'
 import Cookies from "js-cookie";

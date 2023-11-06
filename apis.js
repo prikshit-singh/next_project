@@ -37,5 +37,6 @@ export const apis = {
     getquestionpaperdetails: 'university/questionpapers/getquestionpaperdetails',
     getsemesterwisequestionpaperdetails:'university/questionpapers/getsemesterwisequestionpaperdetails',
     getquestionpaperswithsemesterandyear:'university/questionpapers/getquestionpaperswithsemesterandyear',
-    uoloadQuestionPapers: 'pdfupload'
+    uoloadQuestionPapers: 'pdfupload',
+    getAllPreviousYearPapers: 'pdfupload/getpreviousyearpaper'
 }

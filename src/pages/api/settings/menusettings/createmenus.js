@@ -12,6 +12,19 @@ export default async function handler(req, res) {
 
     try {
         await connectDB()
+
+        const Menu1 = await new Menu({
+            title: req.body.title,
+            url: req.body.url,
+           
+            createdby: '651a8949d2b3e42f71c18de0'
+        });
+        const result = await Menu1.save()
+        return res.status(200).json({ CODE: 200, result: result })
+    return 0
+
+
+
         let cookies =  req.headers.token
         if (cookies) {
             let userData = await varifyuser(cookies)
