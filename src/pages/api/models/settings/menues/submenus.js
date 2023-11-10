@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 var Schema = mongoose.Schema;
 
 // Define the signup schema
-const Admin_menuSchema = new Schema({
+const Submenu_menuSchema = new Schema({
     title: {
         type: String,
         required: true,
@@ -15,10 +15,10 @@ const Admin_menuSchema = new Schema({
 
 },{
     strict: false, // Set strict to false to allow changes to the schema
-    collection: 'Admin_menu_collection', // Specify the collection name (optional)
+    collection: 'Submenu_collection', // Specify the collection name (optional)
   });
 
 // Create the signup model
-const Admin_menu = mongoose.models['Admin_menu_collection'] || mongoose.model('Admin_menu_collection', Admin_menuSchema);
+const Submenus = mongoose.models['Submenu_collection'] || mongoose.model('Submenu_collection', Submenu_menuSchema);
 
-export default Admin_menu;
+export default Submenus;

@@ -1,10 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 // import { connectDB } from '@/pages/api/users/dbconfig/dbconfig.js'
-import { connectDB } from '../../users/dbconfig/dbconfig.js'
-import Signup from '../../models/signup.js';
-import varifyuser from '../../../../components/backendmodules/varifyuser.js'
-import Menu from '../../models/settings/menues/menu.js';
+import { connectDB } from '../../../users/dbconfig/dbconfig.js'
+import Signup from '../../../models/signup.js';
+import varifyuser from '../../../../../components/backendmodules/varifyuser.js'
+import Submenus from '../../../models/settings/menues/submenus.js';
 
 
 
@@ -13,15 +13,16 @@ export default async function handler(req, res) {
     try {
         await connectDB()
 
-        const Menu1 = await new Menu({
+        const Submenus1 = await new Submenus({
             title: req.body.title,
             url: req.body.url,
-            submenus:req.body.submenus,
             createdby: '652859378995bc1199080ad0'
         });
-        const result = await Menu1.save()
+        const result = await Submenus1.save()
         return res.status(200).json({ CODE: 200, result: result })
     return 0
+
+
 
         let cookies =  req.headers.token
         if (cookies) {

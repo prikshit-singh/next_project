@@ -14,6 +14,7 @@ const RolesSchema = new Schema({
 
 },{
     strict: false, // Set strict to false to allow changes to the schema
+    strictPopulate:false,
     collection: 'roles_collection', // Specify the collection name (optional)
   });
 

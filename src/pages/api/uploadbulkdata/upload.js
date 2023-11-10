@@ -15,23 +15,8 @@ export default async function handler(req, res) {
         await connectDB()
         const results = [];
 
-        const response = await City.aggregate([
-            {
-                $group: {
-                    _id: { title: "$title" },
-                    count: { $sum: 1 }
-                }
-            },
-            {
-                $match: {
-                    count: { $gt: 1 }
-                }
-            }
-        ])
-        const duplicateTitles = response.map(entry => entry._id.title);
-        // await State.deleteMany({ title: { $in: duplicateTitles } });
-        // return res.status(200).json({ CODE: 200, message: 'Duplicate documents removed' });
-        return res.status(200).json({ CODE: 200, result: duplicateTitles })
+       const data =  await Subject.updateMany({}, { $set: { createdby: '652859378995bc1199080ad0' } });
+       return res.status(200).json({ CODE: 200, data })
 
     } catch (error) {
         console.log(error)

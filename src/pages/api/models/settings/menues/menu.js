@@ -9,6 +9,8 @@ const MenuSchema = new Schema({
     url: {
         type: String,
     },
+
+    submenus:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Submenu_collection' }],
     createdby: { type: mongoose.Schema.Types.ObjectId, ref: 'User_collection' },
 
 },{

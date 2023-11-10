@@ -7,9 +7,9 @@ import Auth0Provider from "next-auth/providers/auth0"
 import Roles from '../models/settings/roles/roles.js'
 import Profile_menu from '../models/settings/menues/profilemenu.js'
 import Menu from '../models/settings/menues/menu.js'
-import Admin_menu from '../models/settings/menues/adminmenu.js'
 import Settings from '../models/settings/settings/settings.js'
 import Signup from '../models/signup'
+import Submenus from '../models/settings/menues/submenus.js'
 import CredentialsProvider from "next-auth/providers/credentials"
 import { connectDB } from '../users/dbconfig/dbconfig'
 import Jwt from 'jsonwebtoken';
@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
       await connectDB()
       await Profile_menu.find({})
       await Menu.find({})
-      await Admin_menu.find({})
+      await Submenus.find({})
       await Settings.find({})
       const existingUser = await Signup.findOne({ _id: token._id }).populate({
         path: 'roles',
@@ -79,6 +79,7 @@ export const authOptions: NextAuthOptions = {
           },
           {
             path: 'canaccessmenus',
+            populate:{path:'submenus'}
           },
         ],
       })

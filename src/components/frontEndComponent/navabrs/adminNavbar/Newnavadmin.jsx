@@ -23,6 +23,12 @@ import styles from './style.module.css'
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
+import Collapse from '@mui/material/Collapse';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import SendIcon from '@mui/icons-material/Send';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import StarBorder from '@mui/icons-material/StarBorder';
 import Link from 'next/link';
 import MultiSelectUniversity from '../../adminComponents/lists/university/MultiSelectUniversity';
 import Multiselectcity from '../../adminComponents/lists/city/Multiselectcity';
@@ -96,21 +102,19 @@ export default function PersistentDrawerLeft(props) {
     const [uploadpreviousDialog, setUploadpreviousDialog] = useState(false)
     const [profileMenus, setProfileMenus] = useState([])
     const [menus, setMenus] = useState([])
-
     const [state, setState] = React.useState(false);
     const session = useSession()
 
-    useEffect(() => {
-        if (session && session.data) {
-            setProfileMenus(session.data.existingUser.roles[0].canaccessprofilemenus)
-            setMenus(session.data.existingUser.roles[0].canaccessmenus)
-        }
-    }, [session])
 
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const [open1, setOpen1] = React.useState(true);
 
+    const handleClick = () => {
+        setOpen1(!open1);
+    };
 
+    console.log(props)
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -257,14 +261,61 @@ export default function PersistentDrawerLeft(props) {
                     <Divider />
                     <List>
                         {props.menus ? props.menus.map((data, index) => {
-                            return <ListItem onClick={(e) => navBarLinksonClick(e, data.title)} key={data._id} disablePadding>
-                                <ListItemButton  >
-                                    <ListItemText primary={data.title} />
-                                    <ListItemIcon>
-                                        {index % 2 === 0 ? <ChevronRightIcon style={{ fill: 'var(--primary)', }} /> : <ChevronRightIcon style={{ fill: 'var(--primary)', }} />}
-                                    </ListItemIcon>
-                                </ListItemButton>
-                            </ListItem>
+                            if (data.submenus && data.submenus.length > 0) {
+                                return (
+                                    <div key={data.title}>
+                                        <ListItem onClick={(e) => navBarLinksonClick(e, data.title)} key={data._id} disablePadding>
+                                            <ListItemButton onClick={handleClick}>
+
+                                                <ListItemText primary={data.title} />
+                                                <ListItemIcon>
+                                                    {open1 ? <ExpandLess style={{ fill: 'var(--primary)', }} /> : <ExpandMore style={{ fill: 'var(--primary)', }} />}
+
+                                                </ListItemIcon>
+                                            </ListItemButton>
+                                        </ListItem>
+                                        <Collapse in={open1} timeout="auto" unmountOnExit>
+                                            <List component="div" onClick={(e) => navBarLinksonClick(e, data.title)} key={data._id} disablePadding>
+                                                <ListItemButton sx={{ pl: 4 }}>
+                                                    <ListItemIcon>
+                                                        <StarBorder />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={data.title} />
+                                                </ListItemButton>
+                                            </List>
+                                            {
+                                                data.submenus.map((data1) => {
+                                                    return (
+                                                        <List key={data1._id} component="div" onClick={(e) => navBarLinksonClick(e, data1.title)} disablePadding>
+                                                            <ListItemButton sx={{ pl: 4 }}>
+                                                                <ListItemIcon>
+                                                                    <StarBorder />
+                                                                </ListItemIcon>
+                                                                <ListItemText primary={data1.title} />
+                                                            </ListItemButton>
+                                                        </List>
+                                                    )
+                                                })
+                                            }
+                                        </Collapse></div>
+                                )
+                            } else {
+                                return (
+
+                                    <div>
+                                        <ListItem onClick={(e) => navBarLinksonClick(e, data.title)} key={data._id} disablePadding>
+                                            <ListItemButton  >
+                                                <ListItemText primary={data.title} />
+                                                <ListItemIcon>
+                                                    {index % 2 === 0 ? <ChevronRightIcon style={{ fill: 'var(--primary)', }} /> : <ChevronRightIcon style={{ fill: 'var(--primary)', }} />}
+                                                </ListItemIcon>
+                                            </ListItemButton>
+                                        </ListItem>
+
+                                    </div>
+                                )
+                            }
+
                         }) : null}
                         <ListItem
                             name="Question Paper"

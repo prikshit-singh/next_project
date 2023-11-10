@@ -1,7 +1,6 @@
 
 import varifyuser from '../../../../components/backendmodules/varifyuser.js'
 import Roles from '../../models/settings/roles/roles.js'
-import Admin_menu from '../../models/settings/menues/adminmenu.js'
 import Menu from '../../models/settings/menues/menu.js'
 import Profile_menu from '../../models/settings/menues/profilemenu.js'
 import Settings from '../../models/settings/settings/settings.js'
@@ -11,7 +10,6 @@ import { connectDB } from '../../../api/users/dbconfig/dbconfig'
 export default async function handler(req, res) {
     try {
         await connectDB()
-        const adminmenu = await Admin_menu.find({})
         const menu = await Menu.find({})
         const profile_menu = await Profile_menu.find({})
         const settings = await Settings.find({})
