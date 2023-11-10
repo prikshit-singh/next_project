@@ -1,15 +1,15 @@
-import varifyuser from '../../../../components/backendmodules/varifyuser.js'
-import Menu from '../../models/settings/menues/menu.js';
-import University from '../../models/universitymodels/university.js';
-import { connectDB } from '../../users/dbconfig/dbconfig.js'
-import Course from '../../models/universitymodels/course.js';
-import Signup from '../../models/signup.js';
-import Roles from '../../models/settings/roles/roles.js';
+import varifyuser from '../../../../../components/backendmodules/varifyuser.js'
+import Submenus from '../../../models/settings/menues/submenus.js';
+import University from '../../../models/universitymodels/university.js';
+import { connectDB } from '../../../users/dbconfig/dbconfig.js'
+import Course from '../../../models/universitymodels/course.js';
+import Signup from '../../../models/signup.js';
+import Roles from '../../../models/settings/roles/roles.js';
 
 export default async function handler(req, res) {
     try {
         await connectDB()
-        const menus = await Menu.find({}).populate('submenus');
+        const menus = await Submenus.find({}).populate('createdby');
         if (menus) {
             res.status(200).send({ CODE: 200, result: menus })
         } else {

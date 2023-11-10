@@ -5,26 +5,27 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { apis } from '../../../../../../apis.js'
 import axios from 'axios';
 import { useSession } from "next-auth/react"
-import styles from "../../../../../styles/admin/frontEndComponent/list/list.module.css"
+import styles from '../../../../../styles/admin/frontEndComponent/list/list.module.css'
+import Updatecoursedialogue from '../../dialogues/updateModels/Updatecoursedialogue.jsx';
 import Componentloader from '../../../loader/Componentloader.js';
 import { BiSolidEdit } from 'react-icons/bi';
-import Updateuniversitydialogue from '../../dialogues/updateModels/Updateuniversitydialogue.jsx';
 
 
-function MultiSelectUniversity(props) {
+
+
+function Multiselectsubmenus(props) {
     const [open, setOpen] = useState(false)
     const [updataData, setUpdateData] = useState(null)
     const [university, setUniversity] = useState([])
-
     const session = useSession()
     useEffect(() => {
         if (session.data) {
-            getAllUniversity()
+            getAllCourse()
         }
     }, [])
 
-    const getAllUniversity = async () => {
-        const menus = await axios.get(`${apis.baseUrl}${apis.getAllUniversity}`, {
+    const getAllCourse = async () => {
+        const menus = await axios.get(`${apis.baseUrl}${apis.getAllSubMenus}`, {
             headers: {
                 'token': session.data ? session.data.userData.token : '',
             }
@@ -34,9 +35,9 @@ function MultiSelectUniversity(props) {
         }
 
     }
-
     const columnDefs =
         [
+
             {
                 field: 'Name',
                 headerName: 'Edit',
@@ -61,132 +62,112 @@ function MultiSelectUniversity(props) {
                 },
             },
             {
-                field: 'state.title',
-                headerName: 'logo',
-
-                resizable: false,
-                
-                width:"80px",
-                cellRenderer: (data) => {
-                    let name = data.data.universitylogo
-                    return <>
-                        <span ><img src= {name} 
-                            style={{
-                                height:"25px",
-                                width:"25px",
-                                borderRadius:"50%",
-                            }}
-                        /></span>
-
-                    </>
-                },
-            },
-
-            {
                 field: 'title',
-                headerName: 'Title',
+                headerName: 'Name',
                 resizable: true,
                 filter: true,
                 cellRenderer: (data) => {
                     let name = data.data.title
-                    return <span className={styles.listSpan} >{name} </span>
-                },
-            },
-            {
-                field: 'city.title',
-                headerName: 'City',
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
-                    let name = data.data.city.title
                     return <>
-                        <span className={styles.listSpan} > {name}</span>
+                        <span className={styles.listSpan}> {name}</span>
                     </>
                 },
             },
-          
-            {
-                field: 'state.title',
-                headerName: 'State',
 
-                resizable: true,
-                filter: true,
-                cellRenderer: (data) => {
-                    let name = data.data.state.title
-                    return <>
-                        <span className={styles.listSpan} > {name}</span>
-
-                    </>
-                },
-            },
             // {
-            //     field: 'course.length',
-            //     headerName: 'Courses',
+            //     field: 'coursecode',
+            //     headerName: 'Statecode',
 
             //     resizable: true,
             //     filter: true,
             //     cellRenderer: (data) => {
-                    
-            //         let name = data.data.course.length
+            //         let name = data.data.coursecode
             //         return <>
-            //             <span> {name}</span>
+            //             <span className={styles.listSpan}> {name}</span>
+
+            //         </>
+            //     },
+            // },
+
+
+            // {
+            //     field: 'duration',
+            //     headerName: 'Duration',
+
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
+            //         let name = data.data.duration
+            //         return <>
+            //             <span className={styles.listSpan}> {name}</span>
 
             //         </>
             //     },
             // },
             // {
             //     field: 'createdby.name',
-            //     headerName: 'Createdby',
-
+            //     headerName: 'CreatedByName',
+            //     filter: 'agTextColumnFilter',
             //     resizable: true,
             //     filter: true,
             //     cellRenderer: (data) => {
-                    
-            //         let creatorName = data.data.createdby.name
+            //         let name = data.data.createdby.name
             //         return <>
-            //             <span className={styles.listSpan} > { creatorName}</span>
+            //             <span className={styles.listSpan} > {name}</span>
 
             //         </>
             //     },
             // },
-    //   {
-    //             field: 'createdby.name',
-    //             headerName: 'CreatedbyImg',
+            // {
+            //     field: 'createdby.email',
+            //     headerName: 'createdByEmail',
 
-    //             resizable: true,
-    //             filter: true,
-    //             cellRenderer: (data) => {
-                    
-    //                 let name = data.data.createdby.userImage
-    //                 return <>
-    //                      <span ><img src= {name} 
-    //                         style={{
-    //                             height:"25px",
-    //                             width:"25px",
-    //                             borderRadius:"50%",
-    //                         }}
-    //                     /></span>
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
+            //         let name = data.data.createdby.email
+            //         return <>
+            //             <span className={styles.listSpan}> {name}</span>
+
+            //         </>
+            //     },
+            // },
+            // {
+            //     field: 'createdby.name',
+            //     headerName: 'CreatedbyImg',
+
+            //     resizable: true,
+            //     filter: true,
+            //     cellRenderer: (data) => {
+
+            //         let name = data.data.createdby.userImage
+            //         return <>
+            //             <span ><img src={name}
+            //                 style={{
+            //                     height: "25px",
+            //                     width: "25px",
+            //                     borderRadius: "50%",
+            //                 }}
+            //             /></span>
 
 
-    //                 </>
-    //             },
-    //         },
-
-
+            //         </>
+            //     },
+            // },
 
 
         ];
 
 
+
     return (
 
         <>
-            <Updateuniversitydialogue open={open} setOpen={setOpen} data={updataData} getAllUniversity={getAllUniversity} />
+            <Updatecoursedialogue open={open} setOpen={setOpen} data={updataData} afterUpdate={getAllCourse} />
             {(university !== undefined && university.length > 0) ?
                 <div className="ag-theme-alpine" style={{ height: 520, width: '100%' }}>
                     <AgGridReact
                         rowData={university}
-                        
                         columnDefs={columnDefs}
                         rowSelection='multiple'
                         pagination={true}
@@ -203,4 +184,4 @@ function MultiSelectUniversity(props) {
     );
 }
 
-export default MultiSelectUniversity;
+export default Multiselectmenus;

@@ -7,8 +7,8 @@ import Createcoursedialogue from '../../adminComponents/dialogues/Createcoursedi
 import Createstatedialogue from '../../adminComponents/dialogues/Createstatedialogue';
 import Createsubjectdialogue from '../../adminComponents/dialogues/Createsubjectdialogue';
 import Createcitydialogue from '../../adminComponents/dialogues/Createcitydialogue';
-
-
+import Createmenudialogue from '../../adminComponents/dialogues/Createmenudialogue';
+import Createsubmenusdialogue from '../../adminComponents/dialogues/Createsubmenusdialogue';
 const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText('#861f41'),
     backgroundColor: 'var(--primary)',
@@ -25,6 +25,8 @@ const Subnavadmin = (props) => {
     const [cityDialogueOpen, setcityDialogueOpen] = React.useState(false);
     const [stateDialogueOpen, setstateDialogueOpen] = React.useState(false);
     const [subjectDialogueOpen, setsubjectDialogueOpen] = React.useState(false);
+    const [menuDialogueOpen, setmenuDialogueOpen] = React.useState(false);
+    const [subMenuDialogueOpen, setsubMenuDialogueOpen] = React.useState(false);
 
 
     const handleOpen = () => {
@@ -41,7 +43,12 @@ const Subnavadmin = (props) => {
             case 'Subject':
                 setsubjectDialogueOpen(true)
                 break;
-
+            case 'Menus':
+                setmenuDialogueOpen(true)
+                    break;    
+             case 'Submenus':
+                setsubMenuDialogueOpen(true)
+                            break; 
             default:
             // Code to execute if none of the cases match expression
         }
@@ -54,6 +61,8 @@ const Subnavadmin = (props) => {
             <Createstatedialogue open={stateDialogueOpen} setOpen={setstateDialogueOpen} />
             <Createsubjectdialogue open={subjectDialogueOpen} setOpen={setsubjectDialogueOpen} />
             <Createcitydialogue open={cityDialogueOpen} setOpen={setcityDialogueOpen} />
+            <Createmenudialogue open={menuDialogueOpen} setOpen={setmenuDialogueOpen} />
+            <Createsubmenusdialogue open={subMenuDialogueOpen} setOpen={setsubMenuDialogueOpen} />
             <div className={styles.subNavAppBar}>
                 <div className={styles.subNavContainerLeft}>
                     {props.name}

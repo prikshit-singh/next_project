@@ -46,8 +46,14 @@ export const apis = {
 
     getAllRoles: 'adminapi/roles/getallroles',
     getAllMenus: 'adminapi/menus/getallmenus',
+    getAllSubMenus: 'adminapi/menus/submenus/getallsubmenus',
     getAllProfileMenus: 'adminapi/profilemenus/getallprofilemenus',
     getAllSettings: 'adminapi/settings/getallsettings',
     getAllUsers: 'adminapi/users/getallusers',
-    getAllPapers:'adminapi/papers/getallpapers'
+    getAllPapers:'adminapi/papers/getallpapers',
+
+
+
+    createSubMenu: 'adminapi/menus/submenus/createsubmenus',
+
 }

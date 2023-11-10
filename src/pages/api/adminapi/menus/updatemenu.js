@@ -12,18 +12,24 @@ export default async function handler(req, res) {
 
     try {
         await connectDB()
-
-        const Menu1 = await new Menu({
+        let menuId = req.body.id
+        const updatedMenu = {
             title: req.body.title,
             url: req.body.url,
-            submenus:req.body.submenus,
-            createdby: '652859378995bc1199080ad0'
-        });
-        const result = await Menu1.save()
-        return res.status(200).json({ CODE: 200, result: result })
-    return 0
+            submenus: req.body.submenus,
+        };
 
-        let cookies =  req.headers.token
+        // Use findByIdAndUpdate to update the menu item
+        const result = await Menu.findByIdAndUpdate(menuId, updatedMenu, { new: true });
+
+        if (!result) {
+            return res.status(404).json({ CODE: 404, message: 'Menu item not found' });
+        }
+
+        return res.status(200).json({ CODE: 200, result: result });
+        return 0
+
+        let cookies = req.headers.token
         if (cookies) {
             let userData = await varifyuser(cookies)
             if (userData) {
@@ -34,9 +40,10 @@ export default async function handler(req, res) {
                 });
                 const result = await Menu1.save()
                 return res.status(200).json({ CODE: 200, result: result })
-            }}else{
-             return res.status(200).json({ CODE: 503, result: 'Log In First' })
             }
+        } else {
+            return res.status(200).json({ CODE: 503, result: 'Log In First' })
+        }
     } catch (error) {
         console.log(error)
         return res.status(200).json({ CODE: 400, message: error })
