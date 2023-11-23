@@ -334,7 +334,7 @@ export default function PersistentDrawerLeft(props) {
                 </Drawer>
                 <Main open={open}>
                     <DrawerHeader />
-                    <Subnavadmin name={props.name} state="state" />
+                    {/* <Subnavadmin name={props.name} state="state" />
                     <div className={styles.MultiSelect} >
                         {props.name === 'University' ?
                             <MultiSelectUniversity />
@@ -371,7 +371,7 @@ export default function PersistentDrawerLeft(props) {
                             <Multiselectsettings />
                             : null}
 
-                    </div>
+                    </div> */}
                 </Main>
             </Box >
         </>
