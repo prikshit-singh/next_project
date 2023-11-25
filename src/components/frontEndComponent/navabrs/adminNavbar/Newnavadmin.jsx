@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import NewCardDashboard from './NewCardDashboard';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -46,6 +47,7 @@ import Loginmodel from '../../../Loginmodel';
 import Subnavadmin from './Subnavadmin';
 import Navadmin from './Navadmin';
 import { useSession, signOut } from "next-auth/react"
+import CardDashboard from './NewCardDashboard';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -334,6 +336,12 @@ export default function PersistentDrawerLeft(props) {
                 </Drawer>
                 <Main open={open}>
                     <DrawerHeader />
+                    <div className={styles.dashContainer}>
+                        <NewCardDashboard/>
+                        <NewCardDashboard/>
+                        <NewCardDashboard/>
+                        <NewCardDashboard/>
+                    </div>
                     {/* <Subnavadmin name={props.name} state="state" />
                     <div className={styles.MultiSelect} >
                         {props.name === 'University' ?
